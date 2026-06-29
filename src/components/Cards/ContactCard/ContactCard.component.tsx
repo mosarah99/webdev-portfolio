@@ -5,6 +5,7 @@ import {
   CardHeader,
   CardMedia,
   Divider,
+  IconButton,
   Stack,
   Typography,
 } from '@mui/material';
@@ -13,24 +14,41 @@ import LocationPinIcon from '@mui/icons-material/LocationPin';
 import MarkunreadIcon from '@mui/icons-material/Markunread';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import GitHubIcon from '@mui/icons-material/GitHub';
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import LaunchIcon from '@mui/icons-material/Launch';
 
 export interface ContactInfoItemProps {
+  actionButton?: ReactNode;
   icon: ReactNode;
   text: string;
 }
 export const ContactInfoItem = (props: ContactInfoItemProps) => {
+  const spacing = 2;
+
   return (
     <Stack
-      alignItems={'flex-end'}
       direction={'row'}
-      spacing={2}
+      alignItems={'center'}
+      spacing={spacing}
     >
-      {props.icon}
-      <Typography>{props.text}</Typography>
+      <Stack
+        alignItems={'flex-end'}
+        direction={'row'}
+        spacing={spacing}
+        flexGrow={1}
+      >
+        {props.icon}
+        <Typography>{props.text}</Typography>
+      </Stack>
+      {props.actionButton && props.actionButton}
     </Stack>
   );
 };
 export const ContactCard = () => {
+  const copyToClipboard = (text: string) => {
+    navigator.clipboard.writeText(text);
+  };
+
   return (
     <Card
       variant='elevation'
@@ -47,6 +65,7 @@ export const ContactCard = () => {
           alignItems={'flex-start'}
           marginRight={'3rem'}
           minWidth={'50%'}
+          flexGrow={1}
         >
           <CardHeader
             title='Sadat Rahman'
@@ -72,14 +91,37 @@ export const ContactCard = () => {
             <ContactInfoItem
               icon={<MarkunreadIcon />}
               text='sadatrahman001@gmail.com'
+              actionButton={
+                <IconButton
+                  onClick={() => copyToClipboard('sadatrahman001@gmail.com')}
+                >
+                  <ContentCopyIcon />
+                </IconButton>
+              }
             />
             <ContactInfoItem
               icon={<LinkedInIcon />}
               text='sadatrahman001'
+              actionButton={
+                <IconButton
+                  href='https://www.linkedin.com/in/sadatrahman001/'
+                  target='_blank'
+                >
+                  <LaunchIcon />
+                </IconButton>
+              }
             />
             <ContactInfoItem
               icon={<GitHubIcon />}
               text='mosarah99'
+              actionButton={
+                <IconButton
+                  href='https://github.com/mosarah99'
+                  target='_blank'
+                >
+                  <LaunchIcon />
+                </IconButton>
+              }
             />
           </CardContent>
         </Stack>
