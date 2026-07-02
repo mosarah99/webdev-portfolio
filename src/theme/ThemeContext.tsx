@@ -1,9 +1,19 @@
 // src/theme/ThemeContext.jsx
-import React, { createContext, useContext, useMemo, useState, useEffect } from 'react';
-import { ThemeProvider, createTheme } from '@mui/material/styles';
+import React, {
+  createContext,
+  useContext,
+  useMemo,
+  useState,
+  useEffect,
+} from 'react';
+import {
+  ThemeProvider,
+  createTheme,
+  type PaletteOptions,
+  type ThemeOptions,
+} from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { themePalettes } from './palettes';
-
 
 /** 
 const ColorModeContext = createContext({ toggleColorMode: () => {} });
@@ -57,7 +67,6 @@ export const CustomThemeProvider = ({ children }: { children: React.ReactNode })
 
  */
 
-
 //////////////////////////////////////////////////////////
 // const ThemeConfigContext = createContext(() => {});
 
@@ -70,7 +79,7 @@ export const CustomThemeProvider = ({ children }: { children: React.ReactNode })
 //   const theme = useMemo(() => {
 //     return createTheme({
 //       palette: themePalettes[themeName],
-//       // You can also add global component overrides here that 
+//       // You can also add global component overrides here that
 //       // change based on the themeName
 //     //   shape: { borderRadius: themeName === 'forest' ? 16 : 4 },
 //     });
