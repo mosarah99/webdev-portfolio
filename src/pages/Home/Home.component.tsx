@@ -52,7 +52,9 @@ export const Homepage: React.FC = () => {
             fontWeight: 'bolder',
             color: theme.palette.getContrastText(theme.palette.primary.main),
           }}
-          subtitleProps={{}}
+          subtitleProps={{
+            color: theme.palette.getContrastText(theme.palette.primary.main),
+          }}
         />
         {/* <Container maxWidth='lg'>
           <Typography
