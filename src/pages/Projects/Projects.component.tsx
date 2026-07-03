@@ -3,14 +3,10 @@ import {
   Button,
   ButtonGroup,
   Card,
-  CardActions,
   CardContent,
-  CardHeader,
-  CardMedia,
   Container,
   Fade,
   Grid,
-  IconButton,
   Pagination,
   Stack,
   Typography,
@@ -19,174 +15,31 @@ import type React from 'react';
 import SectionHeader from '../../components/SectionHeader/SectionHeader.component';
 import FeaturedProject from '../../components/FeaturedProject/FeaturedProject.component';
 import * as uuid from 'uuid';
-import LaunchIcon from '@mui/icons-material/Launch';
-import GitHubIcon from '@mui/icons-material/GitHub';
 
 import './Projects.style.css';
 
-import { projects as projectsList } from '../../assets/projectsList';
-import { useNavigate } from 'react-router';
+import {
+  featuredProjects,
+  projectsWithSkills,
+} from '../../assets/projects-skills';
 import { useEffect, useState } from 'react';
-
-const ProjectGridCard: React.FC<{
-  project: (typeof projectsList)[number];
-  projectDetailsPageURL?: string;
-}> = ({ project, projectDetailsPageURL }) => {
-  const navigate = useNavigate();
-
-  const handleViewDetailsClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    navigate(projectDetailsPageURL || `/projects/${project.id}`);
-  };
-
-  return (
-    <Grid size={{ xs: 12, md: 6 }}>
-      <Card>
-        <CardMedia
-          image={project.image}
-          component={'img'}
-          alt={`${project.title} image`}
-          sx={{
-            objectFit: 'cover',
-            aspectRatio: 1,
-            boxShadow: '5px 5px 5px #eee',
-          }}
-        />
-        <Box>
-          <CardHeader
-            title={project.title}
-            subheader={project.description}
-          />
-          <CardActions>
-            <ButtonGroup
-              variant='outlined'
-              fullWidth
-            >
-              <Button
-                variant='outlined'
-                href={projectDetailsPageURL || `/projects/${project.id}`}
-                onClick={handleViewDetailsClick}
-              >
-                View details
-              </Button>
-              {!!project.githubLink && (
-                <Button
-                  variant='contained'
-                  href={project.githubLink}
-                  target='_blank'
-                  referrerPolicy='no-referrer'
-                >
-                  View on GitHub
-                </Button>
-              )}
-            </ButtonGroup>
-          </CardActions>
-        </Box>
-      </Card>
-    </Grid>
-  );
-};
-
-const ProjectListCard: React.FC<{
-  project: (typeof projectsList)[number];
-  projectDetailsPageURL?: string;
-}> = ({ project, projectDetailsPageURL }) => {
-  const navigate = useNavigate();
-
-  const handleViewDetailsClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    navigate(projectDetailsPageURL || `/projects/${project.id}`);
-  };
-
-  return (
-    <Grid size={{ xs: 12 }}>
-      <Card
-        sx={
-          {
-            // display: 'flex',
-            // flexDirection: 'row',
-            // alignItems: 'center',
-            // minHeight: '200px',
-          }
-        }
-      >
-        <Stack
-          flexDirection={'row'}
-          alignItems={'center'}
-        >
-          <CardMedia
-            image={project.image}
-            component={'img'}
-            alt={`${project.title} image`}
-            sx={{
-              objectFit: 'cover',
-              aspectRatio: 1,
-
-              width: '15rem',
-              maxWidth: '120px',
-            }}
-          />
-          <Box sx={{ flex: 1, margin: 1, marginLeft: 2 }}>
-            <Stack
-              flexDirection={'row'}
-              alignItems={'flex-start'}
-              justifyContent={'space-between'}
-            >
-              <CardHeader
-                title={project.title}
-                subheader={project.description}
-              />
-              <CardActions>
-                <ButtonGroup
-                  sx={{
-                    display: 'flex',
-                    flexDirection: {
-                      xs: 'column',
-                      md: 'row',
-                    },
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                  }}
-                >
-                  <IconButton
-                    // variant='outlined'
-                    // href={projectDetailsPageURL || `/projects/${project.id}`}
-                    onClick={handleViewDetailsClick}
-                  >
-                    <LaunchIcon />
-                  </IconButton>
-                  {!!project.githubLink && (
-                    <IconButton
-                      // variant='contained'
-                      href={project.githubLink}
-                      target='_blank'
-                      referrerPolicy='no-referrer'
-                    >
-                      <GitHubIcon />
-                    </IconButton>
-                  )}
-                </ButtonGroup>
-              </CardActions>
-            </Stack>
-          </Box>
-        </Stack>
-      </Card>
-    </Grid>
-  );
-};
+import { ProjectGridCard } from '../../components/Cards/ProjectGridCard/ProjectGridCard';
+import { ProjectListCard } from '../../components/Cards/ProjectListCard/ProjectListCard';
 
 export const ProjectsPage: React.FC = () => {
   const viewModes = ['grid', 'list'] as const;
   const [viewMode, setViewMode] = useState<(typeof viewModes)[number]>('grid');
   const [page, setPage] = useState(1);
   const rowsPerPage = 6;
-  const maxPageCount = Math.ceil(projectsList.length / rowsPerPage);
-  const [projectsInView, setProjectsInView] = useState<typeof projectsList>(
-    projectsList.slice(
+  const maxPageCount = Math.ceil(projectsWithSkills.length / rowsPerPage);
+  const [projectsInView, setProjectsInView] = useState<
+    typeof projectsWithSkills
+  >(
+    projectsWithSkills.slice(
       0,
-      rowsPerPage * page < projectsList.length
+      rowsPerPage * page < projectsWithSkills.length
         ? rowsPerPage * page
-        : projectsList.length,
+        : projectsWithSkills.length,
     ),
   );
   const [animate, setAnimate] = useState<boolean>(true);
@@ -197,11 +50,11 @@ export const ProjectsPage: React.FC = () => {
 
     const timeout = setTimeout(() => {
       setProjectsInView(
-        projectsList.slice(
+        projectsWithSkills.slice(
           (page - 1) * rowsPerPage,
-          rowsPerPage * page < projectsList.length
+          rowsPerPage * page < projectsWithSkills.length
             ? rowsPerPage * page
-            : projectsList.length,
+            : projectsWithSkills.length,
         ),
       );
       setAnimate(true);
@@ -242,27 +95,25 @@ export const ProjectsPage: React.FC = () => {
         />
       </section>
       <section className='projectspage__featured-section'>
-        {projectsList
-          .filter((project) => project.featured)
-          .map((project) => (
-            <FeaturedProject
-              key={uuid.v7()}
-              // className='projectspage__featured-project'
-              project={project}
-              sx={{
-                'display': 'flex',
-                'flexDirection': 'row',
-                'alignItems': 'center',
-                ':nth-child(odd)': {
-                  justifyContent: 'flex-start',
-                },
-                ':nth-child(even)': {
-                  flexDirection: 'row-reverse',
-                  // justifyContent: 'flex-end',
-                },
-              }}
-            />
-          ))}
+        {featuredProjects.map((project) => (
+          <FeaturedProject
+            key={uuid.v7()}
+            // className='projectspage__featured-project'
+            project={project}
+            sx={{
+              'display': 'flex',
+              'flexDirection': 'row',
+              'alignItems': 'center',
+              ':nth-child(odd)': {
+                justifyContent: 'flex-start',
+              },
+              ':nth-child(even)': {
+                flexDirection: 'row-reverse',
+                // justifyContent: 'flex-end',
+              },
+            }}
+          />
+        ))}
       </section>
       <section className='projectspage__projects-list-section'>
         <SectionHeader
@@ -315,19 +166,27 @@ export const ProjectsPage: React.FC = () => {
               {projectsInView.map((_project, _index) => {
                 if (viewMode === 'grid')
                   return (
-                    <ProjectGridCard
+                    <Grid
+                      size={{ xs: 12, md: 6 }}
                       key={uuid.v7()}
-                      project={_project}
-                      projectDetailsPageURL={`/projects/${_project.id}`}
-                    />
+                    >
+                      <ProjectGridCard
+                        project={_project}
+                        projectDetailsPageURL={`/projects/${_project.id}`}
+                      />
+                    </Grid>
                   );
                 else
                   return (
-                    <ProjectListCard
+                    <Grid
+                      size={{ xs: 12 }}
                       key={uuid.v7()}
-                      project={_project}
-                      projectDetailsPageURL={`/projects/${_project.id}`}
-                    />
+                    >
+                      <ProjectListCard
+                        project={_project}
+                        projectDetailsPageURL={`/projects/${_project.id}`}
+                      />
+                    </Grid>
                   );
               })}
             </Grid>

@@ -1,4 +1,4 @@
-import skillsWithCategory from './skills';
+// import skillsWithCategory from './skills';
 
 export interface Project {
   id: string;
@@ -130,17 +130,17 @@ export const projects: Project[] = [
   },
 ];
 
-export const projectsWithSkills = projects.map((project) => ({
-  ...project,
-  skills: project.skillId
-    .map((skill) =>
-      skillsWithCategory.find(
-        (s: (typeof skillsWithCategory)[number]) => s.id === skill,
-      ),
-    )
-    .filter(Boolean),
-}));
+// export const projectsWithSkills = projects.map((project) => ({
+//   ...project,
+//   skills: project.skillId
+//     .map((skill) =>
+//       skillsWithCategory.find(
+//         (s: (typeof skillsWithCategory)[number]) => s.id === skill,
+//       ),
+//     )
+//     .filter(Boolean),
+// }));
 
-export type ProjectWithSkills = (typeof projectsWithSkills)[number];
+// export type ProjectWithSkills = (typeof projectsWithSkills)[number];
 
-export default projectsWithSkills;
+export default projects;

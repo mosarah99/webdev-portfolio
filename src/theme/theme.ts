@@ -23,8 +23,8 @@ export const generateThemeOptions = (
           props: (props) => true, // Apply this variant to all Paper components
           style: ({ theme }) => ({
             backgroundColor: alpha(theme.palette.background.paper, 0.4),
-            backdropFilter: 'blur(12px)',
-            WebkitBackdropFilter: 'blur(12px)',
+            backdropFilter: 'blur(24px)',
+            WebkitBackdropFilter: 'blur(24px)',
             border: `1px solid ${alpha(theme.palette.common.white, 0.2)}`,
             boxShadow: theme.shadows[4],
           }),

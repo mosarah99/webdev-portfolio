@@ -99,6 +99,8 @@ export const skills = [
   },
 ];
 
+export type SkillBasic = (typeof skills)[number];
+
 export const skillCategories = [
   {
     id: 1,
@@ -114,17 +116,18 @@ export const skillCategories = [
   },
 ];
 
-const skillsWithCategory = skills.map((skill) => ({
+export type SkillCategory = (typeof skillCategories)[number];
+
+export const skillsWithCategory = skills.map((skill) => ({
   ...skill,
   category: skillCategories.find(
     (category) => category.id === skill.categoryId,
   ),
 }));
 
-const skillsByCategory = new Map<
-  (typeof skillCategories)[number],
-  typeof skillsWithCategory
->();
+export type SkillWithCategory = (typeof skillsWithCategory)[number];
+
+const skillsByCategory = new Map<SkillCategory, SkillWithCategory[]>();
 skillCategories.forEach((category) => {
   skillsByCategory.set(
     category,
@@ -151,5 +154,6 @@ export const favoriteStacks = [
     ),
   },
 ];
+export type FavoriteStack = (typeof favoriteStacks)[number];
 
 export default skillsWithCategory;
