@@ -167,7 +167,7 @@ export const ProjectsPage: React.FC = () => {
                 if (viewMode === 'grid')
                   return (
                     <Grid
-                      size={{ xs: 12, md: 6 }}
+                      size={{ xs: 12, sm: 6, lg: 4 }}
                       key={uuid.v7()}
                     >
                       <ProjectGridCard
@@ -201,6 +201,7 @@ export const ProjectsPage: React.FC = () => {
               count={maxPageCount}
               onChange={onPageChange}
               color='primary'
+              variant='outlined'
             />
           </Stack>
         </Container>

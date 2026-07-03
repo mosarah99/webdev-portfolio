@@ -130,17 +130,5 @@ export const projects: Project[] = [
   },
 ];
 
-// export const projectsWithSkills = projects.map((project) => ({
-//   ...project,
-//   skills: project.skillId
-//     .map((skill) =>
-//       skillsWithCategory.find(
-//         (s: (typeof skillsWithCategory)[number]) => s.id === skill,
-//       ),
-//     )
-//     .filter(Boolean),
-// }));
-
-// export type ProjectWithSkills = (typeof projectsWithSkills)[number];
 
 export default projects;

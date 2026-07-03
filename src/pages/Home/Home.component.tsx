@@ -20,11 +20,10 @@ import * as uuid from 'uuid';
 
 import './Home.style.css';
 import SectionHeader from '../../components/SectionHeader/SectionHeader.component';
-import { projects } from '../../assets/projectsList';
 import { useNavigate } from 'react-router';
 import ContactCard from '../../components/Cards/ContactCard/ContactCard.component';
-
-const projectHighlights = projects.filter((project) => project.featured);
+import { ProjectGridCard } from '../../components/Cards/ProjectGridCard/ProjectGridCard';
+import { featuredProjects } from '../../assets/projects-skills';
 
 export const Homepage: React.FC = () => {
   const theme = useTheme();
@@ -160,28 +159,15 @@ export const Homepage: React.FC = () => {
             container
             spacing={2}
           >
-            {projectHighlights.map((project) => (
+            {featuredProjects.map((project) => (
               <Grid
                 size={{ xs: 12, sm: 6, md: 4 }}
                 key={uuid.v7()}
               >
-                <Card variant='elevation'>
-                  <CardActionArea>
-                    <CardMedia
-                      image={project.image}
-                      component={'img'}
-                      alt={`image of ${project.title} image`}
-                      sx={{
-                        objectFit: 'cover',
-                        aspectRatio: '4/3',
-                      }}
-                    />
-                    <CardHeader
-                      title={project.title}
-                      subheader={project.description}
-                    />
-                  </CardActionArea>
-                </Card>
+                <ProjectGridCard
+                  project={project}
+                  projectDetailsPageURL={`/projects/${project.id}`}
+                />
               </Grid>
             ))}
           </Grid>
