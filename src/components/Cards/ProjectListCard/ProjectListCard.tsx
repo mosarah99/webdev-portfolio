@@ -1,22 +1,27 @@
 import { useNavigate } from 'react-router';
 import type { ProjectWithSkills } from '../../../assets/projects-skills';
 import {
+  Avatar,
   Box,
   ButtonGroup,
   Card,
   CardActions,
+  CardContent,
   CardHeader,
   CardMedia,
+  Chip,
   IconButton,
   Stack,
 } from '@mui/material';
 import LaunchIcon from '@mui/icons-material/Launch';
 import GitHubIcon from '@mui/icons-material/GitHub';
+import * as uuid from 'uuid';
 
 export const ProjectListCard: React.FC<{
   project: ProjectWithSkills;
   projectDetailsPageURL?: string;
-}> = ({ project, projectDetailsPageURL }) => {
+  showSkills?: boolean;
+}> = ({ project, projectDetailsPageURL, showSkills }) => {
   const navigate = useNavigate();
 
   const handleViewDetailsClick = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -44,11 +49,11 @@ export const ProjectListCard: React.FC<{
           component={'img'}
           alt={`${project.title} image`}
           sx={{
-            objectFit: 'cover',
-            aspectRatio: 1,
-
-            width: '15rem',
-            maxWidth: '120px',
+            // objectFit: 'cover',
+            // aspectRatio: 1 / 1,
+            height: '10rem',
+            width: '10rem',
+            // maxHeight: '60px',
           }}
         />
         <Box sx={{ flex: 1, margin: 1, marginLeft: 2 }}>
@@ -57,10 +62,52 @@ export const ProjectListCard: React.FC<{
             alignItems={'flex-start'}
             justifyContent={'space-between'}
           >
-            <CardHeader
-              title={project.title}
-              subheader={project.description}
-            />
+            <Box>
+              <CardHeader
+                title={project.title}
+                subheader={project.description}
+              />
+              <Box
+                sx={{
+                  display: {
+                    xs: 'none',
+                    md: 'block',
+                  },
+                }}
+              >
+                {showSkills && (
+                  <CardContent
+                    sx={{ paddingY: 0, marginY: 0, marginBottom: 0 }}
+                  >
+                    <Stack
+                      direction={'row'}
+                      spacing={1}
+                      rowGap={1}
+                      columnGap={1}
+                      flexWrap={'wrap'}
+                    >
+                      {project.skills?.map((skill) => (
+                        <Chip
+                          key={uuid.v7()}
+                          label={skill?.name}
+                          avatar={
+                            <Avatar
+                              src={skill?.icon}
+                              alt={`${skill?.name} icon`}
+                              slotProps={{
+                                img: {
+                                  loading: 'lazy',
+                                },
+                              }}
+                            />
+                          }
+                        />
+                      ))}
+                    </Stack>
+                  </CardContent>
+                )}
+              </Box>
+            </Box>
             <CardActions>
               <ButtonGroup
                 sx={{
