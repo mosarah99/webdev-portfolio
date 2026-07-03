@@ -5,19 +5,22 @@ import {
   ButtonGroup,
   Card,
   CardActions,
+  CardContent,
   CardHeader,
   CardMedia,
   Chip,
-  Grid,
+  Stack,
 } from '@mui/material';
 import { useNavigate } from 'react-router';
 import { type ProjectWithSkills } from '../../../assets/projects-skills';
 import GradeIcon from '@mui/icons-material/Grade';
+import * as uuid from 'uuid';
 
 export const ProjectGridCard: React.FC<{
   project: ProjectWithSkills;
   projectDetailsPageURL?: string;
-}> = ({ project, projectDetailsPageURL }) => {
+  showSkills?: boolean;
+}> = ({ project, projectDetailsPageURL, showSkills }) => {
   const navigate = useNavigate();
 
   const handleViewDetailsClick = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -55,6 +58,35 @@ export const ProjectGridCard: React.FC<{
           title={project.title}
           subheader={project.description}
         />
+        <Box>
+          {showSkills && (
+            <CardContent>
+              <Stack
+                direction={'row'}
+                spacing={1}
+                flexWrap={'wrap'}
+              >
+                {project.skills?.map((skill) => (
+                  <Chip
+                    key={uuid.v7()}
+                    label={skill?.name}
+                    avatar={
+                      <Avatar
+                        src={skill?.icon}
+                        alt={`${skill?.name} icon`}
+                        slotProps={{
+                          img: {
+                            loading: 'lazy',
+                          },
+                        }}
+                      />
+                    }
+                  />
+                ))}
+              </Stack>
+            </CardContent>
+          )}
+        </Box>
         <CardActions>
           <ButtonGroup
             variant='outlined'

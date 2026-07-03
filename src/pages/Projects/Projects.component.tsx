@@ -173,6 +173,7 @@ export const ProjectsPage: React.FC = () => {
                       <ProjectGridCard
                         project={_project}
                         projectDetailsPageURL={`/projects/${_project.id}`}
+                        showSkills
                       />
                     </Grid>
                   );
@@ -201,7 +202,6 @@ export const ProjectsPage: React.FC = () => {
               count={maxPageCount}
               onChange={onPageChange}
               color='primary'
-              variant='outlined'
             />
           </Stack>
         </Container>
