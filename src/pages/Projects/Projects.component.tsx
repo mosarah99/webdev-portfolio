@@ -8,8 +8,10 @@ import {
   CardHeader,
   CardMedia,
   Container,
+  Fade,
   Grid,
   IconButton,
+  Pagination,
   Stack,
   Typography,
 } from '@mui/material';
@@ -24,7 +26,7 @@ import './Projects.style.css';
 
 import { projects as projectsList } from '../../assets/projectsList';
 import { useNavigate } from 'react-router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const ProjectGridCard: React.FC<{
   project: (typeof projectsList)[number];
@@ -174,7 +176,50 @@ const ProjectListCard: React.FC<{
 };
 
 export const ProjectsPage: React.FC = () => {
-  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
+  const viewModes = ['grid', 'list'] as const;
+  const [viewMode, setViewMode] = useState<(typeof viewModes)[number]>('grid');
+  const [page, setPage] = useState(1);
+  const rowsPerPage = 6;
+  const maxPageCount = Math.ceil(projectsList.length / rowsPerPage);
+  const [projectsInView, setProjectsInView] = useState<typeof projectsList>(
+    projectsList.slice(
+      0,
+      rowsPerPage * page < projectsList.length
+        ? rowsPerPage * page
+        : projectsList.length,
+    ),
+  );
+  const [animate, setAnimate] = useState<boolean>(true);
+  const animationSpeed = 600; // in milliseconds
+
+  useEffect(() => {
+    setAnimate(false);
+
+    const timeout = setTimeout(() => {
+      setProjectsInView(
+        projectsList.slice(
+          (page - 1) * rowsPerPage,
+          rowsPerPage * page < projectsList.length
+            ? rowsPerPage * page
+            : projectsList.length,
+        ),
+      );
+      setAnimate(true);
+    }, animationSpeed);
+
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, [page, viewMode]);
+
+  const onPageChange = (_event: React.ChangeEvent<unknown>, value: number) => {
+    setPage(value);
+  };
+  const onViewModeChange =
+    (mode: (typeof viewModes)[number]) =>
+    (_event: React.MouseEvent<HTMLButtonElement>) => {
+      setViewMode(mode);
+    };
 
   return (
     <Box>
@@ -240,47 +285,65 @@ export const ProjectsPage: React.FC = () => {
                   variant='outlined'
                   aria-label='outlined button group'
                 >
-                  <Button
-                    variant={viewMode === 'grid' ? 'contained' : 'outlined'}
-                    onClick={() => setViewMode('grid')}
-                  >
-                    Grid
-                  </Button>
-                  <Button
-                    variant={viewMode === 'list' ? 'contained' : 'outlined'}
-                    onClick={() => setViewMode('list')}
-                  >
-                    List
-                  </Button>
+                  {viewModes.map((mode) => (
+                    <Button
+                      key={uuid.v7()}
+                      variant={viewMode === mode ? 'contained' : 'outlined'}
+                      onClick={onViewModeChange(mode)}
+                    >
+                      {mode.charAt(0).toUpperCase() + mode.slice(1)}
+                    </Button>
+                  ))}
                 </ButtonGroup>
               </Stack>
             </CardContent>
           </Card>
         </Container>
         <Container maxWidth='lg'>
-          <Grid
-            container
-            spacing={2}
+          <Fade
+            in={animate}
+            timeout={{
+              appear: animationSpeed / 4,
+              enter: animationSpeed * 1.2,
+              exit: animationSpeed / 2,
+            }}
           >
-            {projectsList.map((_project, _index) => {
-              if (viewMode === 'grid')
-                return (
-                  <ProjectGridCard
-                    key={uuid.v7()}
-                    project={_project}
-                    projectDetailsPageURL={`/projects/${_project.id}`}
-                  />
-                );
-              else
-                return (
-                  <ProjectListCard
-                    key={uuid.v7()}
-                    project={_project}
-                    projectDetailsPageURL={`/projects/${_project.id}`}
-                  />
-                );
-            })}
-          </Grid>
+            <Grid
+              container
+              spacing={2}
+            >
+              {projectsInView.map((_project, _index) => {
+                if (viewMode === 'grid')
+                  return (
+                    <ProjectGridCard
+                      key={uuid.v7()}
+                      project={_project}
+                      projectDetailsPageURL={`/projects/${_project.id}`}
+                    />
+                  );
+                else
+                  return (
+                    <ProjectListCard
+                      key={uuid.v7()}
+                      project={_project}
+                      projectDetailsPageURL={`/projects/${_project.id}`}
+                    />
+                  );
+              })}
+            </Grid>
+          </Fade>
+          <Stack
+            margin={4}
+            direction={'row'}
+            justifyContent={'center'}
+          >
+            <Pagination
+              size='large'
+              count={maxPageCount}
+              onChange={onPageChange}
+              color='primary'
+            />
+          </Stack>
         </Container>
       </section>
     </Box>
