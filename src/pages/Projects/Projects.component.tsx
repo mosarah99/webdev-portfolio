@@ -1,21 +1,4 @@
-import {
-  Avatar,
-  Box,
-  Button,
-  ButtonGroup,
-  Card,
-  CardContent,
-  CardHeader,
-  Chip,
-  Container,
-  Divider,
-  Fade,
-  Grid,
-  IconButton,
-  Pagination,
-  Stack,
-  Typography,
-} from '@mui/material';
+import { Box, Container, Pagination, Stack } from '@mui/material';
 import type React from 'react';
 import SectionHeader from '../../components/SectionHeader/SectionHeader.component';
 import FeaturedProject from '../../components/FeaturedProject/FeaturedProject.component';
@@ -26,64 +9,55 @@ import './Projects.style.css';
 import {
   featuredProjects,
   projectsWithSkills,
+  type ProjectWithSkills,
 } from '../../assets/projects-skills';
 import { skillsWithCategory } from '../../assets/skills';
-import { useEffect, useMemo, useState } from 'react';
-import { ProjectGridCard } from '../../components/Cards/ProjectGridCard/ProjectGridCard';
-import { ProjectListCard } from '../../components/Cards/ProjectListCard/ProjectListCard';
+import { useMemo, useState } from 'react';
 import type { SkillWithCategory } from '../../assets/skills';
+import ProjectDisplayContainer from '../../components/Container/ProjectDisplayContainer/ProjectDisplayContainer';
+import ProjectFilterContainer from '../../components/Container/ProjectFilterContainer/ProjectFilterContainer';
 
 export const ProjectsPage: React.FC = () => {
+  // View Modes
   const viewModes = ['grid', 'list'] as const;
   const [viewMode, setViewMode] = useState<(typeof viewModes)[number]>('grid');
-  const [page, setPage] = useState(1);
-  const rowsPerPage = 6;
-  const maxPageCount = Math.ceil(projectsWithSkills.length / rowsPerPage);
-  const [projectsInView, setProjectsInView] = useState<
-    typeof projectsWithSkills
-  >(
-    projectsWithSkills.slice(
-      0,
-      rowsPerPage * page < projectsWithSkills.length
-        ? rowsPerPage * page
-        : projectsWithSkills.length,
-    ),
-  );
-  const [animate, setAnimate] = useState<boolean>(true);
-  const animationSpeed = 600; // in milliseconds
+
+  // Filtering Projects
   const [filter, setFilter] = useState<SkillWithCategory[]>([]);
-  const calculateProjectsList = useMemo(() => {
-    return projectsWithSkills.slice(
-      (page - 1) * rowsPerPage,
-      rowsPerPage * page < projectsWithSkills.length
-        ? rowsPerPage * page
-        : projectsWithSkills.length,
+  const filteredProjects = useMemo(() => {
+    console.log(`updating filteredProjects...`);
+
+    const skillSet = filter.length === 0 ? skillsWithCategory : filter;
+    const targetSkillIds = new Set(skillSet.map((skill) => skill.id));
+    const filteredProjects = projectsWithSkills.filter((project) => {
+      // Check if any ID in the project's skillId array exists in our target set
+      return project.skillId.some((id) => {
+        return targetSkillIds.has(id);
+      });
+    });
+    // setFilteredProjects(filteredProjects);
+    return filteredProjects;
+  }, [filter, setFilter]);
+
+  // Pagination
+  const [itemsPerPage, _] = useState<number>(6);
+  const [page, setPage] = useState(1);
+  const maxPageCount = useMemo(() => {
+    return Math.ceil(filteredProjects.length / itemsPerPage);
+  }, [filteredProjects, itemsPerPage]);
+  const projectsOnPage: ProjectWithSkills[] = useMemo(() => {
+    console.log(`projectsOnPage updating...`);
+    console.log(`current page: ${page}`);
+
+    const inView = filteredProjects.slice(
+      (page - 1) * itemsPerPage,
+      itemsPerPage * page < filteredProjects.length
+        ? itemsPerPage * page
+        : filteredProjects.length,
     );
-  }, [page, rowsPerPage]);
-  const addToFilter = (skill: SkillWithCategory) => (_e: any) => {
-    setFilter([...filter, skill]);
-  };
-  const deleteFilter = (skill: SkillWithCategory) => (_e: any) => {
-    setFilter(filter.filter((existingSkill) => skill.id !== existingSkill.id));
-  };
-  const resetFilter = () => {
-    setPage(1);
-    setFilter([]);
-    setProjectsInView(calculateProjectsList);
-  };
-
-  useEffect(() => {
-    setAnimate(false);
-
-    const timeout = setTimeout(() => {
-      setProjectsInView(calculateProjectsList);
-      setAnimate(true);
-    }, animationSpeed);
-
-    return () => {
-      clearTimeout(timeout);
-    };
-  }, [page, viewMode, filter]);
+    // setProjectsOnPage(inView);
+    return inView;
+  }, [page, filteredProjects, maxPageCount]);
 
   const onPageChange = (_event: React.ChangeEvent<unknown>, value: number) => {
     setPage(value);
@@ -92,6 +66,10 @@ export const ProjectsPage: React.FC = () => {
     (mode: (typeof viewModes)[number]) => (_event: React.MouseEvent<any>) => {
       setViewMode(mode);
     };
+  const onFilterChange = (filters: SkillWithCategory[]) => {
+    setFilter(filters);
+    setPage(1);
+  };
 
   return (
     <Box>
@@ -146,235 +124,18 @@ export const ProjectsPage: React.FC = () => {
             alignItems={{ xs: 'center', xl: 'flex-start' }}
             gap={1}
           >
-            <Box
-              sx={(theme) => ({
-                maxWidth: theme.breakpoints.values.lg,
-                width: {
-                  xs: '100%',
-                  xl: theme.breakpoints.values.xl - theme.breakpoints.values.lg,
-                },
-              })}
-            >
-              <Card variant='elevation'>
-                <CardContent>
-                  {filter.length === 0 ? (
-                    <Typography variant='body1'>No filters set</Typography>
-                  ) : (
-                    <>
-                      <Typography>Active Filters:</Typography>
-                      {filter.map((skill) => (
-                        <Chip
-                          key={uuid.v7()}
-                          label={skill.name}
-                          avatar={
-                            <Avatar
-                              src={skill?.icon}
-                              alt={`${skill?.name} icon`}
-                              slotProps={{
-                                img: {
-                                  loading: 'lazy',
-                                },
-                              }}
-                            />
-                          }
-                          onDelete={deleteFilter(skill)}
-                          sx={{
-                            margin: 0.25,
-                          }}
-                        />
-                      ))}
-                    </>
-                  )}
-                </CardContent>
-                <Divider variant='fullWidth' />
-                <CardContent>
-                  <Typography
-                    variant='h6'
-                    component={'h6'}
-                  >
-                    Filters
-                  </Typography>
-                </CardContent>
-                <CardContent>
-                  {skillsWithCategory.map((skill) => (
-                    <Chip
-                      variant='filled'
-                      avatar={
-                        <Avatar
-                          src={skill?.icon}
-                          alt={`${skill?.name} icon`}
-                          slotProps={{
-                            img: {
-                              loading: 'lazy',
-                            },
-                          }}
-                        />
-                      }
-                      label={skill.name}
-                      sx={{
-                        margin: 0.25,
-                      }}
-                      onClick={addToFilter(skill)}
-                    />
-                  ))}
-                </CardContent>
-                <Divider variant='fullWidth' />
-                <CardContent>
-                  <Typography
-                    variant='h6'
-                    component={'h6'}
-                  >
-                    Change View:
-                  </Typography>
-                  <Box>
-                    {viewModes.map((mode) => (
-                      <Chip
-                        variant={mode === viewMode ? 'filled' : 'outlined'}
-                        label={mode.charAt(0).toUpperCase() + mode.slice(1)}
-                        onClick={onViewModeChange(mode)}
-                        color={mode === viewMode ? 'primary' : 'default'}
-                        sx={{ margin: 0.25 }}
-                      />
-                    ))}
-                  </Box>
-                </CardContent>
-              </Card>
-            </Box>
-            <>
-              {/*   <Container
-              maxWidth={'lg'}
-              sx={{
-                padding: 0,
-                margin: 0,
-                flexGrow: 1,
-              }}
-            >
-
-               <Card variant='outlined'>
-            <Stack
-              direction={'row'}
-              justifyContent={'space-between'}
-              alignItems={'center'}
-            >
-              <Box sx={{ flexGrow: 1 }}>
-                <CardContent>
-                  <Typography
-                    variant='button'
-                    marginRight={0.5}
-                  >
-                    Filters:
-                  </Typography>
-                  {filter.length === 0 ? (
-                    <Typography
-                      variant='body2'
-                      color='textSecondary'
-                    >
-                      No active filters
-                    </Typography>
-                  ) : (
-                    <Typography
-                      variant='body2'
-                      color='textSecondary'
-                    >
-                      {filter.length} active filter
-                      {filter.length !== 1 ? 's' : ''}
-                    </Typography>
-                  )}
-                </CardContent>
-              </Box>
-              <Box>
-                <CardContent>
-                  <Stack
-                    flexDirection={'row'}
-                    alignItems={'center'}
-                    justifyContent={'flex-end'}
-                  >
-                    <Typography
-                      variant='button'
-                      sx={{
-                        marginRight: 2,
-                      }}
-                    >
-                      View
-                    </Typography>
-                    <ButtonGroup
-                      variant='outlined'
-                      aria-label='outlined button group'
-                    >
-                      {viewModes.map((mode) => (
-                        <Button
-                          key={uuid.v7()}
-                          variant={viewMode === mode ? 'contained' : 'outlined'}
-                          onClick={onViewModeChange(mode)}
-                        >
-                          {mode.charAt(0).toUpperCase() + mode.slice(1)}
-                        </Button>
-                      ))}
-                    </ButtonGroup>
-                  </Stack>
-                </CardContent>
-              </Box>
-            </Stack>
-          </Card> 
-          </Container>*/}
-            </>
-            <Container
-              maxWidth='lg'
-              style={{
-                padding: 0,
-              }}
-              sx={(theme) => ({
-                padding: 0,
-                margin: 0,
-                display: {
-                  xs: 'block',
-                  // xl: 'inline-block',
-                },
-              })}
-            >
-              <Fade
-                in={animate}
-                timeout={{
-                  appear: animationSpeed / 4,
-                  enter: animationSpeed * 1.2,
-                  exit: animationSpeed / 2,
-                }}
-              >
-                <Grid
-                  container
-                  spacing={2}
-                >
-                  {projectsInView.map((_project, _index) => {
-                    if (viewMode === 'grid')
-                      return (
-                        <Grid
-                          size={{ xs: 12, sm: 6, md: 4 }}
-                          key={uuid.v7()}
-                        >
-                          <ProjectGridCard
-                            project={_project}
-                            projectDetailsPageURL={`/projects/${_project.id}`}
-                            showSkills
-                          />
-                        </Grid>
-                      );
-                    else
-                      return (
-                        <Grid
-                          size={{ xs: 12 }}
-                          key={uuid.v7()}
-                        >
-                          <ProjectListCard
-                            project={_project}
-                            projectDetailsPageURL={`/projects/${_project.id}`}
-                            showSkills
-                          />
-                        </Grid>
-                      );
-                  })}
-                </Grid>
-              </Fade>
-            </Container>
+            <ProjectFilterContainer
+              allPossibleFilters={skillsWithCategory}
+              filters={filter}
+              onFilterChange={onFilterChange}
+              allPossibleViewModes={viewModes.map((_) => _)}
+              currentViewMode={viewMode}
+              onViewModeChange={onViewModeChange}
+            />
+            <ProjectDisplayContainer
+              projects={projectsOnPage}
+              viewMode={viewMode}
+            />
           </Stack>
         </Container>
         <Stack
@@ -383,6 +144,7 @@ export const ProjectsPage: React.FC = () => {
           justifyContent={'center'}
         >
           <Pagination
+            page={page}
             size='large'
             count={maxPageCount}
             onChange={onPageChange}
