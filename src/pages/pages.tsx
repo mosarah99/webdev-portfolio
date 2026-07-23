@@ -1,12 +1,12 @@
 import { lazy } from 'react';
 
-const Homepage = lazy(() => import('../pages/Home/Home.component'));
+const Homepage = lazy(() => import('./Home/Home.component'));
 const ProjectDetails = lazy(
-  () => import('../pages/ProjectDetails/ProjectDetails.component'),
+  () => import('./ProjectDetails/ProjectDetails.component'),
 );
-const ProjectsPage = lazy(() => import('../pages/Projects/Projects.component'));
-const SkillsPage = lazy(() => import('../pages/Skills/Skills.component'));
-const ContactPage = lazy(() => import('../pages/Contact/Contact.component'));
+const ProjectsPage = lazy(() => import('./Projects/Projects.component'));
+const SkillsPage = lazy(() => import('./Skills/Skills.component'));
+const ContactPage = lazy(() => import('./Contact/Contact.component'));
 
 export const pages = [
   { label: 'Home', link: '/home', element: <Homepage /> },

@@ -4,7 +4,7 @@ import Navbar from './components/Navbar/Navbar.component';
 import { Route, Routes } from 'react-router';
 import * as uuid from 'uuid';
 
-import { pages } from './assets/pages';
+import { pages } from './pages/pages';
 
 const App = () => {
   return (
