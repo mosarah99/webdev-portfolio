@@ -133,6 +133,13 @@ export const skills = [
     categoryId: `8a4a3235-38c9-4957-8151-043bf120c125`,
   },
   {
+    id: `212c8ad5-903c-4b50-887c-037b0b6ea06a`,
+    name: 'React Navigation',
+    shortname: 'React Navigation',
+    icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/reactnavigation/reactnavigation-original.svg',
+    categoryId: `8a4a3235-38c9-4957-8151-043bf120c125`,
+  },
+  {
     id: `beb936e8-a966-48ae-9839-7b924c47bc83`,
     name: 'jQuery',
     shortname: 'jQuery',
@@ -189,6 +196,13 @@ export const skills = [
     categoryId: `8a4a3235-38c9-4957-8151-043bf120c125`,
   },
   {
+    id: `d1b545b3-48ad-45e0-99c9-ebc4f7d9b973`,
+    name: 'Flask',
+    shortname: 'Flask',
+    icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/flask/flask-original.svg',
+    categoryId: `8a4a3235-38c9-4957-8151-043bf120c125`,
+  },
+  {
     id: `48f6fd98-862d-4287-be5b-5b62a37ae47f`,
     name: 'ASP.NET Core',
     shortname: 'ASP.NET',
@@ -221,6 +235,13 @@ export const skills = [
     name: 'CPP Boost',
     shortname: 'Boost',
     icon: 'https://raw.githubusercontent.com/boostorg/website-v2-docs/refs/heads/develop/antora-ui/src/img/boost-logo-transparent.svg',
+    categoryId: `8a4a3235-38c9-4957-8151-043bf120c125`,
+  },
+  {
+    id: `a902192a-ac61-4b64-bbdd-c0e352d3434d`,
+    name: 'iTextPDF',
+    shortname: 'iTextPDF',
+    icon: 'https://itextpdf.com/sites/default/files/2019-01/itext-logo.png',
     categoryId: `8a4a3235-38c9-4957-8151-043bf120c125`,
   },
   {
@@ -371,6 +392,27 @@ export const skills = [
     categoryId: `10197d72-aaf4-4c8e-8eb6-3d0c4a9598d9`,
   },
   {
+    id: `5a6481bb-ba20-4aa7-a1d1-ff078158d311`,
+    name: 'Vite',
+    shortname: 'Vite',
+    icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vitejs/vitejs-original.svg',
+    categoryId: `10197d72-aaf4-4c8e-8eb6-3d0c4a9598d9`,
+  },
+  {
+    id: `2b64e489-4885-41c8-b82b-43e1f60b398e`,
+    name: 'Android Studio',
+    shortname: 'Android Studio',
+    icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/androidstudio/androidstudio-original.svg',
+    categoryId: `10197d72-aaf4-4c8e-8eb6-3d0c4a9598d9`,
+  },
+  {
+    id: `7f775a92-63e3-4bf5-a5bc-31a1891306de`,
+    name: 'Unity Studio',
+    shortname: 'Unity',
+    icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/unity/unity-original.svg',
+    categoryId: `10197d72-aaf4-4c8e-8eb6-3d0c4a9598d9`,
+  },
+  {
     id: `06ead2c7-6d93-4ff8-93f5-a069d115fb6c`,
     name: 'Plane',
     shortname: 'Plane',
@@ -452,6 +494,27 @@ export const skills = [
     name: 'Linux',
     shortname: 'Linux',
     icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/linux/linux-original.svg',
+    categoryId: `ecdf9050-340e-475a-8cc6-e2a430a0980c`,
+  },
+  {
+    id: `d7e638c6-ca31-40c2-b515-105eb60c9f73`,
+    name: 'Proxmox VE',
+    shortname: 'Proxmox',
+    icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/proxmox/proxmox-original-wordmark.svg',
+    categoryId: `ecdf9050-340e-475a-8cc6-e2a430a0980c`,
+  },
+  {
+    id: `76e6f0ba-7448-42d0-ba36-11c7ffe95c5a`,
+    name: 'Ubuntu',
+    shortname: 'Ubuntu',
+    icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/ubuntu/ubuntu-original.svg',
+    categoryId: `ecdf9050-340e-475a-8cc6-e2a430a0980c`,
+  },
+  {
+    id: `e7ec7094-0a6a-4ac0-828c-0ae9567556ce`,
+    name: 'TrueNAS Scale',
+    shortname: 'TrueNAS',
+    icon: 'https://www.svgrepo.com/show/331613/truenas.svg',
     categoryId: `ecdf9050-340e-475a-8cc6-e2a430a0980c`,
   },
   {
