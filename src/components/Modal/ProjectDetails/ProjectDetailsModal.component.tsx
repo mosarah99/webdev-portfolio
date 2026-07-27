@@ -13,8 +13,10 @@ import {
   Typography,
 } from '@mui/material';
 import SectionHeader from '../../SectionHeader/SectionHeader.component';
-import type { ProjectWithSkills } from '../../../assets/projectsList';
+import { type ProjectWithSkills } from '../../../assets/projects-skills';
 import * as uuid from 'uuid';
+import Markdown from 'react-markdown';
+import rehypeRaw from 'rehype-raw';
 
 interface ProjectDetailsModalProps {
   open: boolean;
@@ -68,12 +70,12 @@ export const ProjectDetailsModal = (props: ProjectDetailsModalProps) => {
                 }}
               />
               <CardContent>
-                <Stack spacing={2}>
+                <Stack spacing={5}>
                   <SectionHeader
                     title={props.project.title}
                     subtitle={props.project.description}
                   />
-                  {props.project.detail_description
+                  {/* {props.project.detail_description
                     .split('\n')
                     .map((paragraph: string) => (
                       <Typography
@@ -83,7 +85,13 @@ export const ProjectDetailsModal = (props: ProjectDetailsModalProps) => {
                       >
                         {paragraph}
                       </Typography>
-                    ))}
+                    ))} */}
+                  <Divider variant='fullWidth' />
+                  <CardContent>
+                    <Markdown rehypePlugins={[rehypeRaw]}>
+                      {props.project.detail_description}
+                    </Markdown>
+                  </CardContent>
                 </Stack>
               </CardContent>
 
