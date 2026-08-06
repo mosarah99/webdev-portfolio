@@ -54,6 +54,11 @@ export const ProjectDisplayContainer = ({
               return (
                 <Grid
                   size={{ xs: 12, sm: 6, md: 4 }}
+                  sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    flexGrow: 1
+                  }}
                   key={uuid.v7()}
                 >
                   <ProjectGridCard

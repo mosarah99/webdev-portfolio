@@ -29,7 +29,13 @@ export const ProjectGridCard: React.FC<{
   };
 
   return (
-    <Card>
+    <Card
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        flexGrow: 1,
+      }}
+    >
       <Chip
         variant='filled'
         color='info'
@@ -53,12 +59,25 @@ export const ProjectGridCard: React.FC<{
           aspectRatio: 1,
         }}
       />
-      <Box>
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          flexGrow: 1,
+        }}
+      >
         <CardHeader
           title={project.title}
           subheader={project.description}
         />
-        <Box>
+        <Box
+          sx={{
+            flexGrow: 1,
+          }}
+        ></Box>
+        <Box sx={{
+          display: 'block'
+        }}>
           {showSkills && (
             <CardContent>
               <Stack

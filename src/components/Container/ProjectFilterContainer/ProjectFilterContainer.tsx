@@ -55,6 +55,11 @@ const ProjectFilterContainer = (props: ProjectFilterContainerProps) => {
       })}
     >
       <Card variant='elevation'>
+        {/************************************
+         
+            Active Filters
+
+         */}
         <CardContent>
           {props.filters.length === 0 ? (
             <Typography variant='body1'>No filters set</Typography>
@@ -97,6 +102,11 @@ const ProjectFilterContainer = (props: ProjectFilterContainerProps) => {
           )}
         </CardContent>
         <Divider variant='fullWidth' />
+        {/***************************************
+        
+            Available Filters
+        
+         */}
         <CardContent>
           <Typography
             variant='h6'
@@ -105,31 +115,46 @@ const ProjectFilterContainer = (props: ProjectFilterContainerProps) => {
             Filters
           </Typography>
         </CardContent>
-        <CardContent>
-          {props.allPossibleFilters.map((skill) => (
-            <Chip
-              key={uuid.v7()}
-              variant='filled'
-              avatar={
-                <Avatar
-                  src={skill?.icon}
-                  alt={`${skill?.name} icon`}
-                  slotProps={{
-                    img: {
-                      loading: 'lazy',
-                    },
-                  }}
-                />
-              }
-              label={skill.name}
-              sx={{
-                margin: 0.25,
-              }}
-              onClick={onAppendFilter(skill)}
-            />
-          ))}
+        <CardContent
+          sx={(theme) => ({
+            maxHeight: {
+              xs: '10rem',
+              xl: '40rem',
+            },
+            overflow: 'auto',
+          })}
+        >
+          {props.allPossibleFilters
+            .sort((a, b) => a.shortname.localeCompare(b.shortname))
+            .map((skill) => (
+              <Chip
+                key={uuid.v7()}
+                variant='filled'
+                avatar={
+                  <Avatar
+                    src={skill?.icon}
+                    alt={`${skill?.name} icon`}
+                    slotProps={{
+                      img: {
+                        loading: 'lazy',
+                      },
+                    }}
+                  />
+                }
+                label={skill.name}
+                sx={{
+                  margin: 0.25,
+                }}
+                onClick={onAppendFilter(skill)}
+              />
+            ))}
         </CardContent>
         <Divider variant='fullWidth' />
+        {/***************************************
+        
+            View Mode
+        
+         */}
         <CardContent>
           <Typography
             variant='h6'

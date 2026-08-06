@@ -16,6 +16,8 @@ import {
 import LaunchIcon from '@mui/icons-material/Launch';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import * as uuid from 'uuid';
+import type { ReactNode } from 'react';
+import GradeIcon from '@mui/icons-material/Grade';
 
 export const ProjectListCard: React.FC<{
   project: ProjectWithSkills;
@@ -27,6 +29,28 @@ export const ProjectListCard: React.FC<{
   const handleViewDetailsClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     navigate(projectDetailsPageURL || `/projects/${project.id}`);
+  };
+
+  const getProjectTitle = (): ReactNode => {
+    return project.featured ? (
+      <Box sx={{ flexDirection: 'row' }}>
+        <span>{project.title}</span>{' '}
+        <Chip
+          variant='filled'
+          color='info'
+          label={'Featured'}
+          icon={<GradeIcon />}
+          sx={{
+            // display: project.featured ? 'flex' : 'none',
+            // position: 'absolute',
+            // top: '.25rem',
+            // right: '.5rem',
+          }}
+        />
+      </Box>
+    ) : (
+      <span>{project.title}</span>
+    );
   };
 
   return (
@@ -64,7 +88,7 @@ export const ProjectListCard: React.FC<{
           >
             <Box>
               <CardHeader
-                title={project.title}
+                title={getProjectTitle()}
                 subheader={project.description}
               />
               <Box

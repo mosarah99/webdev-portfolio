@@ -295,7 +295,7 @@ The Home Server - Proxmox project is a robust, self-hosted virtualization and ne
 * Enhanced understanding of secure local networking, reverse proxy architecture with NGINX, and container orchestration strategies.
 `,
     // githubLink: 'https://github.com/project1',
-    featured: false,
+    featured: true,
     skillId: [
       `d7e638c6-ca31-40c2-b515-105eb60c9f73`,
       `76e6f0ba-7448-42d0-ba36-11c7ffe95c5a`,
@@ -525,7 +525,7 @@ The Ticket System Database is a full-stack ticket creation, management, and trac
 * Enhanced understanding of implementing user authentication and remote database connections in legacy-supported frameworks.
 `,
     // githubLink: 'https://github.com/project1',
-    featured: false,
+    featured: true,
     skillId: [
       `fc862c2b-00e5-465e-8122-7cd866262b78`,
       `ea80ba67-09d7-40ac-91aa-e0ab1f826779`,
