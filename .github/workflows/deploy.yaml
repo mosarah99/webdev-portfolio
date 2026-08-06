@@ -37,7 +37,7 @@ jobs:
 
       # Step 3: Install dependencies
       - name: Install Dependencies
-        run: npm ci
+        run: npm i
 
       # Step 4: Build the Vite static site
       - name: Build Project
