@@ -17,7 +17,7 @@ concurrency:
   group: 'pages'
   cancel-in-progress: false
 
-jobs:
+jobs: 
   build-and-deploy:
     environment:
       name: github-pages
@@ -33,7 +33,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 24
-          cache: 'npm'
+          # cache: 'npm'
 
       # Step 3: Install dependencies
       - name: Install Dependencies
@@ -43,17 +43,24 @@ jobs:
       - name: Build Project
         run: npm run build
 
-      # Step 5: Configure GitHub Pages artifact options
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
+      # # Step 5: Configure GitHub Pages artifact options
+      # - name: Setup Pages
+      #   uses: actions/configure-pages@v5
 
-      # Step 6: Upload built static files (dist folder) as an artifact
-      - name: Upload Artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: './dist' # Vite outputs build files to 'dist' by default
+      # # Step 6: Upload built static files (dist folder) as an artifact
+      # - name: Upload Artifact
+      #   uses: actions/upload-pages-artifact@v3
+      #   with:
+      #     path: './dist' # Vite outputs build files to 'dist' by default
 
-      # Step 7: Deploy the artifact to GitHub Pages
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+      # # Step 7: Deploy the artifact to GitHub Pages
+      # - name: Deploy to GitHub Pages
+      #   id: deployment
+      #   uses: actions/deploy-pages@v4
+
+      # Step 5: Deploy to GH Pages
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@v4
+        with: 
+          folder: dist
+          branch: gh-pages
