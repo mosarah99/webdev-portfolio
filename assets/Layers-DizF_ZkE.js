@@ -1,1 +1,0 @@
-import{L as e}from"./generateUtilityClasses-B63-cidq.js";import{d as t}from"./SectionHeader.component-BQH0W4q0.js";var n=t((0,e().jsx)(`path`,{d:`m11.99 18.54-7.37-5.73L3 14.07l9 7 9-7-1.63-1.27zM12 16l7.36-5.73L21 9l-9-7-9 7 1.63 1.27z`}),`Layers`);export{n as default};
