@@ -1,0 +1,1 @@
+.projectspage__hero-section{flex-direction:column;justify-content:center;align-items:center;height:70vh;display:flex}.projectspage__featured-project{justify-content:flex-start;display:flex}.projectspage__featured-project:nth-child(odd){justify-content:flex-end;display:flex}

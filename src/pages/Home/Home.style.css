@@ -1,9 +1,0 @@
-.homepage__hero-section {
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  /* background-image: url(https://images.unsplash.com/photo-1467232004584-a241de8bcf5d);
-    background-clip: blur(5px); */
-}
