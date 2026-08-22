@@ -1,5 +1,5 @@
-import React, { useEffect, useMemo, useState } from 'react';
-import { parseAsStringEnum, useQueryState } from 'nuqs';
+import React, { useEffect, useMemo } from 'react';
+import { useQueryState } from 'nuqs';
 
 export interface Page {
   title?: string;
@@ -10,6 +10,7 @@ export interface Page {
 }
 
 interface RouterProps extends React.ComponentPropsWithoutRef<'div'> {
+  siteTitle: string;
   pages: Page[];
 }
 
@@ -40,16 +41,23 @@ export const Router = ({ pages, ...props }: RouterProps) => {
   });
 
   useEffect(() => {
-    console.log(`useEffect runs`);
-
     if (page === defaultPage.slug || !page) {
       setPage(null, { history: 'replace' });
     }
   }, [page, defaultPage.slug, setPage]);
 
-  const currentComponent = useMemo(() => {
-    console.log(`currentComponent updated`);
+  useEffect(() => {
+    let pageTitle = pageMap.get(page ?? '')?.title ?? '';
+    // pageTitle = !pageTitle ? props.siteTitle : ` - ${props.siteTitle}`;
 
+    console.log(`title: ${JSON.stringify(pageTitle)}`);
+
+    let docTitle = (pageTitle ? `${pageTitle} | ` : '') + `${props.siteTitle}`;
+
+    document.title = docTitle;
+  }, [page]);
+
+  const currentComponent = useMemo(() => {
     if (!page || page === defaultPage.slug) return defaultPage.component;
     return pageMap.get(page)?.component ?? errorPage.component;
   }, [page]);
