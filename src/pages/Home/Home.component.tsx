@@ -20,14 +20,15 @@ import * as uuid from 'uuid';
 
 import './Home.style.css';
 import SectionHeader from '../../components/SectionHeader/SectionHeader.component';
-import { useNavigate } from 'react-router';
+// import { useNavigate } from 'react-router';
 import ContactCard from '../../components/Cards/ContactCard/ContactCard.component';
 import { ProjectGridCard } from '../../components/Cards/ProjectGridCard/ProjectGridCard';
 import { featuredProjects } from '../../assets/projects-skills';
+import { usePageNavigation } from '../../hooks/Navigation/usePageNavigation';
 
 export const Homepage: React.FC = () => {
   const theme = useTheme();
-  const navigate = useNavigate();
+  const navigate = usePageNavigation();
   const onButtonClickNavigate =
     (destination: string) => (event: React.MouseEvent<HTMLButtonElement>) => {
       event.preventDefault();

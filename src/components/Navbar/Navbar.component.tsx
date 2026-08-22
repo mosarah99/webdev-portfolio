@@ -5,7 +5,8 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import type React from 'react';
 import Button from '@mui/material/Button';
-import { useNavigate } from 'react-router';
+// import { useNavigate } from 'react-router';
+import { usePageNavigation } from '../../hooks/Navigation/usePageNavigation';
 import {
   Button as MuiButton,
   type ButtonProps as MuiButtonProps,
@@ -19,7 +20,7 @@ interface NavButtonProps extends MuiButtonProps {
 }
 
 const NavButton = ({ link, ...props }: NavButtonProps) => {
-  const navigate = useNavigate();
+  const navigate = usePageNavigation();
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();

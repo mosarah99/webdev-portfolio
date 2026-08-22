@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router';
+// import { useNavigate } from 'react-router';
 import type { ProjectWithSkills } from '../../../assets/projects-skills';
 import {
   Avatar,
@@ -18,13 +18,14 @@ import GitHubIcon from '@mui/icons-material/GitHub';
 import * as uuid from 'uuid';
 import type { ReactNode } from 'react';
 import GradeIcon from '@mui/icons-material/Grade';
+import { usePageNavigation } from '../../../hooks/Navigation/usePageNavigation';
 
 export const ProjectListCard: React.FC<{
   project: ProjectWithSkills;
   projectDetailsPageURL?: string;
   showSkills?: boolean;
 }> = ({ project, projectDetailsPageURL, showSkills }) => {
-  const navigate = useNavigate();
+  const navigate = usePageNavigation();
 
   const handleViewDetailsClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
