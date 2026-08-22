@@ -5,12 +5,13 @@ import { Route, Routes } from 'react-router';
 import * as uuid from 'uuid';
 
 import { pages } from './pages/pages';
+import {Router as PageRouter} from './components/Navigation/Router/Router.component';
 
 const App = () => {
   return (
     <Box>
       <Navbar />
-      <Routes>
+      {/* <Routes>
         {pages.map(({ label, link, index, element }) => (
           <Route
             index={!!index}
@@ -19,7 +20,8 @@ const App = () => {
             key={uuid.v7()}
           />
         ))}
-      </Routes>
+      </Routes> */}
+      <PageRouter pages={pages} />
     </Box>
   );
 };

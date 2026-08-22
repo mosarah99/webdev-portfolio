@@ -11,17 +11,18 @@ import {
   Chip,
   Stack,
 } from '@mui/material';
-import { useNavigate } from 'react-router';
+// import { useNavigate } from 'react-router';
 import { type ProjectWithSkills } from '../../../assets/projects-skills';
 import GradeIcon from '@mui/icons-material/Grade';
 import * as uuid from 'uuid';
+import { usePageNavigation } from '../../../hooks/Navigation/usePageNavigation';
 
 export const ProjectGridCard: React.FC<{
   project: ProjectWithSkills;
   projectDetailsPageURL?: string;
   showSkills?: boolean;
 }> = ({ project, projectDetailsPageURL, showSkills }) => {
-  const navigate = useNavigate();
+  const navigate = usePageNavigation();
 
   const handleViewDetailsClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -75,9 +76,11 @@ export const ProjectGridCard: React.FC<{
             flexGrow: 1,
           }}
         ></Box>
-        <Box sx={{
-          display: 'block'
-        }}>
+        <Box
+          sx={{
+            display: 'block',
+          }}
+        >
           {showSkills && (
             <CardContent>
               <Stack

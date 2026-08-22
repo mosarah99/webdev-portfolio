@@ -8,6 +8,7 @@ import theme from './theme/theme.ts';
 import './index.css';
 import App from './App.tsx';
 import { useMediaQuery } from '@mui/material';
+import { NuqsAdapter } from 'nuqs/adapters/react';
 
 export const Root = () => {
   // 1. Detect system preference initially
@@ -26,8 +27,10 @@ export const Root = () => {
     <StrictMode>
       <ThemeProvider theme={theme(palette)}>
         <BrowserRouter>
-          <CssBaseline />
-          <App />
+          <NuqsAdapter>
+            <CssBaseline />
+            <App />
+          </NuqsAdapter>
         </BrowserRouter>
       </ThemeProvider>
     </StrictMode>
