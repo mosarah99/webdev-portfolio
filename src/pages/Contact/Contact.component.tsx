@@ -4,6 +4,7 @@ import SectionHeader from '../../components/SectionHeader/SectionHeader.componen
 import { useEffect, useState } from 'react';
 import Markdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
+import Page from '../Page.component';
 
 export const ContactsPage = () => {
   const [ghReadme, setGhReadme] = useState<string>('# Loading REAME...');
@@ -29,7 +30,7 @@ export const ContactsPage = () => {
   }, []);
 
   return (
-    <Box>
+    <Page>
       <section>
         <SectionHeader title='Connection is just a few clicks away' />
         <Container maxWidth='lg'>
@@ -123,7 +124,7 @@ export const ContactsPage = () => {
           </Card>
         </Container>
       </section>
-    </Box>
+    </Page>
   );
 };
 

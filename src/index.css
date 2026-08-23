@@ -7,3 +7,8 @@ body {
 img {
     pointer-events: none;
 }
+
+
+* {
+    transition: all 300ms ease-in-out;
+}

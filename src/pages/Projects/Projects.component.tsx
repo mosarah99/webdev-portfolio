@@ -16,6 +16,7 @@ import { useMemo, useState } from 'react';
 import type { SkillWithCategory } from '../../assets/skills';
 import ProjectDisplayContainer from '../../components/Container/ProjectDisplayContainer/ProjectDisplayContainer';
 import ProjectFilterContainer from '../../components/Container/ProjectFilterContainer/ProjectFilterContainer';
+import Page from '../Page.component';
 
 export const ProjectsPage: React.FC = () => {
   // View Modes
@@ -72,7 +73,7 @@ export const ProjectsPage: React.FC = () => {
   };
 
   return (
-    <Box>
+    <Page>
       <section className='projectspage__hero-section'>
         <SectionHeader
           title='The Showcase'
@@ -152,7 +153,7 @@ export const ProjectsPage: React.FC = () => {
           />
         </Stack>
       </section>
-    </Box>
+    </Page>
   );
 };
 export default ProjectsPage;

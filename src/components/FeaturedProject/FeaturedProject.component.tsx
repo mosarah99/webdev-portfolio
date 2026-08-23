@@ -1,17 +1,24 @@
 import {
+  Avatar,
   Box,
   Button,
   ButtonGroup,
+  Card,
+  CardContent,
+  CardHeader,
+  CardMedia,
+  Chip,
   Container,
+  IconButton,
+  Stack,
   Typography,
   type SxProps,
 } from '@mui/material';
-import { useNavigate } from 'react-router';
-import type { Project } from '../../assets/projectsList';
+import type { ProjectWithSkills } from '../../assets/projects-skills';
 
 interface FeaturedProjectProps {
   className?: string;
-  project: Project;
+  project: ProjectWithSkills;
   style?: React.CSSProperties;
   sx?: SxProps;
 }
@@ -22,19 +29,16 @@ export const FeaturedProject: React.FC<FeaturedProjectProps> = ({
   className,
   sx,
 }) => {
-  const navigate = useNavigate();
   return (
     <Container
       className={` ${className || ''}`}
-      maxWidth='xl'
+      maxWidth='lg'
       sx={{
-        backgroundImage: `url(${project.image})`,
-        backgroundRepeat: 'no-repeat',
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        height: '30vh',
-        minHeight: '300px',
-        maxHeight: '1000px',
+        height: {
+          md: '400px',
+          sm: '300px',
+          xs: '60vh',
+        },
 
         ...sx,
       }}
@@ -42,7 +46,111 @@ export const FeaturedProject: React.FC<FeaturedProjectProps> = ({
         ...style,
       }}
     >
-      <Box
+      <Card
+        variant='elevation'
+        // elevation={25}
+        sx={{
+          width: '100%',
+          height: '100%',
+          display: 'flex',
+          flexDirection: {
+            sm: 'row',
+            xs: 'column',
+          },
+          gap: {
+            md: '1rem',
+            xs: 0,
+          },
+        }}
+      >
+        <Stack
+          sx={{
+            margin: '1rem',
+            flexGrow: 1,
+            overflow: 'auto',
+            textOverflow: 'ellipsis',
+          }}
+        >
+          <CardHeader title={project.title} />
+          <CardContent
+            sx={{
+              flexGrow: 1,
+              display: 'flex',
+              flexDirection: 'column',
+              textOverflow: 'ellipsis',
+            }}
+          >
+            <Stack
+              sx={{
+                gap: '1rem',
+                flexGrow: 1,
+                textOverflow: 'ellipsis',
+              }}
+            >
+              <Box
+                sx={{
+                  flexGrow: 1,
+                  overflow: 'auto',
+                }}
+              >
+                <Typography sx={{ textOverflow: 'ellipsis' }}>
+                  {project.description}
+                </Typography>
+              </Box>
+              <Stack
+                direction={'row'}
+                sx={{
+                  flexWrap: 'wrap',
+                  alignItems: 'flex-start',
+                  gap: '.5rem',
+                  textOverflow: 'ellipsis',
+                }}
+              >
+                {project.skills
+                  .slice(project.skills.length - 3)
+                  .map((skill) => (
+                    <Chip
+                      key={`FeaturedProject-ProjectSkill-${JSON.stringify(skill)}--${JSON.stringify(project)}`}
+                      variant='filled'
+                      avatar={
+                        <Avatar
+                          src={skill?.icon}
+                          alt={`${skill?.name} icon`}
+                          slotProps={{
+                            img: {
+                              loading: 'lazy',
+                            },
+                          }}
+                        />
+                      }
+                      label={skill?.name}
+                    />
+                  ))}
+              </Stack>
+            </Stack>
+          </CardContent>
+        </Stack>
+        <CardMedia
+          component={'image'}
+          image={project.image}
+          sx={(theme) => ({
+            margin: {
+              md: '1rem',
+              sm: '.50rem',
+              xs: '.25rem',
+            },
+            aspectRatio: 1,
+            borderRadius: {
+              md: '1rem',
+              sm: '.50rem',
+              xs: '.75rem',
+            },
+            boxShadow: theme.shadows[15],
+          })}
+          // alt={`${project.title} image`}
+        />
+      </Card>
+      {/* <Box
         sx={{
           // flexGrow: 1,
           // height: '100%',
@@ -111,7 +219,7 @@ export const FeaturedProject: React.FC<FeaturedProjectProps> = ({
           width: '1rem',
         }}
       ></Box>
-
+ */}
       {/* <Box
         component={'img'}
         src={project.image}

@@ -25,6 +25,7 @@ import ContactCard from '../../components/Cards/ContactCard/ContactCard.componen
 import { ProjectGridCard } from '../../components/Cards/ProjectGridCard/ProjectGridCard';
 import { featuredProjects } from '../../assets/projects-skills';
 import { usePageNavigation } from '../../hooks/Navigation/usePageNavigation';
+import Page from '../Page.component';
 
 export const Homepage: React.FC = () => {
   const theme = useTheme();
@@ -36,7 +37,7 @@ export const Homepage: React.FC = () => {
     };
 
   return (
-    <Box>
+    <Page>
       <section
         className='homepage__hero-section'
         style={{
@@ -48,8 +49,8 @@ export const Homepage: React.FC = () => {
           subtitle='Web Dev | Full-Stack | Wizard'
           titleProps={{
             variant: 'h3',
-            textTransform: 'uppercase',
-            fontWeight: 'bolder',
+            // textTransform: 'uppercase',
+            // fontWeight: 'bolder',
             color: theme.palette.getContrastText(theme.palette.primary.main),
           }}
           subtitleProps={{
@@ -207,7 +208,7 @@ export const Homepage: React.FC = () => {
           <ContactCard />
         </Container>
       </section>
-    </Box>
+    </Page>
   );
 };
 

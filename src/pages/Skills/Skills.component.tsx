@@ -20,6 +20,7 @@ import * as uuid from 'uuid';
 
 import './Skills.style.css';
 import React from 'react';
+import Page from '../Page.component';
 const SingleSkillCard = ({
   skill,
   ...props
@@ -80,7 +81,7 @@ const SingleStackSkillCard = ({
 );
 const Skills: React.FC = () => {
   return (
-    <Box>
+    <Page>
       <section className='skillspage__hero-section'>
         <SectionHeader
           title='Skills & Expertise'
@@ -182,7 +183,7 @@ const Skills: React.FC = () => {
           ))}
         </Container>
       </section>
-    </Box>
+    </Page>
   );
 };
 
