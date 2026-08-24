@@ -20,49 +20,16 @@ export const generateThemeOptions = (
     MuiPaper: {
       variants: [
         {
-          props: (props) => true, // Apply this variant to all Paper components
+          props: (_props) => true, // Apply this variant to all Paper components
           style: ({ theme }) => ({
             backgroundColor: alpha(theme.palette.background.paper, 0.4),
             backdropFilter: 'blur(24px)',
             WebkitBackdropFilter: 'blur(24px)',
-            border: `1px solid ${alpha(theme.palette.common.white, 0.2)}`,
             boxShadow: theme.shadows[4],
           }),
         },
       ],
     },
-    // MuiButton: {
-    //   variants: [
-    //     {
-    //       props: { variant: 'outlined', color: 'primary' },
-    //       style: ({ theme }) => ({
-    //         'backgroundColor': alpha(theme.palette.primary.light, 0.4),
-    //         'backdropFilter': 'blur(12px)',
-    //         'WebkitBackdropFilter': 'blur(12px)',
-    //         'border': `1px solid ${alpha(theme.palette.primary.dark, 0.2)}`,
-    //         'boxShadow': theme.shadows[4],
-    //         ':hover': {
-    //           backgroundColor: alpha(theme.palette.primary.light, 0.6),
-    //         },
-    //         color: theme.palette.primary.contrastText,
-    //       }),
-    //     },
-    //     {
-    //       props: { variant: 'outlined', color: 'secondary' },
-    //       style: ({ theme }) => ({
-    //         'backgroundColor': alpha(theme.palette.secondary.light, 0.4),
-    //         'backdropFilter': 'blur(12px)',
-    //         'WebkitBackdropFilter': 'blur(12px)',
-    //         'border': `1px solid ${alpha(theme.palette.secondary.dark, 0.2)}`,
-    //         'boxShadow': theme.shadows[4],
-    //         ':hover': {
-    //           backgroundColor: alpha(theme.palette.secondary.light, 0.6),
-    //         },
-    //         color: theme.palette.secondary.contrastText,
-    //       }),
-    //     },
-    //   ],
-    // },
     MuiTooltip: {
       defaultProps: {
         arrow: true,

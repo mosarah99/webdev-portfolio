@@ -30,7 +30,9 @@ const SingleSkillCard = ({
   <Card variant='outlined'>
     <Stack
       direction={'row'}
-      alignItems={'center'}
+      sx={{
+        alignItems: 'center',
+      }}
     >
       <CardMedia
         sx={{
@@ -73,7 +75,9 @@ const SingleStackSkillCard = ({
     />
     <Typography
       variant='h6'
-      marginLeft={2}
+      sx={{
+        marginLeft: 2,
+      }}
     >
       {skill?.name}
     </Typography>
@@ -89,14 +93,18 @@ const Skills: React.FC = () => {
           titleProps={{
             variant: 'h2',
             color: 'primary',
-            textTransform: 'uppercase',
-            fontWeight: 'bolder',
+            sx: {
+              textTransform: 'uppercase',
+              fontWeight: 'bolder',
+            },
           }}
           subtitleProps={{
             variant: 'h4',
             color: 'textSecondary',
-            textTransform: 'uppercase',
-            fontWeight: 'bold',
+            sx: {
+              textTransform: 'uppercase',
+              fontWeight: 'bold',
+            },
           }}
         />
       </section>
@@ -107,9 +115,11 @@ const Skills: React.FC = () => {
         />
         <Container maxWidth='lg'>
           <Grid
-            justifyContent={'center'}
             container
             spacing={4}
+            sx={{
+              justifyContent: 'center',
+            }}
           >
             {favoriteStacks.map((stack) => (
               <Grid
@@ -165,9 +175,11 @@ const Skills: React.FC = () => {
               <Divider variant='fullWidth' />
               <CardContent>
                 <Grid
-                  justifyContent={'center'}
                   container
                   spacing={1}
+                  sx={{
+                    justifyContent: 'center',
+                  }}
                 >
                   {skills.map((skill) => (
                     <Grid

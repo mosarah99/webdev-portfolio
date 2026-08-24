@@ -1,18 +1,8 @@
 import {
-  Avatar,
-  Box,
   Button,
   ButtonGroup,
-  Card,
-  CardActionArea,
-  CardContent,
-  CardHeader,
-  CardMedia,
   Container,
-  Divider,
   Grid,
-  Icon,
-  Stack,
   Typography,
   useTheme,
 } from '@mui/material';
@@ -26,6 +16,9 @@ import { ProjectGridCard } from '../../components/Cards/ProjectGridCard/ProjectG
 import { featuredProjects } from '../../assets/projects-skills';
 import { usePageNavigation } from '../../hooks/Navigation/usePageNavigation';
 import Page from '../Page.component';
+import PrimarySection from '../../components/Section/PrimarySection/PrimarySection.component';
+import SecondarySection from '../../components/Section/SecondarySection/SecondarySection.component';
+import ContrastSection from '../../components/Section/ContrastSection/ContrastSection.component';
 
 export const Homepage: React.FC = () => {
   const theme = useTheme();
@@ -75,7 +68,7 @@ export const Homepage: React.FC = () => {
           </Typography>
         </Container> */}
       </section>
-      <section
+      <PrimarySection
         className='homepage__about-section'
         id='about'
       >
@@ -147,8 +140,8 @@ export const Homepage: React.FC = () => {
             </Button>
           </ButtonGroup>
         </Container>
-      </section>
-      <section
+      </PrimarySection>
+      <SecondarySection
         className='homepage__projects-section'
         id='about'
       >
@@ -195,8 +188,8 @@ export const Homepage: React.FC = () => {
             </Button>
           </ButtonGroup>
         </Container>
-      </section>
-      <section
+      </SecondarySection>
+      <ContrastSection
         className='homepage__contact-section'
         id='about'
       >
@@ -207,7 +200,7 @@ export const Homepage: React.FC = () => {
         <Container maxWidth='md'>
           <ContactCard />
         </Container>
-      </section>
+      </ContrastSection>
     </Page>
   );
 };
