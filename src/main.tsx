@@ -1,7 +1,7 @@
 import { StrictMode, useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router';
-import { ThemeProvider } from '@mui/material/styles';
+import { responsiveFontSizes, ThemeProvider } from '@mui/material/styles';
 import { themePalettes } from './theme/palettes.ts';
 import CssBaseline from '@mui/material/CssBaseline';
 import theme from './theme/theme.ts';
@@ -25,7 +25,7 @@ export const Root = () => {
 
   return (
     <StrictMode>
-      <ThemeProvider theme={theme(palette)}>
+      <ThemeProvider theme={responsiveFontSizes(theme(palette))}>
         <BrowserRouter>
           <NuqsAdapter>
             <CssBaseline />

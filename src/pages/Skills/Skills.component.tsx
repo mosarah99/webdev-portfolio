@@ -1,7 +1,5 @@
 import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
+  alpha,
   Avatar,
   Box,
   Card,
@@ -21,6 +19,9 @@ import * as uuid from 'uuid';
 import './Skills.style.css';
 import React from 'react';
 import Page from '../Page.component';
+import PrimarySection from '../../components/Section/PrimarySection/PrimarySection.component';
+import SecondarySection from '../../components/Section/SecondarySection/SecondarySection.component';
+import HeroSection from '../../templates/HeroSection/HeroSection.component';
 const SingleSkillCard = ({
   skill,
   ...props
@@ -50,17 +51,11 @@ const SingleSkillCard = ({
         >
           {skill.name}
         </Typography>
-        {/* <Divider variant='fullWidth' />
-                            <Typography
-                              variant='body2'
-                              textAlign={'center'}
-                            >
-                              {skill.category?.name}
-                            </Typography> */}
       </Box>
     </Stack>
   </Card>
 );
+
 const SingleStackSkillCard = ({
   skill,
   ...props
@@ -86,29 +81,15 @@ const SingleStackSkillCard = ({
 const Skills: React.FC = () => {
   return (
     <Page>
-      <section className='skillspage__hero-section'>
-        <SectionHeader
-          title='Skills & Expertise'
-          subtitle='Granular breakdown of my technical proficiencies'
-          titleProps={{
-            variant: 'h2',
-            color: 'primary',
-            sx: {
-              textTransform: 'uppercase',
-              fontWeight: 'bolder',
-            },
-          }}
-          subtitleProps={{
-            variant: 'h4',
-            color: 'textSecondary',
-            sx: {
-              textTransform: 'uppercase',
-              fontWeight: 'bold',
-            },
-          }}
-        />
-      </section>
-      <section className='skillspage__top-stacks-section'>
+      <HeroSection
+        bgImageUrl='https://images.pexels.com/photos/4863008/pexels-photo-4863008.jpeg'
+        title='Skills & Expertise'
+        subtitle='Granular breakdown of my technical proficiencies'
+        sx={{
+          backgroundPositionY: 'bottom',
+        }}
+      />
+      <PrimarySection className='skillspage__top-stacks-section'>
         <SectionHeader
           title='Tech Stack'
           subtitle='I find myself coming back to'
@@ -149,8 +130,8 @@ const Skills: React.FC = () => {
             ))}
           </Grid>
         </Container>
-      </section>
-      <section className='skillspage__skills-list-section'>
+      </PrimarySection>
+      <SecondarySection className='skillspage__skills-list-section'>
         <SectionHeader
           title='All Skills'
           subtitle='A comprehensive overview of my technical capabilities'
@@ -194,7 +175,7 @@ const Skills: React.FC = () => {
             </Card>
           ))}
         </Container>
-      </section>
+      </SecondarySection>
     </Page>
   );
 };

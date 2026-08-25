@@ -1,25 +1,19 @@
 import { type PropsWithChildren } from 'react';
 import { Section, type SectionProps } from '../Section.component';
-import { useTheme } from '@mui/material';
 
 export interface PrimarySectionProps extends PropsWithChildren<SectionProps> {}
 
-export const PrimarySection = ({
-  sx,
-  children,
-  ...props
-}: PrimarySectionProps) => {
-  const theme = useTheme();
+export const PrimarySection = ({ sx, ...props }: PrimarySectionProps) => {
   return (
     <Section
-      sx={{
-        backgroundColor: theme.palette.background.default,
-        ...sx,
-      }}
+      sx={[
+        (theme) => ({
+          bgcolor: theme.palette.background.default,
+        }),
+        ...(Array.isArray(sx) ? sx : [sx]),
+      ]}
       {...props}
-    >
-      {children}
-    </Section>
+    />
   );
 };
 

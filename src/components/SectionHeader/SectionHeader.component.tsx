@@ -24,6 +24,7 @@ export const SectionHeader = ({
       alignItems: 'center',
       marginTop: '5rem',
       marginBottom: '3rem',
+      textAlign: 'center',
     }}
   >
     {pretitle && (

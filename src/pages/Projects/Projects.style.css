@@ -5,14 +5,3 @@
   justify-content: center;
   align-items: center;
 }
-
-.projectspage__featured-project {
-  display: flex;
-
-  justify-content: flex-start;
-}
-
-.projectspage__featured-project:nth-child(odd) {
-  display: flex;
-  justify-content: flex-end;
-}

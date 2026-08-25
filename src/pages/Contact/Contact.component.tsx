@@ -1,10 +1,15 @@
-import { Box, Card, CardContent, Container } from '@mui/material';
+import { alpha, Box, Card, CardContent, Container } from '@mui/material';
 import ContactCard from '../../components/Cards/ContactCard/ContactCard.component';
 import SectionHeader from '../../components/SectionHeader/SectionHeader.component';
 import { useEffect, useState } from 'react';
 import Markdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
 import Page from '../Page.component';
+import PrimarySection from '../../components/Section/PrimarySection/PrimarySection.component';
+import ContrastSection from '../../components/Section/ContrastSection/ContrastSection.component';
+import SecondarySection from '../../components/Section/SecondarySection/SecondarySection.component';
+import Section from '../../components/Section/Section.component';
+import HeroSection from '../../templates/HeroSection/HeroSection.component';
 
 export const ContactsPage = () => {
   const [ghReadme, setGhReadme] = useState<string>('# Loading REAME...');
@@ -31,13 +36,20 @@ export const ContactsPage = () => {
 
   return (
     <Page>
-      <section>
-        <SectionHeader title='Connection is just a few clicks away' />
+      <HeroSection
+        // bgImageUrl='https://images.pexels.com/photos/36028393/pexels-photo-36028393.jpeg'
+        bgImageUrl='https://images.pexels.com/photos/6587323/pexels-photo-6587323.jpeg'
+        title='Connection is just a few clicks away'
+        sx={{
+          backgroundPositionY: 'bottom 25%',
+        }}
+      />
+      <PrimarySection>
         <Container maxWidth='lg'>
           <ContactCard />
         </Container>
-      </section>
-      <section>
+      </PrimarySection>
+      <SecondarySection>
         <Container maxWidth='lg'>
           <SectionHeader
             pretitle='Professional presence on'
@@ -57,8 +69,8 @@ export const ContactsPage = () => {
             />
           </Card>
         </Container>
-      </section>
-      <section>
+      </SecondarySection>
+      <PrimarySection>
         <Container maxWidth='lg'>
           <SectionHeader
             pretitle='Having fun on'
@@ -90,8 +102,8 @@ export const ContactsPage = () => {
             </CardContent>
           </Card>
         </Container>
-      </section>
-      <section>
+      </PrimarySection>
+      <SecondarySection>
         <Container maxWidth='lg'>
           <SectionHeader
             pretitle='Locate me on'
@@ -104,17 +116,17 @@ export const ContactsPage = () => {
             }}
           >
             <Box
-              display={'block'}
               component='iframe'
               src='https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d160600.64768221346!2d-114.25263613551553!3d51.02750740792613!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x537170039f843fd5%3A0x266d3bb1b652b63a!2sCalgary%2C%20AB%2C%20Canada!5e0!3m2!1sen!2sbd!4v1782748259671!5m2!1sen!2sbd'
               width='100%'
-              height={{
-                xs: '500px',
-                md: '800px',
-                // lg: '1200px',
-              }}
               sx={{
+                display: 'block',
                 border: 0,
+                height: {
+                  xs: '500px',
+                  md: '800px',
+                  // lg: '1200px',
+                },
                 // borderRadius: 2,
               }}
               loading='lazy'
@@ -123,7 +135,7 @@ export const ContactsPage = () => {
             />
           </Card>
         </Container>
-      </section>
+      </SecondarySection>
     </Page>
   );
 };

@@ -3,22 +3,26 @@ import { type PropsWithChildren } from 'react';
 
 export interface SectionProps extends PropsWithChildren<BoxProps> {}
 
-export const Section = ({ sx, children, ...props }: SectionProps) => {
+export const Section = ({
+  component = 'section',
+  sx,
+  ...props
+}: SectionProps) => {
   return (
     <Box
-      component={'section'}
-      sx={{
-        padding: {
-          md: '1rem',
-          sm: '.75rem',
-          xs: '.5rem',
+      component={component}
+      sx={[
+        {
+          padding: {
+            md: '1rem',
+            sm: '.75rem',
+            xs: '.5rem',
+          },
         },
-        ...sx,
-      }}
+        ...(Array.isArray(sx) ? sx : [sx]),
+      ]}
       {...props}
-    >
-      {children}
-    </Box>
+    />
   );
 };
 

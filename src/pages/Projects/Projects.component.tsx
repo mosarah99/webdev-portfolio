@@ -10,6 +10,7 @@ import {
   Container,
   Pagination,
   Stack,
+  useTheme,
 } from '@mui/material';
 import type React from 'react';
 import SectionHeader from '../../components/SectionHeader/SectionHeader.component';
@@ -45,6 +46,7 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/a11y';
 import 'swiper/css/effect-coverflow';
+import HeroSection from '../../templates/HeroSection/HeroSection.component';
 
 export const ProjectsPage: React.FC = () => {
   // View Modes
@@ -88,6 +90,8 @@ export const ProjectsPage: React.FC = () => {
     return inView;
   }, [page, filteredProjects, maxPageCount]);
 
+  const theme = useTheme();
+
   const onPageChange = (_event: React.ChangeEvent<unknown>, value: number) => {
     setPage(value);
   };
@@ -102,28 +106,11 @@ export const ProjectsPage: React.FC = () => {
 
   return (
     <Page>
-      <PrimarySection className='projectspage__hero-section'>
-        <SectionHeader
-          title='The Showcase'
-          subtitle='A selection of my most impactful projects'
-          titleProps={{
-            variant: 'h2',
-            color: 'primary',
-            sx: {
-              textTransform: 'uppercase',
-              fontWeight: 'bolder',
-            },
-          }}
-          subtitleProps={{
-            variant: 'h4',
-            color: 'textSecondary',
-            sx: {
-              textTransform: 'uppercase',
-              fontWeight: 'bold',
-            },
-          }}
-        />
-      </PrimarySection>
+      <HeroSection
+        bgImageUrl='https://images.pexels.com/photos/8168570/pexels-photo-8168570.png'
+        title='The Showcase'
+        subtitle='A selection of my most impactful projects'
+      />
       <ContrastSection className='projectspage__featured-section'>
         <Container
           maxWidth='md'

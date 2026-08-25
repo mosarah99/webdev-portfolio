@@ -1,28 +1,20 @@
 import { type PropsWithChildren } from 'react';
 import { Section, type SectionProps } from '../Section.component';
-import { useTheme } from '@mui/material';
 
 export interface ContrastSectionProps extends PropsWithChildren<SectionProps> {}
 
-export const ContrastSection = ({
-  sx,
-  children,
-  ...props
-}: ContrastSectionProps) => {
-  const theme = useTheme();
-  const bgColor = theme.palette.primary.dark;
-  const fontColor = theme.palette.primary.contrastText;
+export const ContrastSection = ({ sx, ...props }: ContrastSectionProps) => {
   return (
     <Section
-      sx={{
-        bgcolor: bgColor,
-        color: fontColor,
-        ...sx,
-      }}
+      sx={[
+        (theme) => ({
+          bgcolor: theme.palette.primary.dark,
+          color: theme.palette.primary.contrastText,
+        }),
+        ...(Array.isArray(sx) ? sx : [sx]),
+      ]}
       {...props}
-    >
-      {children}
-    </Section>
+    />
   );
 };
 
