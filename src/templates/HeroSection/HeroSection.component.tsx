@@ -21,10 +21,13 @@ const HeroSection = ({ bgImageUrl, sx, ...props }: HeroSectionProps) => {
         (theme) => ({
           minHeight: '80vh',
 
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+
           backgroundColor: theme.palette.primary.main,
           backgroundImage: [
-            // `rgba(0,0,0,0.8)`,
-            `linear-gradient(45deg, ${alpha(theme.palette.primary.dark, 0.4)}, ${alpha(theme.palette.secondary.dark, 0.4)})`,
+            `linear-gradient(45deg, ${alpha(theme.palette.primary.dark, 0.6)}, ${alpha(theme.palette.secondary.dark, 0.6)})`,
             `url(${bgImageUrl})`,
           ].join(','),
           backgroundAttachment: 'fixed',
@@ -32,9 +35,13 @@ const HeroSection = ({ bgImageUrl, sx, ...props }: HeroSectionProps) => {
           backgroundRepeat: 'no-repeat',
           backgroundSize: 'cover',
 
-          textShadow: ['1px 1px 10px black', '1px 1px 5px black'].join(', '),
-
-          color: ['textSecondary', theme.palette.primary.contrastText],
+          textShadow: [
+            `.25rem .25rem .5rem ${theme.palette.primary.light}`,
+            `-.25rem -.25rem 1rem ${theme.palette.secondary.light}`,
+          ].join(', '),
+          textAlign: 'center',
+          color: [theme.palette.primary.contrastText],
+          fontWeight: 900,
         }),
         ...(Array.isArray(sx) ? sx : [sx]),
       ]}
@@ -46,12 +53,15 @@ const HeroSection = ({ bgImageUrl, sx, ...props }: HeroSectionProps) => {
         subtitle={props.subtitle}
         titleProps={{
           variant: 'h1',
+          sx: {
+            textTransform: 'uppercase',
+          },
         }}
         pretitleProps={{
           variant: 'h6',
         }}
         subtitleProps={{
-          variant: 'subtitle1',
+          variant: 'h6',
         }}
       />
     </SecondarySection>

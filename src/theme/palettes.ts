@@ -1,43 +1,65 @@
-import type { PaletteOptions } from '@mui/material';
+import type { ColorSystemOptions } from '@mui/material';
+
+export interface ThemePalette {
+  light: ColorSystemOptions;
+  dark: ColorSystemOptions;
+}
 
 // src/theme/palettes.ts
-export const themePalettes: { [key: string]: PaletteOptions } = {
-  light: {
-    mode: 'light',
-    primary: {
-      main: '#1a237e',
+export const themePalettes: { [key: string]: ThemePalette } = {
+  default: {
+    dark: {
+      palette: {
+        primary: {
+          main: '#bdd3ff',
+        },
+        secondary: {
+          main: '#bdf4ff',
+        },
+        info: {
+          main: '#c8bdff',
+        },
+        error: {
+          main: '#ffc8bd',
+        },
+        warning: {
+          main: '#f4ffbd',
+        },
+        success: {
+          main: '#C6FFBD',
+        },
+        background: {
+          default: '#112',
+          paper: '#080820',
+        },
+      },
     },
-    secondary: {
-      main: '#009688',
+    light: {
+      palette: {
+        primary: {
+          main: '#2a407d',
+        },
+        secondary: {
+          main: '#2a6a7d',
+        },
+        info: {
+          main: '#3d2a7d',
+        },
+        error: {
+          main: '#7d3d2a',
+        },
+        warning: {
+          main: '#6a7d2a',
+        },
+        success: {
+          main: '#2a7d2e',
+        },
+        background: {
+          default: '#e3e3e3',
+          paper: '#eee',
+        },
+      },
     },
-  },
-  dark: {
-    mode: 'dark',
-    primary: {
-      main: '#1a237e',
-    },
-    secondary: {
-      main: '#009688',
-    },
-    background: {
-      default: '#111111',
-      paper: 'rgba(68,68,68,0.5)',
-    },
-    text: {
-      primary: '#ffffff',
-    },
-    divider: 'rgba(255,255,255,0.94)',
-  },
-  ocean: {
-    mode: 'dark',
-    primary: { main: '#00bcd4' },
-    background: { default: '#001b2e' },
-    secondary: { main: '#ff4081' },
-  },
-  forest: {
-    mode: 'light',
-    primary: { main: '#2e7d32' },
-    background: { default: '#f1f8e9' },
   },
 };
 

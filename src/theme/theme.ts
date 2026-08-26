@@ -1,11 +1,10 @@
 import {
   alpha,
   createTheme,
-  type PaletteOptions,
   type Theme,
   type ThemeOptions,
 } from '@mui/material';
-import themePalettes from './palettes';
+import { type ThemePalette } from './palettes';
 
 /**
  * TODO: Consider migrating to the newer theme creation approach in MUI v6 for better type safety and flexibility.
@@ -13,9 +12,9 @@ import themePalettes from './palettes';
  */
 
 export const generateThemeOptions = (
-  palette: PaletteOptions,
+  colorSchemes: ThemePalette,
 ): ThemeOptions => ({
-  palette: palette,
+  colorSchemes: colorSchemes,
   components: {
     MuiPaper: {
       variants: [
@@ -68,13 +67,18 @@ export const generateThemeOptions = (
         },
       },
     },
+    MuiAppBar: {
+      defaultProps: {
+        color: 'primary'
+      }
+    }
   },
   shape: {
     borderRadius: 15,
   },
 });
 
-export const generateTheme = (palette: PaletteOptions): Theme =>
+export const generateTheme = (palette: ThemePalette): Theme =>
   createTheme(generateThemeOptions(palette));
 
 export default generateTheme;

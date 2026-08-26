@@ -2,18 +2,21 @@ import AppBar from '@mui/material/AppBar';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
 import type React from 'react';
-import Button from '@mui/material/Button';
 // import { useNavigate } from 'react-router';
 import { usePageNavigation } from '../../hooks/Navigation/usePageNavigation';
 import {
+  IconButton,
   Button as MuiButton,
+  useColorScheme,
   type ButtonProps as MuiButtonProps,
 } from '@mui/material';
 import * as uuid from 'uuid';
 
 import './Navbar.style.css';
+import { useMemo } from 'react';
+
+import { Settings, LightMode, DarkMode } from '@mui/icons-material';
 
 interface NavButtonProps extends MuiButtonProps {
   link: string;
@@ -46,6 +49,37 @@ const navLinks = [
 ];
 
 export const Navbar = () => {
+  const { mode, setMode } = useColorScheme();
+
+  const ColorSchemeIcon = useMemo(() => {
+    switch (mode) {
+      case 'light':
+        return <LightMode />;
+      case 'dark':
+        return <DarkMode />;
+      default:
+        return <Settings />;
+    }
+  }, [mode]);
+
+  const toggleMode = () => {
+    switch (mode) {
+      case 'system':
+        setMode('light');
+        break;
+      case 'light':
+        setMode('dark');
+        break;
+      case 'dark':
+        setMode('system');
+        break;
+
+      default:
+        setMode('system');
+        break;
+    }
+  };
+
   return (
     <AppBar position='fixed'>
       <Container maxWidth='xl'>
@@ -54,12 +88,6 @@ export const Navbar = () => {
           sx={{ display: 'flex', justifyContent: 'flex-start' }}
         >
           <Box>
-            {/* <Typography
-              variant='h1'
-              noWrap
-              component={'a'}
-              color='inherit'
-            > */}
             <NavButton
               link='/'
               sx={{
@@ -68,7 +96,6 @@ export const Navbar = () => {
             >
               mosarah99
             </NavButton>
-            {/* </Typography> */}
           </Box>
           <Box sx={{ flexGrow: 1 }} />
           <Box
@@ -84,6 +111,14 @@ export const Navbar = () => {
                 {label}
               </NavButton>
             ))}
+          </Box>
+          <Box>
+            <IconButton
+              onClick={toggleMode}
+              color='inherit'
+            >
+              {ColorSchemeIcon}
+            </IconButton>
           </Box>
         </Toolbar>
       </Container>
