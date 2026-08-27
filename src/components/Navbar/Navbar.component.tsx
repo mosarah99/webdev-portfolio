@@ -3,18 +3,19 @@ import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import type React from 'react';
+import { useMemo } from 'react';
 // import { useNavigate } from 'react-router';
 import { usePageNavigation } from '../../hooks/Navigation/usePageNavigation';
 import {
   IconButton,
   Button as MuiButton,
+  Typography,
   useColorScheme,
   type ButtonProps as MuiButtonProps,
 } from '@mui/material';
 import * as uuid from 'uuid';
 
 import './Navbar.style.css';
-import { useMemo } from 'react';
 
 import { Settings, LightMode, DarkMode } from '@mui/icons-material';
 
@@ -92,6 +93,16 @@ export const Navbar = () => {
               link='/'
               sx={{
                 textTransform: 'none',
+
+                fontFamily: [
+                  'sans-serif',
+                  'ui-sans-serif',
+                  'Roboto',
+                  'Eagle Lake',
+                  'Plaster',
+                ],
+                fontWeight: 'bold',
+                fontStyle: 'normal',
               }}
             >
               mosarah99
