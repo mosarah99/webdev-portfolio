@@ -3,7 +3,6 @@ import { ProjectGridCard } from '../../Cards/ProjectGridCard/ProjectGridCard';
 import ProjectListCard from '../../Cards/ProjectListCard/ProjectListCard';
 import * as uuid from 'uuid';
 import type { ProjectWithSkills } from '../../../assets/projects-skills';
-import { useEffect } from 'react';
 
 interface ProjectDisplayContainerProps {
   projects: ProjectWithSkills[];

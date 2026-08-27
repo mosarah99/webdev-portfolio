@@ -1,5 +1,4 @@
 import {
-  alpha,
   Avatar,
   Box,
   Card,
@@ -22,12 +21,8 @@ import Page from '../Page.component';
 import PrimarySection from '../../components/Section/PrimarySection/PrimarySection.component';
 import SecondarySection from '../../components/Section/SecondarySection/SecondarySection.component';
 import HeroSection from '../../templates/HeroSection/HeroSection.component';
-const SingleSkillCard = ({
-  skill,
-  ...props
-}: {
-  skill: (typeof skills)[number];
-}) => (
+
+const SingleSkillCard = ({ skill }: { skill: (typeof skills)[number] }) => (
   <Card variant='outlined'>
     <Stack
       direction={'row'}
@@ -58,7 +53,6 @@ const SingleSkillCard = ({
 
 const SingleStackSkillCard = ({
   skill,
-  ...props
 }: {
   skill: (typeof skills)[number];
 }) => (

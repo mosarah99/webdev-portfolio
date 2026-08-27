@@ -1,4 +1,4 @@
-import { alpha, Box, Card, CardContent, Container } from '@mui/material';
+import { Box, Card, CardContent, Container } from '@mui/material';
 import ContactCard from '../../components/Cards/ContactCard/ContactCard.component';
 import SectionHeader from '../../components/SectionHeader/SectionHeader.component';
 import { useEffect, useState } from 'react';
@@ -6,9 +6,7 @@ import Markdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
 import Page from '../Page.component';
 import PrimarySection from '../../components/Section/PrimarySection/PrimarySection.component';
-import ContrastSection from '../../components/Section/ContrastSection/ContrastSection.component';
 import SecondarySection from '../../components/Section/SecondarySection/SecondarySection.component';
-import Section from '../../components/Section/Section.component';
 import HeroSection from '../../templates/HeroSection/HeroSection.component';
 
 export const ContactsPage = () => {
