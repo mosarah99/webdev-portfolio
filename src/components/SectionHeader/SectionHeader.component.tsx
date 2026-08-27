@@ -1,4 +1,4 @@
-import { Box, Container, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 
 export const SectionHeader = ({
   pretitle,
@@ -24,6 +24,7 @@ export const SectionHeader = ({
       alignItems: 'center',
       marginTop: '5rem',
       marginBottom: '3rem',
+      textAlign: 'center',
     }}
   >
     {pretitle && (

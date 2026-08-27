@@ -34,7 +34,6 @@ export const Router = ({ pages, ...props }: RouterProps) => {
   );
 
   const [page, setPage] = useQueryState('p', {
-    // defaultValue: defaultPage.slug,
     history: 'push',
     scroll: true,
     clearOnDefault: true,
@@ -48,12 +47,8 @@ export const Router = ({ pages, ...props }: RouterProps) => {
 
   useEffect(() => {
     let pageTitle = pageMap.get(page ?? '')?.title ?? '';
-    // pageTitle = !pageTitle ? props.siteTitle : ` - ${props.siteTitle}`;
-
     console.log(`title: ${JSON.stringify(pageTitle)}`);
-
     let docTitle = (pageTitle ? `${pageTitle} | ` : '') + `${props.siteTitle}`;
-
     document.title = docTitle;
   }, [page]);
 

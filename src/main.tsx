@@ -1,31 +1,21 @@
-import { StrictMode, useEffect, useState } from 'react';
+import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router';
-import { ThemeProvider } from '@mui/material/styles';
+import { responsiveFontSizes, ThemeProvider } from '@mui/material/styles';
 import { themePalettes } from './theme/palettes.ts';
 import CssBaseline from '@mui/material/CssBaseline';
 import theme from './theme/theme.ts';
 import './index.css';
 import App from './App.tsx';
-import { useMediaQuery } from '@mui/material';
 import { NuqsAdapter } from 'nuqs/adapters/react';
 
-export const Root = () => {
-  // 1. Detect system preference initially
-  const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
-  const [mode, setMode] = useState<'light' | 'dark'>(
-    prefersDarkMode ? 'dark' : 'light',
-  );
-  const palette = mode === 'light' ? themePalettes.light : themePalettes.dark;
-
-  // 2. Optional: Keep state synced if the user changes their system OS setting
-  useEffect(() => {
-    setMode(prefersDarkMode ? 'dark' : 'light');
-  }, [prefersDarkMode]);
-
+export const AppBase = () => {
   return (
     <StrictMode>
-      <ThemeProvider theme={theme(palette)}>
+      <ThemeProvider
+        theme={responsiveFontSizes(theme(themePalettes['default']))}
+        defaultMode='system'
+      >
         <BrowserRouter>
           <NuqsAdapter>
             <CssBaseline />
@@ -36,5 +26,7 @@ export const Root = () => {
     </StrictMode>
   );
 };
+
+export const Root = () => <AppBase />;
 
 createRoot(document.getElementById('root')!).render(<Root />);

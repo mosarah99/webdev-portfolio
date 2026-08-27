@@ -86,7 +86,9 @@ export const ProjectGridCard: React.FC<{
               <Stack
                 direction={'row'}
                 spacing={1}
-                flexWrap={'wrap'}
+                sx={{
+                  flexWrap: 'wrap',
+                }}
               >
                 {project.skills?.map((skill) => (
                   <Chip

@@ -1,7 +1,4 @@
 import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
   Avatar,
   Box,
   Card,
@@ -20,16 +17,18 @@ import * as uuid from 'uuid';
 
 import './Skills.style.css';
 import React from 'react';
-const SingleSkillCard = ({
-  skill,
-  ...props
-}: {
-  skill: (typeof skills)[number];
-}) => (
+import Page from '../Page.component';
+import PrimarySection from '../../components/Section/PrimarySection/PrimarySection.component';
+import SecondarySection from '../../components/Section/SecondarySection/SecondarySection.component';
+import HeroSection from '../../templates/HeroSection/HeroSection.component';
+
+const SingleSkillCard = ({ skill }: { skill: (typeof skills)[number] }) => (
   <Card variant='outlined'>
     <Stack
       direction={'row'}
-      alignItems={'center'}
+      sx={{
+        alignItems: 'center',
+      }}
     >
       <CardMedia
         sx={{
@@ -47,20 +46,13 @@ const SingleSkillCard = ({
         >
           {skill.name}
         </Typography>
-        {/* <Divider variant='fullWidth' />
-                            <Typography
-                              variant='body2'
-                              textAlign={'center'}
-                            >
-                              {skill.category?.name}
-                            </Typography> */}
       </Box>
     </Stack>
   </Card>
 );
+
 const SingleStackSkillCard = ({
   skill,
-  ...props
 }: {
   skill: (typeof skills)[number];
 }) => (
@@ -72,7 +64,9 @@ const SingleStackSkillCard = ({
     />
     <Typography
       variant='h6'
-      marginLeft={2}
+      sx={{
+        marginLeft: 2,
+      }}
     >
       {skill?.name}
     </Typography>
@@ -80,35 +74,27 @@ const SingleStackSkillCard = ({
 );
 const Skills: React.FC = () => {
   return (
-    <Box>
-      <section className='skillspage__hero-section'>
-        <SectionHeader
-          title='Skills & Expertise'
-          subtitle='Granular breakdown of my technical proficiencies'
-          titleProps={{
-            variant: 'h2',
-            color: 'primary',
-            textTransform: 'uppercase',
-            fontWeight: 'bolder',
-          }}
-          subtitleProps={{
-            variant: 'h4',
-            color: 'textSecondary',
-            textTransform: 'uppercase',
-            fontWeight: 'bold',
-          }}
-        />
-      </section>
-      <section className='skillspage__top-stacks-section'>
+    <Page>
+      <HeroSection
+        bgImageUrl='https://images.pexels.com/photos/4863008/pexels-photo-4863008.jpeg'
+        title='Skills & Expertise'
+        subtitle='Granular breakdown of my technical proficiencies'
+        sx={{
+          backgroundPositionY: 'bottom',
+        }}
+      />
+      <PrimarySection className='skillspage__top-stacks-section'>
         <SectionHeader
           title='Tech Stack'
           subtitle='I find myself coming back to'
         />
         <Container maxWidth='lg'>
           <Grid
-            justifyContent={'center'}
             container
             spacing={4}
+            sx={{
+              justifyContent: 'center',
+            }}
           >
             {favoriteStacks.map((stack) => (
               <Grid
@@ -138,8 +124,8 @@ const Skills: React.FC = () => {
             ))}
           </Grid>
         </Container>
-      </section>
-      <section className='skillspage__skills-list-section'>
+      </PrimarySection>
+      <SecondarySection className='skillspage__skills-list-section'>
         <SectionHeader
           title='All Skills'
           subtitle='A comprehensive overview of my technical capabilities'
@@ -156,7 +142,7 @@ const Skills: React.FC = () => {
                 slotProps={{
                   title: {
                     component: 'h6',
-                    textAlign: 'center',
+                    align: 'center',
                   },
                 }}
               />
@@ -164,9 +150,11 @@ const Skills: React.FC = () => {
               <Divider variant='fullWidth' />
               <CardContent>
                 <Grid
-                  justifyContent={'center'}
                   container
                   spacing={1}
+                  sx={{
+                    justifyContent: 'center',
+                  }}
                 >
                   {skills.map((skill) => (
                     <Grid
@@ -181,8 +169,8 @@ const Skills: React.FC = () => {
             </Card>
           ))}
         </Container>
-      </section>
-    </Box>
+      </SecondarySection>
+    </Page>
   );
 };
 

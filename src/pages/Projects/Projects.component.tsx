@@ -1,4 +1,17 @@
-import { Box, Container, Pagination, Stack } from '@mui/material';
+import {
+  autocompleteClasses,
+  Avatar,
+  Box,
+  Card,
+  CardContent,
+  CardHeader,
+  CardMedia,
+  Chip,
+  Container,
+  Pagination,
+  Stack,
+  useTheme,
+} from '@mui/material';
 import type React from 'react';
 import SectionHeader from '../../components/SectionHeader/SectionHeader.component';
 import FeaturedProject from '../../components/FeaturedProject/FeaturedProject.component';
@@ -16,6 +29,24 @@ import { useMemo, useState } from 'react';
 import type { SkillWithCategory } from '../../assets/skills';
 import ProjectDisplayContainer from '../../components/Container/ProjectDisplayContainer/ProjectDisplayContainer';
 import ProjectFilterContainer from '../../components/Container/ProjectFilterContainer/ProjectFilterContainer';
+import Page from '../Page.component';
+import PrimarySection from '../../components/Section/PrimarySection/PrimarySection.component';
+import SecondarySection from '../../components/Section/SecondarySection/SecondarySection.component';
+import ContrastSection from '../../components/Section/ContrastSection/ContrastSection.component';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import {
+  Pagination as SwiperPagination,
+  Autoplay as SwiperAutoplay,
+  A11y as SwiperA11y,
+  EffectCoverflow as SwiperEffectCoverflow,
+} from 'swiper/modules';
+
+// swiper css
+import 'swiper/css';
+import 'swiper/css/pagination';
+import 'swiper/css/a11y';
+import 'swiper/css/effect-coverflow';
+import HeroSection from '../../templates/HeroSection/HeroSection.component';
 
 export const ProjectsPage: React.FC = () => {
   // View Modes
@@ -59,6 +90,8 @@ export const ProjectsPage: React.FC = () => {
     return inView;
   }, [page, filteredProjects, maxPageCount]);
 
+  const theme = useTheme();
+
   const onPageChange = (_event: React.ChangeEvent<unknown>, value: number) => {
     setPage(value);
   };
@@ -72,47 +105,83 @@ export const ProjectsPage: React.FC = () => {
   };
 
   return (
-    <Box>
-      <section className='projectspage__hero-section'>
-        <SectionHeader
-          title='The Showcase'
-          subtitle='A selection of my most impactful projects'
-          titleProps={{
-            variant: 'h2',
-            color: 'primary',
-            textTransform: 'uppercase',
-            fontWeight: 'bolder',
+    <Page>
+      <HeroSection
+        bgImageUrl='https://images.pexels.com/photos/8168570/pexels-photo-8168570.png'
+        title='The Showcase'
+        subtitle='A selection of my most impactful projects'
+      />
+      <ContrastSection className='projectspage__featured-section'>
+        <Container
+          maxWidth='md'
+          sx={{
+            height: {
+              md: '400px',
+              sm: '300px',
+              xs: '60vh',
+            },
           }}
-          subtitleProps={{
-            variant: 'h4',
-            color: 'textSecondary',
-            textTransform: 'uppercase',
-            fontWeight: 'bold',
-          }}
-        />
-      </section>
-      <section className='projectspage__featured-section'>
-        {featuredProjects.map((project) => (
-          <FeaturedProject
-            key={uuid.v7()}
-            // className='projectspage__featured-project'
-            project={project}
-            sx={{
-              'display': 'flex',
-              'flexDirection': 'row',
-              'alignItems': 'center',
-              ':nth-child(odd)': {
-                justifyContent: 'flex-start',
-              },
-              ':nth-child(even)': {
-                flexDirection: 'row-reverse',
-                // justifyContent: 'flex-end',
-              },
+        >
+          <Swiper
+            style={{
+              width: '100%',
+              height: '100%',
             }}
-          />
-        ))}
-      </section>
-      <section className='projectspage__projects-list-section'>
+            modules={[
+              SwiperPagination,
+              SwiperAutoplay,
+              SwiperA11y,
+              SwiperEffectCoverflow,
+            ]}
+            effect='coverflow'
+            coverflowEffect={{
+              rotate: 70,
+              stretch: 0,
+              depth: 100,
+              modifier: 1,
+              slideShadows: true,
+            }}
+            autoplay={{
+              delay: 2500,
+              enabled: true,
+              pauseOnMouseEnter: true,
+            }}
+            pagination={{
+              clickable: true,
+            }}
+            a11y={{
+              enabled: true,
+              prevSlideMessage: `Previous Featured Project`,
+              nextSlideMessage: `Next Featured Project`,
+            }}
+            direction='vertical'
+            loop={true}
+            mousewheel={true}
+            grabCursor={true}
+            spaceBetween={5}
+            slidesPerView={1}
+            speed={300}
+          >
+            {featuredProjects.map((project) => (
+              <SwiperSlide
+                key={`swiper-swiperslide-${JSON.stringify(project)}`}
+                style={{
+                  width: '100%',
+                  height: '100%',
+
+                  display: 'flex',
+                  justifyContent: 'stretch',
+                  alignItems: 'stretch',
+                  gap: '1rem',
+                }}
+              >
+                <FeaturedProject project={project} />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </Container>
+      </ContrastSection>
+      <SecondarySection className='projectspage__projects-list-section'>
         <SectionHeader
           pretitle='A bit more detailed'
           title='Projects List'
@@ -121,8 +190,10 @@ export const ProjectsPage: React.FC = () => {
           <Stack
             direction={{ xs: 'column', xl: 'row' }}
             // justifyContent={'center'}
-            alignItems={{ xs: 'center', xl: 'flex-start' }}
-            gap={1}
+            sx={{
+              alignItems: { xs: 'center', xl: 'flex-start' },
+              gap: 1,
+            }}
           >
             <ProjectFilterContainer
               allPossibleFilters={skillsWithCategory}
@@ -139,9 +210,11 @@ export const ProjectsPage: React.FC = () => {
           </Stack>
         </Container>
         <Stack
-          margin={4}
           direction={'row'}
-          justifyContent={'center'}
+          sx={{
+            margin: 4,
+            justifyContent: 'center',
+          }}
         >
           <Pagination
             page={page}
@@ -151,8 +224,8 @@ export const ProjectsPage: React.FC = () => {
             color='primary'
           />
         </Stack>
-      </section>
-    </Box>
+      </SecondarySection>
+    </Page>
   );
 };
 export default ProjectsPage;

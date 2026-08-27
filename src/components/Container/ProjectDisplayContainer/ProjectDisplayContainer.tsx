@@ -3,7 +3,6 @@ import { ProjectGridCard } from '../../Cards/ProjectGridCard/ProjectGridCard';
 import ProjectListCard from '../../Cards/ProjectListCard/ProjectListCard';
 import * as uuid from 'uuid';
 import type { ProjectWithSkills } from '../../../assets/projects-skills';
-import { useEffect } from 'react';
 
 interface ProjectDisplayContainerProps {
   projects: ProjectWithSkills[];
@@ -16,16 +15,6 @@ export const ProjectDisplayContainer = ({
   viewMode = 'grid',
   animationTimeout = 1000,
 }: ProjectDisplayContainerProps) => {
-  useEffect(() => {
-    console.log(`ProjectDisplayContainer rendered...`);
-  }, []);
-  useEffect(() => {
-    console.log(`projects changed: ${JSON.stringify(projects)}`);
-  }, [projects]);
-  useEffect(() => {
-    console.log(`ProjectDisplayContainer re-rendered on props change...`);
-  }, [projects, viewMode, animationTimeout]);
-
   return (
     <Container
       maxWidth='lg'
@@ -48,7 +37,6 @@ export const ProjectDisplayContainer = ({
           container
           spacing={2}
         >
-          {/* {filteredProjects.map((_project, _index) => { */}
           {projects.map((_project, _index) => {
             if (viewMode === 'grid')
               return (
@@ -57,7 +45,7 @@ export const ProjectDisplayContainer = ({
                   sx={{
                     display: 'flex',
                     flexDirection: 'column',
-                    flexGrow: 1
+                    flexGrow: 1,
                   }}
                   key={uuid.v7()}
                 >

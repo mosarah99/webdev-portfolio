@@ -17,6 +17,7 @@ import { useNavigate, useParams } from 'react-router';
 import SectionHeader from '../../components/SectionHeader/SectionHeader.component';
 import * as uuid from 'uuid';
 import ProjectDetailsModal from '../../components/Modal/ProjectDetails/ProjectDetailsModal.component';
+import Page from '../Page.component';
 
 // import { projectsList } from '../../assets/projectsList';
 
@@ -79,7 +80,7 @@ const ProjectDetails: React.FC = () => {
     }
   };
 
-  return <Box>{renderProjectDetails()}</Box>;
+  return <Page>{renderProjectDetails()}</Page>;
 };
 
 export default ProjectDetails;

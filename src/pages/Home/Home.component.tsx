@@ -1,18 +1,8 @@
 import {
-  Avatar,
-  Box,
   Button,
   ButtonGroup,
-  Card,
-  CardActionArea,
-  CardContent,
-  CardHeader,
-  CardMedia,
   Container,
-  Divider,
   Grid,
-  Icon,
-  Stack,
   Typography,
   useTheme,
 } from '@mui/material';
@@ -25,6 +15,11 @@ import ContactCard from '../../components/Cards/ContactCard/ContactCard.componen
 import { ProjectGridCard } from '../../components/Cards/ProjectGridCard/ProjectGridCard';
 import { featuredProjects } from '../../assets/projects-skills';
 import { usePageNavigation } from '../../hooks/Navigation/usePageNavigation';
+import Page from '../Page.component';
+import PrimarySection from '../../components/Section/PrimarySection/PrimarySection.component';
+import SecondarySection from '../../components/Section/SecondarySection/SecondarySection.component';
+import ContrastSection from '../../components/Section/ContrastSection/ContrastSection.component';
+import HeroSection from '../../templates/HeroSection/HeroSection.component';
 
 export const Homepage: React.FC = () => {
   const theme = useTheme();
@@ -36,45 +31,16 @@ export const Homepage: React.FC = () => {
     };
 
   return (
-    <Box>
-      <section
-        className='homepage__hero-section'
-        style={{
-          backgroundColor: theme.palette.primary.main,
+    <Page>
+      <HeroSection
+        bgImageUrl='https://images.pexels.com/photos/8168567/pexels-photo-8168567.png'
+        title='Sadat Rahman'
+        subtitle='Web Dev | Full-Stack | Wizard'
+        sx={{
+          minHeight: '100vh',
         }}
-      >
-        <SectionHeader
-          title='Sadat Rahman'
-          subtitle='Web Dev | Full-Stack | Wizard'
-          titleProps={{
-            variant: 'h3',
-            textTransform: 'uppercase',
-            fontWeight: 'bolder',
-            color: theme.palette.getContrastText(theme.palette.primary.main),
-          }}
-          subtitleProps={{
-            color: theme.palette.getContrastText(theme.palette.primary.main),
-          }}
-        />
-        {/* <Container maxWidth='lg'>
-          <Typography
-            color={theme.palette.getContrastText(theme.palette.primary.main)}
-            variant='h2'
-            textTransform={'uppercase'}
-            fontWeight={'bolder'}
-            textAlign={'center'}
-          >
-            Sadat Rahman
-          </Typography>
-          <Typography
-            variant='subtitle1'
-            textAlign={'center'}
-          >
-            Web Dev | Full-Stack | Wizard
-          </Typography>
-        </Container> */}
-      </section>
-      <section
+      />
+      <PrimarySection
         className='homepage__about-section'
         id='about'
       >
@@ -146,8 +112,8 @@ export const Homepage: React.FC = () => {
             </Button>
           </ButtonGroup>
         </Container>
-      </section>
-      <section
+      </PrimarySection>
+      <SecondarySection
         className='homepage__projects-section'
         id='about'
       >
@@ -194,11 +160,8 @@ export const Homepage: React.FC = () => {
             </Button>
           </ButtonGroup>
         </Container>
-      </section>
-      <section
-        className='homepage__contact-section'
-        id='about'
-      >
+      </SecondarySection>
+      <ContrastSection id='about'>
         <SectionHeader
           pretitle={'Interested?'}
           title={"Let's Connect"}
@@ -206,8 +169,8 @@ export const Homepage: React.FC = () => {
         <Container maxWidth='md'>
           <ContactCard />
         </Container>
-      </section>
-    </Box>
+      </ContrastSection>
+    </Page>
   );
 };
 
