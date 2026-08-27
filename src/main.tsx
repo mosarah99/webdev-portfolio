@@ -9,7 +9,7 @@ import './index.css';
 import App from './App.tsx';
 import { NuqsAdapter } from 'nuqs/adapters/react';
 
-export const Root = () => {
+export const AppBase = () => {
   return (
     <StrictMode>
       <ThemeProvider
@@ -26,5 +26,7 @@ export const Root = () => {
     </StrictMode>
   );
 };
+
+export const Root = () => <AppBase />;
 
 createRoot(document.getElementById('root')!).render(<Root />);

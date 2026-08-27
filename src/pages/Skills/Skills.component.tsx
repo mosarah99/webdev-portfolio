@@ -148,7 +148,7 @@ const Skills: React.FC = () => {
                 slotProps={{
                   title: {
                     component: 'h6',
-                    textAlign: 'center',
+                    align: 'center',
                   },
                 }}
               />

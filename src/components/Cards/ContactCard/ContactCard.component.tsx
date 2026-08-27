@@ -28,14 +28,18 @@ export const ContactInfoItem = (props: ContactInfoItemProps) => {
   return (
     <Stack
       direction={'row'}
-      alignItems={'center'}
       spacing={spacing}
+      sx={{
+        alignItems: 'center',
+      }}
     >
       <Stack
-        alignItems={'flex-end'}
         direction={'row'}
         spacing={spacing}
-        flexGrow={1}
+        sx={{
+          alignItems: 'flex-end',
+          flexGrow: '1',
+        }}
       >
         {props.icon}
         <Typography>{props.text}</Typography>
@@ -61,11 +65,13 @@ export const ContactCard = () => {
       <Stack direction={'row'}>
         <Stack
           direction={'column'}
-          justifyContent={'center'}
-          alignItems={'flex-start'}
-          marginRight={'3rem'}
-          minWidth={'50%'}
-          flexGrow={1}
+          sx={{
+            justifyContent: 'center',
+            alignItems: 'flex-start',
+            marginRight: '3',
+            minWidth: '50%',
+            flexGrow: 1,
+          }}
         >
           <CardHeader
             title='Sadat Rahman'

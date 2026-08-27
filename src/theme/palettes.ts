@@ -55,8 +55,8 @@ export const themePalettes: { [key: string]: ThemePalette } = {
           main: '#2a7d2e',
         },
         background: {
-          default: '#e3e3e3',
-          paper: '#eee',
+          default: '#e3e3ee',
+          paper: '#eef',
         },
       },
     },

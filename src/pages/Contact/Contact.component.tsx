@@ -55,19 +55,16 @@ export const ContactsPage = () => {
             pretitle='Professional presence on'
             title='LinkedIn'
           />
-          <Card>
-            <Box
-              component='iframe'
-              src='https://widgets.sociablekit.com/linkedin-profile-posts/iframe/25693876'
-              sx={{
-                width: '100%',
-                border: 0,
-                height: '20rem',
-                maxHeight: '800px',
-                margin: 0,
-              }}
-            />
-          </Card>
+          <Box
+            component='iframe'
+            src='https://widgets.sociablekit.com/linkedin-profile-posts/iframe/25693876'
+            sx={{
+              width: '100%',
+              border: 0,
+              height: '20rem',
+              maxHeight: '800px',
+            }}
+          />
         </Container>
       </SecondarySection>
       <PrimarySection>

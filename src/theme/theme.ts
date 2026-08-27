@@ -6,11 +6,6 @@ import {
 } from '@mui/material';
 import { type ThemePalette } from './palettes';
 
-/**
- * TODO: Consider migrating to the newer theme creation approach in MUI v6 for better type safety and flexibility.
- * Use color-presets instead of color palettes for more granular control over theme customization.
- */
-
 export const generateThemeOptions = (
   colorSchemes: ThemePalette,
 ): ThemeOptions => ({
@@ -21,9 +16,8 @@ export const generateThemeOptions = (
         {
           props: (_props) => true, // Apply this variant to all Paper components
           style: ({ theme }) => ({
-            backgroundColor: alpha(theme.palette.background.paper, 0.4),
-            backdropFilter: 'blur(100px)',
-            // WebkitBackdropFilter: 'blur(100px)',
+            backgroundColor: alpha(theme.palette.background.paper, 0.8),
+            backdropFilter: 'blur(.5rem)',
             boxShadow: theme.shadows[4],
           }),
         },
@@ -69,9 +63,9 @@ export const generateThemeOptions = (
     },
     MuiAppBar: {
       defaultProps: {
-        color: 'primary'
-      }
-    }
+        color: 'primary',
+      },
+    },
   },
   shape: {
     borderRadius: 15,
