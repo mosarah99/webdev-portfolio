@@ -15,7 +15,7 @@ import {
 } from '@mui/material';
 import * as uuid from 'uuid';
 
-import './Navbar.style.css';
+import './PrimaryHeader.style.css';
 
 import { Settings, LightMode, DarkMode } from '@mui/icons-material';
 
@@ -114,9 +114,11 @@ export const Navbar = () => {
           <Paper component={'nav'}>
             {navLinks.map(({ label, link }) => (
               <NavButton
-                className='nav-btn'
                 link={link}
                 key={uuid.v7()}
+                sx={{
+                  paddingX: 3,
+                }}
               >
                 {label}
               </NavButton>
