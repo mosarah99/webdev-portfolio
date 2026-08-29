@@ -12,16 +12,13 @@ export const generateThemeOptions = (
   colorSchemes: colorSchemes,
   components: {
     MuiPaper: {
-      variants: [
-        {
-          props: (_props) => true, // Apply this variant to all Paper components
-          style: ({ theme }) => ({
-            backgroundColor: alpha(theme.palette.background.paper, 0.8),
-            backdropFilter: 'blur(.5rem)',
-            boxShadow: theme.shadows[4],
-          }),
-        },
-      ],
+      styleOverrides: {
+        root: ({ theme }) => ({
+          backgroundColor: alpha(theme.palette.background.paper, 0.8),
+          backdropFilter: 'blur(.5rem)',
+          boxShadow: theme.shadows[4],
+        }),
+      },
     },
     MuiTooltip: {
       defaultProps: {
@@ -63,7 +60,19 @@ export const generateThemeOptions = (
     },
     MuiAppBar: {
       defaultProps: {
-        color: 'primary',
+        enableColorOnDark: true,
+        position: 'fixed',
+        color: 'transparent',
+        // variant: 'outlined',
+        elevation: 100,
+      },
+      styleOverrides: {
+        // root: {
+        //   background: 'initial',
+        //   backdropFilter: 'initial',
+        //   boxShadow: 'initial',
+        //   border: 'initial',
+        // },
       },
     },
   },

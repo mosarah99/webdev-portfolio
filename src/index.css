@@ -1,14 +1,13 @@
 body {
-    margin: 0;
-    padding: 0;
-    scroll-behavior: smooth;
+  margin: 0;
+  padding: 0;
+  scroll-behavior: smooth;
 }
 
 img {
-    pointer-events: none;
+  pointer-events: none;
 }
 
-
 * {
-    transition: all 300ms ease-in-out;
+  transition: all 300ms ease-in;
 }

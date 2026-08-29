@@ -7,15 +7,16 @@ import { useMemo } from 'react';
 // import { useNavigate } from 'react-router';
 import { usePageNavigation } from '../../hooks/Navigation/usePageNavigation';
 import {
+  ButtonGroup,
   IconButton,
   Button as MuiButton,
-  Typography,
+  Paper,
   useColorScheme,
   type ButtonProps as MuiButtonProps,
 } from '@mui/material';
 import * as uuid from 'uuid';
 
-import './Navbar.style.css';
+import './PrimaryHeader.style.css';
 
 import { Settings, LightMode, DarkMode } from '@mui/icons-material';
 
@@ -82,55 +83,61 @@ export const Navbar = () => {
   };
 
   return (
-    <AppBar position='fixed'>
+    <AppBar>
       <Container maxWidth='xl'>
         <Toolbar
           disableGutters
-          sx={{ display: 'flex', justifyContent: 'flex-start' }}
+          sx={{
+            gap: 1,
+          }}
         >
-          <Box>
+          <Paper>
             <NavButton
               link='/'
               sx={{
                 textTransform: 'none',
 
                 fontFamily: [
-                  'sans-serif',
-                  'ui-sans-serif',
-                  'Roboto',
-                  'Eagle Lake',
-                  'Plaster',
-                ],
-                fontWeight: 'bold',
-                fontStyle: 'normal',
+                  `'Plaster'`,
+                  `'Eagle Lake'`,
+                  `'Roboto'`,
+                  `'sans-serif'`,
+                  `'ui-sans-serif'`,
+                ].join(', '),
               }}
             >
               mosarah99
             </NavButton>
-          </Box>
+          </Paper>
           <Box sx={{ flexGrow: 1 }} />
-          <Box
-            component={'nav'}
-            color={'inherit'}
-          >
-            {navLinks.map(({ label, link }) => (
-              <NavButton
-                className='nav-btn'
-                link={link}
-                key={uuid.v7()}
-              >
-                {label}
-              </NavButton>
-            ))}
-          </Box>
-          <Box>
+          <Paper component={'nav'}>
+            <ButtonGroup
+              variant='text'
+              sx={{
+                border: 'none',
+              }}
+            >
+              {navLinks.map(({ label, link }) => (
+                <NavButton
+                  link={link}
+                  key={uuid.v7()}
+                  sx={{
+                    paddingX: 3,
+                  }}
+                >
+                  {label}
+                </NavButton>
+              ))}
+            </ButtonGroup>
+          </Paper>
+          <Paper sx={{ borderRadius: '50%' }}>
             <IconButton
               onClick={toggleMode}
               color='inherit'
             >
               {ColorSchemeIcon}
             </IconButton>
-          </Box>
+          </Paper>
         </Toolbar>
       </Container>
     </AppBar>

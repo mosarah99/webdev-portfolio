@@ -13,10 +13,15 @@ export const Section = ({
       component={component}
       sx={[
         {
-          padding: {
-            md: '1rem',
-            sm: '.75rem',
-            xs: '.5rem',
+          paddingX: {
+            md: 1,
+            sm: 0.75,
+            xs: 0.5,
+          },
+          paddingY: {
+            md: 5,
+            sm: 3,
+            xs: 2,
           },
         },
         ...(Array.isArray(sx) ? sx : [sx]),

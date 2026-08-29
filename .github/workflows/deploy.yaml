@@ -17,7 +17,7 @@ concurrency:
   group: 'pages'
   cancel-in-progress: false
 
-jobs: 
+jobs:
   build-and-deploy:
     environment:
       name: github-pages
@@ -33,7 +33,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 24
-          # cache: 'npm'
+          cache: 'npm'
 
       # Step 3: Install dependencies
       - name: Install Dependencies
@@ -61,6 +61,6 @@ jobs:
       # Step 5: Deploy to GH Pages
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4
-        with: 
+        with:
           folder: dist
           branch: gh-pages

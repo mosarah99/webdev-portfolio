@@ -1,6 +1,6 @@
 import { Box } from '@mui/material';
 import './App.css';
-import Navbar from './components/Navbar/Navbar.component';
+import Navbar from './templates/PrimaryHeader/PrimaryHeader.component';
 
 import { pages } from './pages/pagesSchema';
 import { Router as PageRouter } from './components/Navigation/Router/Router.component';
