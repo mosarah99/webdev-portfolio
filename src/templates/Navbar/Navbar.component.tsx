@@ -9,7 +9,7 @@ import { usePageNavigation } from '../../hooks/Navigation/usePageNavigation';
 import {
   IconButton,
   Button as MuiButton,
-  Typography,
+  Paper,
   useColorScheme,
   type ButtonProps as MuiButtonProps,
 } from '@mui/material';
@@ -82,37 +82,36 @@ export const Navbar = () => {
   };
 
   return (
-    <AppBar position='fixed'>
+    <AppBar>
       <Container maxWidth='xl'>
         <Toolbar
           disableGutters
-          sx={{ display: 'flex', justifyContent: 'flex-start' }}
+          sx={{
+            gap: 1,
+          }}
         >
-          <Box>
+          <Paper>
             <NavButton
               link='/'
               sx={{
                 textTransform: 'none',
 
                 fontFamily: [
-                  'sans-serif',
-                  'ui-sans-serif',
-                  'Roboto',
-                  'Eagle Lake',
-                  'Plaster',
-                ],
-                fontWeight: 'bold',
-                fontStyle: 'normal',
+                  `'Plaster'`,
+                  `'Eagle Lake'`,
+                  `'Roboto'`,
+                  `'sans-serif'`,
+                  `'ui-sans-serif'`,
+                ].join(', '),
+                // fontWeight: 'normal',
+                // fontStyle: 'normal',
               }}
             >
               mosarah99
             </NavButton>
-          </Box>
+          </Paper>
           <Box sx={{ flexGrow: 1 }} />
-          <Box
-            component={'nav'}
-            color={'inherit'}
-          >
+          <Paper component={'nav'}>
             {navLinks.map(({ label, link }) => (
               <NavButton
                 className='nav-btn'
@@ -122,15 +121,15 @@ export const Navbar = () => {
                 {label}
               </NavButton>
             ))}
-          </Box>
-          <Box>
+          </Paper>
+          <Paper sx={{ borderRadius: '50%' }}>
             <IconButton
               onClick={toggleMode}
               color='inherit'
             >
               {ColorSchemeIcon}
             </IconButton>
-          </Box>
+          </Paper>
         </Toolbar>
       </Container>
     </AppBar>
