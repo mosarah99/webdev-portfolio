@@ -7,6 +7,7 @@ import { useMemo } from 'react';
 // import { useNavigate } from 'react-router';
 import { usePageNavigation } from '../../hooks/Navigation/usePageNavigation';
 import {
+  ButtonGroup,
   IconButton,
   Button as MuiButton,
   Paper,
@@ -103,8 +104,6 @@ export const Navbar = () => {
                   `'sans-serif'`,
                   `'ui-sans-serif'`,
                 ].join(', '),
-                // fontWeight: 'normal',
-                // fontStyle: 'normal',
               }}
             >
               mosarah99
@@ -112,17 +111,24 @@ export const Navbar = () => {
           </Paper>
           <Box sx={{ flexGrow: 1 }} />
           <Paper component={'nav'}>
-            {navLinks.map(({ label, link }) => (
-              <NavButton
-                link={link}
-                key={uuid.v7()}
-                sx={{
-                  paddingX: 3,
-                }}
-              >
-                {label}
-              </NavButton>
-            ))}
+            <ButtonGroup
+              variant='text'
+              sx={{
+                border: 'none',
+              }}
+            >
+              {navLinks.map(({ label, link }) => (
+                <NavButton
+                  link={link}
+                  key={uuid.v7()}
+                  sx={{
+                    paddingX: 3,
+                  }}
+                >
+                  {label}
+                </NavButton>
+              ))}
+            </ButtonGroup>
           </Paper>
           <Paper sx={{ borderRadius: '50%' }}>
             <IconButton
