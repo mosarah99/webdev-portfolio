@@ -22,6 +22,8 @@ import PrimarySection from '../../components/Section/PrimarySection/PrimarySecti
 import SecondarySection from '../../components/Section/SecondarySection/SecondarySection.component';
 import HeroSection from '../../templates/HeroSection/HeroSection.component';
 
+// TODO: move this component to templates folder
+// TODO: reconsider UI/UX
 const SingleSkillCard = ({ skill }: { skill: (typeof skills)[number] }) => (
   <Card variant='outlined'>
     <Stack
@@ -84,6 +86,9 @@ const Skills: React.FC = () => {
         }}
       />
       <PrimarySection className='skillspage__top-stacks-section'>
+        {/* 
+            TODO: Dilute into 2 sections 
+        */}
         <SectionHeader
           title='Tech Stack'
           subtitle='I find myself coming back to'
@@ -126,6 +131,11 @@ const Skills: React.FC = () => {
         </Container>
       </PrimarySection>
       <SecondarySection className='skillspage__skills-list-section'>
+        {/* 
+            TODO: implement scroll spy (react scroll spy) to observe the categories in view 
+            TODO: implement a sticky side navigation for the categories
+
+        */}
         <SectionHeader
           title='All Skills'
           subtitle='A comprehensive overview of my technical capabilities'
