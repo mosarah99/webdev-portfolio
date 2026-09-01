@@ -10,4 +10,5 @@ img {
 
 * {
   transition: all 300ms ease-in;
+  scroll-margin-top: 2rem;
 }
