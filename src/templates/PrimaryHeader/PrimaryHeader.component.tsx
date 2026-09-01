@@ -12,6 +12,8 @@ import {
   Button as MuiButton,
   Paper,
   useColorScheme,
+  useScrollTrigger,
+  useTheme,
   type ButtonProps as MuiButtonProps,
 } from '@mui/material';
 import * as uuid from 'uuid';
@@ -52,6 +54,12 @@ const navLinks = [
 
 export const Navbar = () => {
   const { mode, setMode } = useColorScheme();
+  const theme = useTheme();
+
+  const trigger = useScrollTrigger({
+    disableHysteresis: true,
+    threshold: 0,
+  });
 
   const ColorSchemeIcon = useMemo(() => {
     switch (mode) {
@@ -83,12 +91,32 @@ export const Navbar = () => {
   };
 
   return (
-    <AppBar>
+    <AppBar
+      elevation={
+        trigger ? theme.components?.MuiAppBar?.defaultProps?.elevation || 15 : 0
+      }
+      sx={[
+        !trigger
+          ? {
+              backgroundColor: theme.alpha(theme.palette.common.white, 0),
+              backdropFilter: 'initial',
+              boxShadow: 'initial',
+            }
+          : {},
+      ]}
+    >
       <Container maxWidth='xl'>
         <Toolbar
+          variant={trigger ? 'dense' : 'regular'}
           disableGutters
           sx={{
             gap: 1,
+            minHeight: !trigger
+              ? {
+                  xs: '60px',
+                  md: '80px',
+                }
+              : null,
           }}
         >
           <Paper>

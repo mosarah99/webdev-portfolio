@@ -64,7 +64,7 @@ export const generateThemeOptions = (
         position: 'fixed',
         color: 'transparent',
         // variant: 'outlined',
-        elevation: 100,
+        elevation: 10,
       },
       styleOverrides: {
         // root: {
