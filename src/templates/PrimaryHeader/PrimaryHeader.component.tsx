@@ -21,38 +21,10 @@ import * as uuid from 'uuid';
 import './PrimaryHeader.style.css';
 
 import { Settings, LightMode, DarkMode } from '@mui/icons-material';
+import NavButton from '../../components/NavButton/NavButton.component';
+import Navbar from '../Navbar/Navbar.component';
 
-interface NavButtonProps extends MuiButtonProps {
-  link: string;
-}
-
-const NavButton = ({ link, ...props }: NavButtonProps) => {
-  const navigate = usePageNavigation();
-
-  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-
-    navigate(link);
-  };
-
-  return (
-    <MuiButton
-      color='inherit'
-      {...props}
-      href={props.href || link}
-      onClick={handleClick}
-    />
-  );
-};
-
-const navLinks = [
-  { label: 'About', link: '/home' },
-  { label: 'Projects', link: '/projects' },
-  { label: 'Skills', link: '/skills' },
-  { label: 'Contact', link: '/contact' },
-];
-
-export const Navbar = () => {
+export const PrimaryHeader = () => {
   const { mode, setMode } = useColorScheme();
   const theme = useTheme();
 
@@ -119,7 +91,14 @@ export const Navbar = () => {
               : null,
           }}
         >
-          <Paper>
+          <Paper
+            sx={{
+              flexGrow: {
+                xs: 1,
+                sm: 0,
+              },
+            }}
+          >
             <NavButton
               link='/'
               sx={{
@@ -137,26 +116,24 @@ export const Navbar = () => {
               mosarah99
             </NavButton>
           </Paper>
-          <Box sx={{ flexGrow: 1 }} />
-          <Paper component={'nav'}>
-            <ButtonGroup
-              variant='text'
-              sx={{
-                border: 'none',
-              }}
-            >
-              {navLinks.map(({ label, link }) => (
-                <NavButton
-                  link={link}
-                  key={uuid.v7()}
-                  sx={{
-                    paddingX: 3,
-                  }}
-                >
-                  {label}
-                </NavButton>
-              ))}
-            </ButtonGroup>
+          <Box
+            sx={{
+              flexGrow: {
+                sm: 1,
+                xs: 0,
+              },
+            }}
+          />
+          <Paper
+            component={'nav'}
+            sx={{
+              display: {
+                xs: 'none',
+                md: 'block',
+              },
+            }}
+          >
+            <Navbar />
           </Paper>
           <Paper sx={{ borderRadius: '50%' }}>
             <IconButton
@@ -172,4 +149,4 @@ export const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default PrimaryHeader;
