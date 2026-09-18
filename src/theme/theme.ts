@@ -14,7 +14,10 @@ export const generateThemeOptions = (
     MuiPaper: {
       styleOverrides: {
         root: ({ theme }) => ({
-          backgroundColor: alpha(theme.palette.background.paper, 0.8),
+          backgroundColor: alpha(
+            theme.palette.background.paper,
+            0.8,
+          ),
           backdropFilter: 'blur(.5rem)',
           boxShadow: theme.shadows[4],
         }),
@@ -34,15 +37,16 @@ export const generateThemeOptions = (
           margin: 8,
         },
         switchBase: {
-          'padding': 1,
-          '&$checked, &$colorPrimary$checked, &$colorSecondary$checked': {
-            'transform': 'translateX(16px)',
-            'color': '#fff',
-            '& + $track': {
-              opacity: 1,
-              border: 'none',
+          padding: 1,
+          '&$checked, &$colorPrimary$checked, &$colorSecondary$checked':
+            {
+              transform: 'translateX(16px)',
+              color: '#fff',
+              '& + $track': {
+                opacity: 1,
+                border: 'none',
+              },
             },
-          },
         },
         thumb: {
           width: 24,
@@ -61,7 +65,7 @@ export const generateThemeOptions = (
     MuiAppBar: {
       defaultProps: {
         enableColorOnDark: true,
-        position: 'fixed',
+        position: 'sticky',
         color: 'transparent',
         // variant: 'outlined',
         elevation: 10,
@@ -81,7 +85,8 @@ export const generateThemeOptions = (
   },
 });
 
-export const generateTheme = (palette: ThemePalette): Theme =>
-  createTheme(generateThemeOptions(palette));
+export const generateTheme = (
+  palette: ThemePalette,
+): Theme => createTheme(generateThemeOptions(palette));
 
 export default generateTheme;

@@ -20,7 +20,11 @@ import * as uuid from 'uuid';
 
 import './PrimaryHeader.style.css';
 
-import { Settings, LightMode, DarkMode } from '@mui/icons-material';
+import {
+  Settings,
+  LightMode,
+  DarkMode,
+} from '@mui/icons-material';
 import NavButton from '../../components/NavButton/NavButton.component';
 import Navbar from '../Navbar/Navbar.component';
 
@@ -30,7 +34,7 @@ export const PrimaryHeader = () => {
 
   const trigger = useScrollTrigger({
     disableHysteresis: true,
-    threshold: 0,
+    threshold: 4,
   });
 
   const ColorSchemeIcon = useMemo(() => {
@@ -65,16 +69,24 @@ export const PrimaryHeader = () => {
   return (
     <AppBar
       elevation={
-        trigger ? theme.components?.MuiAppBar?.defaultProps?.elevation || 15 : 0
+        trigger
+          ? theme.components?.MuiAppBar?.defaultProps
+              ?.elevation || 15
+          : 0
       }
       sx={[
         !trigger
           ? {
-              backgroundColor: theme.alpha(theme.palette.common.white, 0),
+              backgroundColor: theme.alpha(
+                theme.palette.common.white,
+                0,
+              ),
               backdropFilter: 'initial',
               boxShadow: 'initial',
             }
-          : {},
+          : {
+            //   position: 'sticky',
+            },
       ]}
     >
       <Container maxWidth='xl'>

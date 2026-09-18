@@ -12,7 +12,10 @@ import {
   Typography,
 } from '@mui/material';
 import SectionHeader from '../../components/SectionHeader/SectionHeader.component';
-import skills, { skillsByCategory, favoriteStacks } from '../../assets/skills';
+import skills, {
+  skillsByCategory,
+  favoriteStacks,
+} from '../../assets/skills';
 import * as uuid from 'uuid';
 
 import './Skills.style.css';
@@ -24,7 +27,11 @@ import HeroSection from '../../templates/HeroSection/HeroSection.component';
 
 // TODO: move this component to templates folder
 // TODO: reconsider UI/UX
-const SingleSkillCard = ({ skill }: { skill: (typeof skills)[number] }) => (
+const SingleSkillCard = ({
+  skill,
+}: {
+  skill: (typeof skills)[number];
+}) => (
   <Card variant='outlined'>
     <Stack
       direction={'row'}
@@ -141,43 +148,48 @@ const Skills: React.FC = () => {
           subtitle='A comprehensive overview of my technical capabilities'
         />
         <Container maxWidth='xl'>
-          {Array.from(skillsByCategory.entries()).map(([category, skills]) => (
-            <Card
-              key={uuid.v7()}
-              elevation={5}
-              sx={{ marginBottom: 4 }}
-            >
-              <CardHeader
-                title={category.name}
-                slotProps={{
-                  title: {
-                    component: 'h6',
-                    align: 'center',
-                  },
-                }}
-              />
-
-              <Divider variant='fullWidth' />
-              <CardContent>
-                <Grid
-                  container
-                  spacing={1}
-                  sx={{
-                    justifyContent: 'center',
+          {Array.from(skillsByCategory.entries()).map(
+            ([category, skills]) => (
+              <Card
+                key={uuid.v7()}
+                elevation={5}
+                sx={{ marginBottom: 4 }}
+              >
+                <CardHeader
+                  title={category.name}
+                  slotProps={{
+                    title: {
+                      component: 'h6',
+                      align: 'center',
+                    },
                   }}
-                >
-                  {skills.map((skill) => (
-                    <Grid
-                      key={uuid.v7()}
-                      size={{ xs: 6, md: 3, lg: 2 }}
-                    >
-                      <SingleSkillCard skill={skill} />
-                    </Grid>
-                  ))}
-                </Grid>
-              </CardContent>
-            </Card>
-          ))}
+                  sx={{
+                    position: 'sticky',
+                  }}
+                />
+
+                <Divider variant='fullWidth' />
+                <CardContent>
+                  <Grid
+                    container
+                    spacing={1}
+                    sx={{
+                      justifyContent: 'center',
+                    }}
+                  >
+                    {skills.map((skill) => (
+                      <Grid
+                        key={uuid.v7()}
+                        size={{ xs: 6, md: 3, lg: 2 }}
+                      >
+                        <SingleSkillCard skill={skill} />
+                      </Grid>
+                    ))}
+                  </Grid>
+                </CardContent>
+              </Card>
+            ),
+          )}
         </Container>
       </SecondarySection>
     </Page>
