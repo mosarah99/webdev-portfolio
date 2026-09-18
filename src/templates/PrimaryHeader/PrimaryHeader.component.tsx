@@ -85,7 +85,7 @@ export const PrimaryHeader = () => {
               boxShadow: 'initial',
             }
           : {
-            //   position: 'sticky',
+              //   position: 'sticky',
             },
       ]}
     >
@@ -130,9 +130,10 @@ export const PrimaryHeader = () => {
           </Paper>
           <Box
             sx={{
-              flexGrow: {
-                sm: 1,
-                xs: 0,
+              flexGrow: 1,
+              display: {
+                xs: 'none',
+                sm: 'block',
               },
             }}
           />
@@ -145,7 +146,7 @@ export const PrimaryHeader = () => {
               },
             }}
           >
-            <Navbar />
+            <Navbar variant={'both'} />
           </Paper>
           <Paper sx={{ borderRadius: '50%' }}>
             <IconButton
