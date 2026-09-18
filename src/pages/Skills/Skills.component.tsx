@@ -20,8 +20,8 @@ import Page from '../Page.component';
 import PrimarySection from '../../components/Section/PrimarySection/PrimarySection.component';
 import SecondarySection from '../../components/Section/SecondarySection/SecondarySection.component';
 import HeroSection from '../../templates/HeroSection/HeroSection.component';
-import SingleSkillCard from '../../templates/SingleSkillCard/SingleSkillCard.component';
 import SingleStackSkillCard from '../../templates/SingleStackSkillCard/SingleStackSkillCard.component';
+import SkillCategoryCard from '../../templates/SkillCategoryCard/SkillCategoryCard.component';
 
 const Skills: React.FC = () => {
   return (
@@ -92,44 +92,11 @@ const Skills: React.FC = () => {
         <Container maxWidth='xl'>
           {Array.from(skillsByCategory.entries()).map(
             ([category, skills]) => (
-              <Card
-                key={uuid.v7()}
-                elevation={5}
-                sx={{ marginBottom: 4 }}
-              >
-                <CardHeader
-                  title={category.name}
-                  slotProps={{
-                    title: {
-                      component: 'h6',
-                      align: 'center',
-                    },
-                  }}
-                  sx={{
-                    position: 'sticky',
-                  }}
-                />
-
-                <Divider variant='fullWidth' />
-                <CardContent>
-                  <Grid
-                    container
-                    spacing={1}
-                    sx={{
-                      justifyContent: 'center',
-                    }}
-                  >
-                    {skills.map((skill) => (
-                      <Grid
-                        key={uuid.v7()}
-                        size={{ xs: 6, md: 3, lg: 2 }}
-                      >
-                        <SingleSkillCard skill={skill} />
-                      </Grid>
-                    ))}
-                  </Grid>
-                </CardContent>
-              </Card>
+              <SkillCategoryCard
+                key={`${category.id}-${JSON.stringify(category)}`}
+                skillCategory={category}
+                skills={skills}
+              />
             ),
           )}
         </Container>
