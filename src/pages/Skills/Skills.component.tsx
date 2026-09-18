@@ -1,18 +1,14 @@
 import {
-  Avatar,
-  Box,
   Card,
   CardContent,
   CardHeader,
-  CardMedia,
   Container,
   Divider,
   Grid,
   Stack,
-  Typography,
 } from '@mui/material';
 import SectionHeader from '../../components/SectionHeader/SectionHeader.component';
-import skills, {
+import {
   skillsByCategory,
   favoriteStacks,
 } from '../../assets/skills';
@@ -24,63 +20,9 @@ import Page from '../Page.component';
 import PrimarySection from '../../components/Section/PrimarySection/PrimarySection.component';
 import SecondarySection from '../../components/Section/SecondarySection/SecondarySection.component';
 import HeroSection from '../../templates/HeroSection/HeroSection.component';
+import SingleSkillCard from '../../templates/SingleSkillCard/SingleSkillCard.component';
+import SingleStackSkillCard from '../../templates/SingleStackSkillCard/SingleStackSkillCard.component';
 
-// TODO: move this component to templates folder
-// TODO: reconsider UI/UX
-const SingleSkillCard = ({
-  skill,
-}: {
-  skill: (typeof skills)[number];
-}) => (
-  <Card variant='outlined'>
-    <Stack
-      direction={'row'}
-      sx={{
-        alignItems: 'center',
-      }}
-    >
-      <CardMedia
-        sx={{
-          aspectRatio: 1,
-          height: '5rem',
-        }}
-        image={skill.icon}
-        title={`${skill.name ?? skill.shortname} icon`}
-      />
-      <Box sx={{ flexGrow: 1, marginLeft: 2 }}>
-        <Typography
-          variant='h6'
-          // textAlign={'center'}
-          // marginBottom={1}
-        >
-          {skill.name}
-        </Typography>
-      </Box>
-    </Stack>
-  </Card>
-);
-
-const SingleStackSkillCard = ({
-  skill,
-}: {
-  skill: (typeof skills)[number];
-}) => (
-  <Stack direction={'row'}>
-    <Avatar
-      src={skill?.icon}
-      alt={`${skill?.name ?? skill?.shortname} icon`}
-      variant='square'
-    />
-    <Typography
-      variant='h6'
-      sx={{
-        marginLeft: 2,
-      }}
-    >
-      {skill?.name}
-    </Typography>
-  </Stack>
-);
 const Skills: React.FC = () => {
   return (
     <Page>
