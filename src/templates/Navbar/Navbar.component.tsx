@@ -5,6 +5,7 @@ import {
   HomeRounded,
   BookRounded,
   LightbulbRounded,
+  PhoneRounded,
 } from '@mui/icons-material';
 
 const navLinks = [
@@ -26,12 +27,22 @@ const navLinks = [
   {
     label: 'Contact',
     link: '/contact',
+    icon: <PhoneRounded />,
   },
 ];
 
-const uuidSet = [...Array(navLinks.length)].map(() => uuid.v7());
+const uuidSet = [...Array(navLinks.length)].map(() =>
+  uuid.v7(),
+);
 
-const Navbar = () => {
+export interface NavbarProps {
+  variant?: 'icon' | 'text' | 'both';
+}
+
+const Navbar = ({
+  variant = 'text',
+  ...props
+}: NavbarProps) => {
   return (
     <ButtonGroup
       variant='text'
@@ -39,15 +50,16 @@ const Navbar = () => {
         border: 'none',
       }}
     >
-      {navLinks.map(({ label, link }, index) => (
+      {navLinks.map(({ label, link, icon }, index) => (
         <NavButton
           link={link}
           key={`nav-button-${link}-${label}-${uuidSet[index]}`}
           sx={{
             paddingX: 3,
           }}
+          startIcon={variant === 'both' ? icon : undefined}
         >
-          {label}
+          {variant !== 'icon' ? label : icon}
         </NavButton>
       ))}
     </ButtonGroup>
