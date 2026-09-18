@@ -1,4 +1,3 @@
-import type { FC } from 'react';
 import type {
   SkillCategory,
   SkillWithCategory,
@@ -35,15 +34,7 @@ export const SkillCategoryCard = (
             align: 'center',
           },
         }}
-        sx={
-          {
-            //   position: 'sticky',
-            // top: '60px',
-            //   zIndex: 1000,
-          }
-        }
       />
-
       <Divider variant='fullWidth' />
       <CardContent>
         <Grid
