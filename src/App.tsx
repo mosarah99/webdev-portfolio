@@ -11,7 +11,7 @@ const App = () => {
       <PrimaryHeader />
       <PageRouter
         pages={pages}
-        siteTitle='Sadat R. Portfolio'
+        title='Sadat R. Portfolio'
       />
     </Box>
   );

@@ -10,7 +10,7 @@ export interface Page {
 }
 
 interface RouterProps extends React.ComponentPropsWithoutRef<'div'> {
-  siteTitle: string;
+  title: string;
   pages: Page[];
 }
 
@@ -60,7 +60,7 @@ export const Router = ({
     console.log(`title: ${JSON.stringify(pageTitle)}`);
     let docTitle =
       (pageTitle ? `${pageTitle} | ` : '') +
-      `${props.siteTitle}`;
+      `${props.title}`;
     document.title = docTitle;
   }, [page]);
 
