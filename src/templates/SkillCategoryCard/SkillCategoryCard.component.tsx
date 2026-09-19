@@ -4,10 +4,7 @@ import type {
 } from '../../assets/skills';
 import {
   Box,
-  Card,
   CardContent,
-  CardHeader,
-  Divider,
   Grid,
   Paper,
   Typography,
@@ -29,7 +26,6 @@ export const SkillCategoryCard = (
   const skillCatRef = useRef<HTMLElement>(null);
 
   const [catNav, setCatNav] = useQueryState('category', {
-    // scroll: true,
     history: 'replace',
     clearOnDefault: true,
   });

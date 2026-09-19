@@ -15,15 +15,23 @@ import {
 import * as uuid from 'uuid';
 
 import './Skills.style.css';
-import React from 'react';
+import React, { useEffect } from 'react';
 import Page from '../Page.component';
 import PrimarySection from '../../components/Section/PrimarySection/PrimarySection.component';
 import SecondarySection from '../../components/Section/SecondarySection/SecondarySection.component';
 import HeroSection from '../../templates/HeroSection/HeroSection.component';
 import SingleStackSkillCard from '../../templates/SingleStackSkillCard/SingleStackSkillCard.component';
 import SkillCategoryCard from '../../templates/SkillCategoryCard/SkillCategoryCard.component';
+import { useQueryState } from 'nuqs';
 
 const Skills: React.FC = () => {
+  const [_, setCategory] = useQueryState('category');
+  useEffect(() => {
+    return () => {
+      setCategory(null);
+    };
+  }, []);
+
   return (
     <Page>
       <HeroSection
