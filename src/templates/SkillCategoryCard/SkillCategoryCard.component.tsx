@@ -3,11 +3,14 @@ import type {
   SkillWithCategory,
 } from '../../assets/skills';
 import {
+  Box,
   Card,
   CardContent,
   CardHeader,
   Divider,
   Grid,
+  Paper,
+  Typography,
 } from '@mui/material';
 import SingleSkillCard from '../SingleSkillCard/SingleSkillCard.component';
 
@@ -22,39 +25,46 @@ export const SkillCategoryCard = (
   const { skillCategory: category, skills } = props;
 
   return (
-    <Card
-      elevation={5}
-      sx={{ marginBottom: 4 }}
+    <Box
+      sx={(theme) => ({
+        marginBottom: theme.spacing(10),
+      })}
     >
-      <CardHeader
-        title={category.name}
-        slotProps={{
-          title: {
-            component: 'h6',
-            align: 'center',
-          },
-        }}
-      />
-      <Divider variant='fullWidth' />
-      <CardContent>
-        <Grid
-          container
-          spacing={1}
-          sx={{
-            justifyContent: 'center',
-          }}
-        >
-          {skills.map((skill) => (
-            <Grid
-              key={`${skill.id}-${skill}`}
-              size={{ xs: 6, md: 3, lg: 2 }}
-            >
-              <SingleSkillCard skill={skill} />
-            </Grid>
-          ))}
-        </Grid>
-      </CardContent>
-    </Card>
+      <Box
+        component={Paper}
+        sx={(theme) => ({
+          padding: theme.spacing(2),
+          position: 'sticky',
+          top: '60px',
+          zIndex: theme.zIndex.mobileStepper,
+        })}
+      >
+        <Typography variant='h3'>
+          {category.name}
+        </Typography>
+      </Box>
+
+      <Box>
+        <CardContent>
+          <Grid
+            container
+            spacing={1}
+            sx={{
+              justifyContent: 'center',
+            }}
+          >
+            {skills.map((skill) => (
+              <Grid
+                key={`${skill.id}-${skill}`}
+                size={{ xs: 6, md: 3, lg: 2 }}
+              >
+                <SingleSkillCard skill={skill} />
+              </Grid>
+            ))}
+          </Grid>
+        </CardContent>
+      </Box>
+    </Box>
   );
 };
 
