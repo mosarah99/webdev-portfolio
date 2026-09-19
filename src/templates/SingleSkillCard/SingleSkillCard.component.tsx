@@ -42,7 +42,7 @@ export const SingleSkillCard = ({
 
   return (
     <Box ref={cardRef}>
-      <Card variant='outlined'>
+      <Card variant='elevation'>
         <Box
           // component={Paper}
           sx={{
@@ -71,10 +71,12 @@ export const SingleSkillCard = ({
           >
             <Box
               component={Card}
-              sx={{
+              sx={(theme) => ({
                 padding: 2,
                 // width: '100%'
-              }}
+                backgroundColor:
+                  theme.palette.background.default,
+              })}
             >
               <Typography variant='h4'>
                 {skill.shortname}
