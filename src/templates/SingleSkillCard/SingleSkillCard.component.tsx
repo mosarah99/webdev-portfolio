@@ -2,44 +2,95 @@ import {
   Box,
   Card,
   CardMedia,
-  Stack,
+  Collapse,
   Typography,
 } from '@mui/material';
 import type { SkillWithCategory } from '../../assets/skills';
+import { useEffect, useRef, useState } from 'react';
 
-// TODO: move this component to templates folder
-// TODO: reconsider UI/UX
+export interface SingleSkillCardProps {
+  skill: SkillWithCategory;
+}
+
 export const SingleSkillCard = ({
   skill,
-}: {
-  skill: SkillWithCategory;
-}) => (
-  <Card variant='outlined'>
-    <Stack
-      direction={'row'}
-      sx={{
-        alignItems: 'center',
-      }}
-    >
-      <CardMedia
-        sx={{
-          aspectRatio: 1,
-          height: '5rem',
-        }}
-        image={skill.icon}
-        title={`${skill.name ?? skill.shortname} icon`}
-      />
-      <Box sx={{ flexGrow: 1, marginLeft: 2 }}>
-        <Typography
-          variant='h6'
-          // textAlign={'center'}
-          // marginBottom={1}
+}: SingleSkillCardProps) => {
+  const cardRef = useRef<HTMLElement>(null);
+  const [collapsedState, setCollapsedState] =
+    useState<boolean>(true);
+
+  useEffect(() => {
+    const card = cardRef.current;
+    const handlemouseenter = () => setCollapsedState(false);
+    const handlemouseleave = () => setCollapsedState(true);
+    if (card) {
+      card.addEventListener('mouseenter', handlemouseenter);
+      card.addEventListener('mouseleave', handlemouseleave);
+    }
+
+    return () => {
+      card?.removeEventListener(
+        'mouseenter',
+        handlemouseenter,
+      );
+      card?.removeEventListener(
+        'mouseleave',
+        handlemouseleave,
+      );
+    };
+  }, [cardRef.current]);
+
+  return (
+    <Box ref={cardRef}>
+      <Card variant='outlined'>
+        <Box
+          // component={Paper}
+          sx={{
+            padding: 2,
+          }}
         >
-          {skill.name}
-        </Typography>
-      </Box>
-    </Stack>
-  </Card>
-);
+          <CardMedia
+            image={skill.icon}
+            sx={{
+              width: '100%',
+              aspectRatio: 1,
+              objectFit: 'cover',
+            }}
+          />
+        </Box>
+        <Box
+          sx={{
+            position: 'absolute',
+            bottom: '0',
+            width: '100%',
+          }}
+        >
+          <Collapse
+            in={!collapsedState}
+            // collapsedSize={60}
+          >
+            <Box
+              component={Card}
+              sx={{
+                padding: 2,
+                // width: '100%'
+              }}
+            >
+              <Typography variant='h4'>
+                {skill.shortname}
+              </Typography>
+              <Typography variant='body1'>
+                {skill.name}
+              </Typography>
+              <Typography variant='caption'>
+                {skill.category?.name}
+              </Typography>
+            </Box>
+          </Collapse>
+        </Box>
+      </Card>
+    </Box>
+  );
+};
 
 export default SingleSkillCard;
