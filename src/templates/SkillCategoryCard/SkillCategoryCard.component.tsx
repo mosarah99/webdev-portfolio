@@ -31,7 +31,7 @@ export const SkillCategoryCard = (
   });
 
   useEffect(() => {
-    if (catNav === category.id) {
+    if (catNav === category.slug) {
       skillCatRef.current?.scrollIntoView({
         behavior: 'smooth',
       });
@@ -60,7 +60,7 @@ export const SkillCategoryCard = (
             },
           },
         })}
-        onClick={() => setCatNav(category.id)}
+        onClick={() => setCatNav(category.slug)}
       >
         <Typography
           variant='h3'
