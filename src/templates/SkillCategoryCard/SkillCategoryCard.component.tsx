@@ -13,6 +13,9 @@ import {
   Typography,
 } from '@mui/material';
 import SingleSkillCard from '../SingleSkillCard/SingleSkillCard.component';
+import { useQueryState } from 'nuqs';
+import { useEffect, useRef } from 'react';
+import { LinkRounded } from '@mui/icons-material';
 
 interface SkillCategoryCardProps {
   skillCategory: SkillCategory;
@@ -23,9 +26,24 @@ export const SkillCategoryCard = (
   props: SkillCategoryCardProps,
 ) => {
   const { skillCategory: category, skills } = props;
+  const skillCatRef = useRef<HTMLElement>(null);
+
+  const [catNav, setCatNav] = useQueryState('category', {
+    // scroll: true,
+    history: 'replace',
+    clearOnDefault: true,
+  });
+
+  useEffect(() => {
+    if (catNav === category.id) {
+      skillCatRef.current?.scrollIntoView({
+        behavior: 'smooth',
+      });
+    }
+  }, [catNav]);
 
   return (
-    <Box>
+    <Box ref={skillCatRef}>
       <Box
         component={Paper}
         sx={(theme) => ({
@@ -33,10 +51,33 @@ export const SkillCategoryCard = (
           position: 'sticky',
           top: '60px',
           zIndex: theme.zIndex.mobileStepper,
+          '.skill-header-icon': {
+            opacity: {
+              xs: 1,
+              md: 0,
+            },
+          },
+          ':hover': {
+            cursor: 'pointer',
+            '.skill-header-icon': {
+              opacity: 1,
+            },
+          },
         })}
+        onClick={() => setCatNav(category.id)}
       >
-        <Typography variant='h3'>
+        <Typography
+          variant='h3'
+          sx={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+          }}
+        >
           {category.name}
+          <span className='skill-header-icon'>
+            <LinkRounded />
+          </span>
         </Typography>
       </Box>
 
