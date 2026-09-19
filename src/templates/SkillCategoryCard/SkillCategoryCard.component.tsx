@@ -25,11 +25,7 @@ export const SkillCategoryCard = (
   const { skillCategory: category, skills } = props;
 
   return (
-    <Box
-      sx={(theme) => ({
-        marginBottom: theme.spacing(10),
-      })}
-    >
+    <Box>
       <Box
         component={Paper}
         sx={(theme) => ({

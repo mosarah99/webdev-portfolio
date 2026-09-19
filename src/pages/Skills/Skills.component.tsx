@@ -90,15 +90,21 @@ const Skills: React.FC = () => {
           subtitle='A comprehensive overview of my technical capabilities'
         />
         <Container maxWidth='xl'>
-          {Array.from(skillsByCategory.entries()).map(
-            ([category, skills]) => (
-              <SkillCategoryCard
-                key={`${category.id}-${JSON.stringify(category)}`}
-                skillCategory={category}
-                skills={skills}
-              />
-            ),
-          )}
+          <Stack
+            sx={(theme) => ({
+              gap: theme.spacing(10),
+            })}
+          >
+            {Array.from(skillsByCategory.entries()).map(
+              ([category, skills]) => (
+                <SkillCategoryCard
+                  key={`${category.id}-${JSON.stringify(category)}`}
+                  skillCategory={category}
+                  skills={skills}
+                />
+              ),
+            )}
+          </Stack>
         </Container>
       </SecondarySection>
     </Page>
