@@ -16,13 +16,16 @@ import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import LaunchIcon from '@mui/icons-material/Launch';
+import useCopyToClipboard from '../../../hooks/Utilities/useCopyToClipboard';
 
 export interface ContactInfoItemProps {
   actionButton?: ReactNode;
   icon: ReactNode;
   text: string;
 }
-export const ContactInfoItem = (props: ContactInfoItemProps) => {
+export const ContactInfoItem = (
+  props: ContactInfoItemProps,
+) => {
   const spacing = 2;
 
   return (
@@ -49,9 +52,7 @@ export const ContactInfoItem = (props: ContactInfoItemProps) => {
   );
 };
 export const ContactCard = () => {
-  const copyToClipboard = (text: string) => {
-    navigator.clipboard.writeText(text);
-  };
+  const copyToClipboard = useCopyToClipboard();
 
   return (
     <Card
@@ -99,7 +100,11 @@ export const ContactCard = () => {
               text='sadatrahman001@gmail.com'
               actionButton={
                 <IconButton
-                  onClick={() => copyToClipboard('sadatrahman001@gmail.com')}
+                  onClick={() =>
+                    copyToClipboard(
+                      'sadatrahman001@gmail.com',
+                    )
+                  }
                 >
                   <ContentCopyIcon />
                 </IconButton>
@@ -140,6 +145,7 @@ export const ContactCard = () => {
         >
           <CardMedia
             sx={{ objectFit: 'cover', aspectRatio: 1 }}
+            //TODO: replace url (https://avatars.githubusercontent.com/u/48929049)
             image='https://images.unsplash.com/photo-1467232004584-a241de8bcf5d'
             component={'img'}
           />

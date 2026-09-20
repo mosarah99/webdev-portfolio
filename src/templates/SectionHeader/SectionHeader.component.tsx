@@ -1,13 +1,6 @@
 import { Box, Typography } from '@mui/material';
 
-export const SectionHeader = ({
-  pretitle,
-  title,
-  subtitle,
-  pretitleProps,
-  titleProps,
-  subtitleProps,
-}: {
+export interface SectionHeaderProps {
   pretitle?: string;
   title: string;
   subtitle?: string;
@@ -15,7 +8,16 @@ export const SectionHeader = ({
   pretitleProps?: React.ComponentProps<typeof Typography>;
   titleProps?: React.ComponentProps<typeof Typography>;
   subtitleProps?: React.ComponentProps<typeof Typography>;
-}) => (
+}
+
+export const SectionHeader = ({
+  pretitle,
+  title,
+  subtitle,
+  pretitleProps,
+  titleProps,
+  subtitleProps,
+}: SectionHeaderProps) => (
   <Box
     // maxWidth='lg'
     sx={{
@@ -36,7 +38,7 @@ export const SectionHeader = ({
       </Typography>
     )}
     <Typography
-      variant='h4'
+      variant='h2'
       {...titleProps}
     >
       {title}

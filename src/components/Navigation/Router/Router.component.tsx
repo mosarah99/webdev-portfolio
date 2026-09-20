@@ -10,26 +10,36 @@ export interface Page {
 }
 
 interface RouterProps extends React.ComponentPropsWithoutRef<'div'> {
-  siteTitle: string;
+  title: string;
   pages: Page[];
 }
 
-export const Router = ({ pages, ...props }: RouterProps) => {
+export const Router = ({
+  pages,
+  ...props
+}: RouterProps) => {
   const safePages: Page[] = useMemo(
     () =>
-      pages.length > 0 ? pages : [{ slug: '', component: <React.Fragment /> }],
+      pages.length > 0
+        ? pages
+        : [{ slug: '', component: <React.Fragment /> }],
     [pages],
   );
   const defaultPage = useMemo(
-    () => safePages.find((page) => page.defaultPage) ?? safePages[0],
+    () =>
+      safePages.find((page) => page.defaultPage) ??
+      safePages[0],
     [safePages],
   );
   const errorPage = useMemo(
-    () => safePages.find((page) => page.errorPage) ?? safePages[0],
+    () =>
+      safePages.find((page) => page.errorPage) ??
+      safePages[0],
     [safePages],
   );
   const pageMap = useMemo(
-    () => new Map(safePages.map((page) => [page.slug, page])),
+    () =>
+      new Map(safePages.map((page) => [page.slug, page])),
     [safePages],
   );
 
@@ -48,13 +58,18 @@ export const Router = ({ pages, ...props }: RouterProps) => {
   useEffect(() => {
     let pageTitle = pageMap.get(page ?? '')?.title ?? '';
     console.log(`title: ${JSON.stringify(pageTitle)}`);
-    let docTitle = (pageTitle ? `${pageTitle} | ` : '') + `${props.siteTitle}`;
+    let docTitle =
+      (pageTitle ? `${pageTitle} | ` : '') +
+      `${props.title}`;
     document.title = docTitle;
   }, [page]);
 
   const currentComponent = useMemo(() => {
-    if (!page || page === defaultPage.slug) return defaultPage.component;
-    return pageMap.get(page)?.component ?? errorPage.component;
+    if (!page || page === defaultPage.slug)
+      return defaultPage.component;
+    return (
+      pageMap.get(page)?.component ?? errorPage.component
+    );
   }, [page]);
 
   return (

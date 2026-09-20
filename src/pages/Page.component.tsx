@@ -1,16 +1,19 @@
 import { Box, type BoxProps } from '@mui/material';
-import { type PropsWithChildren } from 'react';
+import { Suspense, type PropsWithChildren } from 'react';
+import PageLoader from '../templates/PageLoader/PageLoader.component';
 
 interface PageProps extends PropsWithChildren<BoxProps> {}
 
 export const Page = ({ children, ...props }: PageProps) => {
   return (
-    <Box
-      component={'main'}
-      {...props}
-    >
-      {children}
-    </Box>
+    <Suspense fallback={<PageLoader />}>
+      <Box
+        component={'main'}
+        {...props}
+      >
+        {children}
+      </Box>
+    </Suspense>
   );
 };
 

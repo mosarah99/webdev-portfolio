@@ -3,9 +3,12 @@ import {
   type SecondarySectionProps,
 } from '../../components/Section/SecondarySection/SecondarySection.component';
 import { alpha } from '@mui/material';
-import SectionHeader from '../../components/SectionHeader/SectionHeader.component';
+import SectionHeader from '../SectionHeader/SectionHeader.component';
 
-interface HeroSectionProps extends Omit<SecondarySectionProps, 'children'> {
+interface HeroSectionProps extends Omit<
+  SecondarySectionProps,
+  'children'
+> {
   preTitle?: string;
   title?: string;
   subtitle?: string;
@@ -13,7 +16,11 @@ interface HeroSectionProps extends Omit<SecondarySectionProps, 'children'> {
   backgroundImage?: string;
 }
 
-const HeroSection = ({ bgImageUrl, sx, ...props }: HeroSectionProps) => {
+const HeroSection = ({
+  bgImageUrl,
+  sx,
+  ...props
+}: HeroSectionProps) => {
   return (
     <SecondarySection
       className='skillspage__hero-section'

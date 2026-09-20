@@ -12,46 +12,30 @@ import {
   Button as MuiButton,
   Paper,
   useColorScheme,
+  useScrollTrigger,
+  useTheme,
   type ButtonProps as MuiButtonProps,
 } from '@mui/material';
 import * as uuid from 'uuid';
 
 import './PrimaryHeader.style.css';
 
-import { Settings, LightMode, DarkMode } from '@mui/icons-material';
+import {
+  Settings,
+  LightMode,
+  DarkMode,
+} from '@mui/icons-material';
+import NavButton from '../../components/NavButton/NavButton.component';
+import Navbar from '../Navbar/Navbar.component';
 
-interface NavButtonProps extends MuiButtonProps {
-  link: string;
-}
-
-const NavButton = ({ link, ...props }: NavButtonProps) => {
-  const navigate = usePageNavigation();
-
-  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-
-    navigate(link);
-  };
-
-  return (
-    <MuiButton
-      color='inherit'
-      {...props}
-      href={props.href || link}
-      onClick={handleClick}
-    />
-  );
-};
-
-const navLinks = [
-  { label: 'About', link: '/home' },
-  { label: 'Projects', link: '/projects' },
-  { label: 'Skills', link: '/skills' },
-  { label: 'Contact', link: '/contact' },
-];
-
-export const Navbar = () => {
+export const PrimaryHeader = () => {
   const { mode, setMode } = useColorScheme();
+  const theme = useTheme();
+
+  const trigger = useScrollTrigger({
+    disableHysteresis: true,
+    threshold: 4,
+  });
 
   const ColorSchemeIcon = useMemo(() => {
     switch (mode) {
@@ -83,15 +67,50 @@ export const Navbar = () => {
   };
 
   return (
-    <AppBar>
+    <AppBar
+      elevation={
+        trigger
+          ? theme.components?.MuiAppBar?.defaultProps
+              ?.elevation || 15
+          : 0
+      }
+      sx={[
+        !trigger
+          ? {
+              backgroundColor: theme.alpha(
+                theme.palette.common.white,
+                0,
+              ),
+              backdropFilter: 'initial',
+              boxShadow: 'initial',
+            }
+          : {
+              //   position: 'sticky',
+            },
+      ]}
+    >
       <Container maxWidth='xl'>
         <Toolbar
+          variant={trigger ? 'dense' : 'regular'}
           disableGutters
           sx={{
             gap: 1,
+            minHeight: !trigger
+              ? {
+                  xs: '60px',
+                  md: '80px',
+                }
+              : null,
           }}
         >
-          <Paper>
+          <Paper
+            sx={{
+              flexGrow: {
+                xs: 1,
+                sm: 0,
+              },
+            }}
+          >
             <NavButton
               link='/'
               sx={{
@@ -109,26 +128,25 @@ export const Navbar = () => {
               mosarah99
             </NavButton>
           </Paper>
-          <Box sx={{ flexGrow: 1 }} />
-          <Paper component={'nav'}>
-            <ButtonGroup
-              variant='text'
-              sx={{
-                border: 'none',
-              }}
-            >
-              {navLinks.map(({ label, link }) => (
-                <NavButton
-                  link={link}
-                  key={uuid.v7()}
-                  sx={{
-                    paddingX: 3,
-                  }}
-                >
-                  {label}
-                </NavButton>
-              ))}
-            </ButtonGroup>
+          <Box
+            sx={{
+              flexGrow: 1,
+              display: {
+                xs: 'none',
+                sm: 'block',
+              },
+            }}
+          />
+          <Paper
+            component={'nav'}
+            sx={{
+              display: {
+                xs: 'none',
+                md: 'block',
+              },
+            }}
+          >
+            <Navbar variant={'both'} />
           </Paper>
           <Paper sx={{ borderRadius: '50%' }}>
             <IconButton
@@ -144,4 +162,4 @@ export const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default PrimaryHeader;
