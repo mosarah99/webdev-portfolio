@@ -24,7 +24,6 @@ export const SectionHeader = ({
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
-      marginTop: '5rem',
       marginBottom: '3rem',
       textAlign: 'center',
     }}

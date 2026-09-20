@@ -88,11 +88,6 @@ const Skills: React.FC = () => {
         </Container>
       </PrimarySection>
       <SecondarySection className='skillspage__skills-list-section'>
-        {/* 
-            TODO: implement scroll spy (react scroll spy) to observe the categories in view 
-            TODO: implement a sticky side navigation for the categories
-
-        */}
         <SectionHeader
           title='All Skills'
           subtitle='A comprehensive overview of my technical capabilities'

@@ -14,14 +14,14 @@ export const Section = ({
       sx={[
         {
           paddingX: {
-            md: 1,
-            sm: 0.75,
-            xs: 0.5,
+            md: 3,
+            sm: 2.25,
+            xs: 1.5,
           },
           paddingY: {
-            md: 5,
-            sm: 3,
-            xs: 2,
+            md: 15,
+            sm: 9,
+            xs: 6,
           },
         },
         ...(Array.isArray(sx) ? sx : [sx]),
