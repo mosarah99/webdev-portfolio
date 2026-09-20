@@ -145,6 +145,7 @@ export const ContactCard = () => {
         >
           <CardMedia
             sx={{ objectFit: 'cover', aspectRatio: 1 }}
+            //TODO: replace url (https://avatars.githubusercontent.com/u/48929049)
             image='https://images.unsplash.com/photo-1467232004584-a241de8bcf5d'
             component={'img'}
           />

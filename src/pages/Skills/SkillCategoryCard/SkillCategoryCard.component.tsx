@@ -4,15 +4,20 @@ import type {
 } from '../../../assets/skills';
 import {
   Box,
+  Card,
+  CardActionArea,
+  CardActions,
   CardContent,
+  CardHeader,
   Grid,
-  Paper,
-  Typography,
+  IconButton,
+  Stack,
 } from '@mui/material';
 import SingleSkillCard from '../SingleSkillCard/SingleSkillCard.component';
 import { useQueryState } from 'nuqs';
 import { useEffect, useRef } from 'react';
 import { LinkRounded } from '@mui/icons-material';
+import useCopyToClipboard from '../../../hooks/Utilities/useCopyToClipboard';
 
 interface SkillCategoryCardProps {
   skillCategory: SkillCategory;
@@ -38,45 +43,72 @@ export const SkillCategoryCard = (
     }
   }, [catNav]);
 
+  const copyToClipboard = useCopyToClipboard();
+  const onCopyCatLinkButtonClick = () => {
+    copyToClipboard(window.location.href);
+  };
+
   return (
     <Box ref={skillCatRef}>
-      <Box
-        component={Paper}
+      <Card
         sx={(theme) => ({
-          padding: theme.spacing(2),
           position: 'sticky',
           top: '60px',
           zIndex: theme.zIndex.mobileStepper,
-          '.skill-header-icon': {
-            opacity: {
-              xs: 1,
-              md: 0,
-            },
-          },
-          ':hover': {
-            cursor: 'pointer',
-            '.skill-header-icon': {
-              opacity: 1,
-            },
-          },
         })}
-        onClick={() => setCatNav(category.slug)}
       >
-        <Typography
-          variant='h3'
-          sx={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-          }}
+        <Stack
+          direction={'row'}
+          sx={(theme) => ({
+            ' .skill-header-icon': {
+              opacity: {
+                xs: 1,
+                md: 0,
+              },
+            },
+            ':hover': {
+              '.skill-header-icon': {
+                opacity: 1,
+              },
+            },
+          })}
         >
-          {category.name}
-          <span className='skill-header-icon'>
-            <LinkRounded />
-          </span>
-        </Typography>
-      </Box>
-
+          <CardActionArea
+            onClick={() => setCatNav(category.slug)}
+          >
+            <CardHeader
+              title={category.name}
+              slotProps={{
+                title: {
+                  variant: 'h3',
+                },
+              }}
+            >
+              {category.name}
+            </CardHeader>
+          </CardActionArea>
+          <CardActions
+            sx={{
+              position: 'absolute',
+              right: '0',
+              top: '50%',
+              transform: 'translateY(-50%)',
+            }}
+          >
+            <IconButton
+              onClick={onCopyCatLinkButtonClick}
+              className='skill-header-icon'
+              sx={{
+                ':focus': {
+                  opacity: 1,
+                },
+              }}
+            >
+              <LinkRounded />
+            </IconButton>
+          </CardActions>
+        </Stack>
+      </Card>
       <Box>
         <CardContent>
           <Grid
