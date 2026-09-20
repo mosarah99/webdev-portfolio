@@ -7,7 +7,7 @@ import {
   Grid,
   Stack,
 } from '@mui/material';
-import SectionHeader from '../../components/SectionHeader/SectionHeader.component';
+import SectionHeader from '../../templates/SectionHeader/SectionHeader.component';
 import {
   skillsByCategory,
   favoriteStacks,

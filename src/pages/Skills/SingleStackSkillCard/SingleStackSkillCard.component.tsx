@@ -1,5 +1,5 @@
 import { Avatar, Stack, Typography } from '@mui/material';
-import type { SkillWithCategory } from '../../assets/skills';
+import type { SkillWithCategory } from '../../../assets/skills';
 
 export const SingleStackSkillCard = ({
   skill,

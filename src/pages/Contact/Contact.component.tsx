@@ -1,6 +1,11 @@
-import { Box, Card, CardContent, Container } from '@mui/material';
+import {
+  Box,
+  Card,
+  CardContent,
+  Container,
+} from '@mui/material';
 import ContactCard from '../../components/Cards/ContactCard/ContactCard.component';
-import SectionHeader from '../../components/SectionHeader/SectionHeader.component';
+import SectionHeader from '../../templates/SectionHeader/SectionHeader.component';
 import { useEffect, useState } from 'react';
 import Markdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
@@ -10,7 +15,9 @@ import SecondarySection from '../../components/Section/SecondarySection/Secondar
 import HeroSection from '../../templates/HeroSection/HeroSection.component';
 
 export const ContactsPage = () => {
-  const [ghReadme, setGhReadme] = useState<string>('# Loading REAME...');
+  const [ghReadme, setGhReadme] = useState<string>(
+    '# Loading REAME...',
+  );
 
   useEffect(() => {
     const fetchGhReadme = async () => {
@@ -74,11 +81,11 @@ export const ContactsPage = () => {
           <Card
             // variant='outlined'
             sx={{
-              'backgroundColor': '#0d1117',
+              backgroundColor: '#0d1117',
               'p,h1, h2,h3,h4,h5,h6': {
                 color: '#c9d1d9',
               },
-              'a': {
+              a: {
                 color: '#58a6ff',
               },
             }}
@@ -92,7 +99,9 @@ export const ContactsPage = () => {
                   },
                 }}
               >
-                <Markdown rehypePlugins={[rehypeRaw]}>{ghReadme}</Markdown>
+                <Markdown rehypePlugins={[rehypeRaw]}>
+                  {ghReadme}
+                </Markdown>
               </Box>
             </CardContent>
           </Card>

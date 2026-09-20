@@ -14,7 +14,7 @@ import {
 } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
-import SectionHeader from '../../components/SectionHeader/SectionHeader.component';
+import SectionHeader from '../../templates/SectionHeader/SectionHeader.component';
 import * as uuid from 'uuid';
 import ProjectDetailsModal from '../../components/Modal/ProjectDetails/ProjectDetailsModal.component';
 import Page from '../Page.component';
@@ -22,10 +22,16 @@ import Page from '../Page.component';
 // import { projectsList } from '../../assets/projectsList';
 
 const LoadingPlaceholder = () => {
-  return <Typography variant='h6'>Loading project details...</Typography>;
+  return (
+    <Typography variant='h6'>
+      Loading project details...
+    </Typography>
+  );
 };
 const NotFoundPlaceholder = () => {
-  return <Typography variant='h6'>Project not found.</Typography>;
+  return (
+    <Typography variant='h6'>Project not found.</Typography>
+  );
 };
 
 const ProjectDetails: React.FC = () => {
@@ -40,15 +46,23 @@ const ProjectDetails: React.FC = () => {
       //   const res = await fetch(`/api/products/${projectId}`);
       //   const data = await res.json();
 
-      const data = await import('../../assets/projectsList');
-      const project = data.projects.find((project) => project.id === projectId);
+      const data =
+        await import('../../assets/projectsList');
+      const project = data.projects.find(
+        (project) => project.id === projectId,
+      );
 
-      const skillsData = await import('../../assets/skills');
+      const skillsData =
+        await import('../../assets/skills');
 
       const projectExtended = {
         ...project,
         skills: skillsData?.default
-          .map((skill) => (project?.skillId.includes(skill.id) ? skill : null))
+          .map((skill) =>
+            project?.skillId.includes(skill.id)
+              ? skill
+              : null,
+          )
           .filter(Boolean),
       };
 

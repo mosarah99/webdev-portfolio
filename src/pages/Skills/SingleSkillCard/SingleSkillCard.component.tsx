@@ -5,7 +5,7 @@ import {
   Collapse,
   Typography,
 } from '@mui/material';
-import type { SkillWithCategory } from '../../assets/skills';
+import type { SkillWithCategory } from '../../../assets/skills';
 import { useEffect, useRef, useState } from 'react';
 
 export interface SingleSkillCardProps {

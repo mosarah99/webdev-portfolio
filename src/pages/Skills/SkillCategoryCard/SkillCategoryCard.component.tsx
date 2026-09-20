@@ -1,7 +1,7 @@
 import type {
   SkillCategory,
   SkillWithCategory,
-} from '../../assets/skills';
+} from '../../../assets/skills';
 import {
   Box,
   CardContent,

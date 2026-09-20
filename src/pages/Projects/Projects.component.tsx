@@ -13,7 +13,7 @@ import {
   useTheme,
 } from '@mui/material';
 import type React from 'react';
-import SectionHeader from '../../components/SectionHeader/SectionHeader.component';
+import SectionHeader from '../../templates/SectionHeader/SectionHeader.component';
 import FeaturedProject from '../../components/FeaturedProject/FeaturedProject.component';
 import * as uuid from 'uuid';
 
@@ -51,21 +51,29 @@ import HeroSection from '../../templates/HeroSection/HeroSection.component';
 export const ProjectsPage: React.FC = () => {
   // View Modes
   const viewModes = ['grid', 'list'] as const;
-  const [viewMode, setViewMode] = useState<(typeof viewModes)[number]>('grid');
+  const [viewMode, setViewMode] =
+    useState<(typeof viewModes)[number]>('grid');
 
   // Filtering Projects
-  const [filter, setFilter] = useState<SkillWithCategory[]>([]);
+  const [filter, setFilter] = useState<SkillWithCategory[]>(
+    [],
+  );
   const filteredProjects = useMemo(() => {
     console.log(`updating filteredProjects...`);
 
-    const skillSet = filter.length === 0 ? skillsWithCategory : filter;
-    const targetSkillIds = new Set(skillSet.map((skill) => skill.id));
-    const filteredProjects = projectsWithSkills.filter((project) => {
-      // Check if any ID in the project's skillId array exists in our target set
-      return project.skillId.some((id) => {
-        return targetSkillIds.has(id);
-      });
-    });
+    const skillSet =
+      filter.length === 0 ? skillsWithCategory : filter;
+    const targetSkillIds = new Set(
+      skillSet.map((skill) => skill.id),
+    );
+    const filteredProjects = projectsWithSkills.filter(
+      (project) => {
+        // Check if any ID in the project's skillId array exists in our target set
+        return project.skillId.some((id) => {
+          return targetSkillIds.has(id);
+        });
+      },
+    );
     // setFilteredProjects(filteredProjects);
     return filteredProjects;
   }, [filter, setFilter]);
@@ -74,29 +82,36 @@ export const ProjectsPage: React.FC = () => {
   const [itemsPerPage, _] = useState<number>(6);
   const [page, setPage] = useState(1);
   const maxPageCount = useMemo(() => {
-    return Math.ceil(filteredProjects.length / itemsPerPage);
-  }, [filteredProjects, itemsPerPage]);
-  const projectsOnPage: ProjectWithSkills[] = useMemo(() => {
-    console.log(`projectsOnPage updating...`);
-    console.log(`current page: ${page}`);
-
-    const inView = filteredProjects.slice(
-      (page - 1) * itemsPerPage,
-      itemsPerPage * page < filteredProjects.length
-        ? itemsPerPage * page
-        : filteredProjects.length,
+    return Math.ceil(
+      filteredProjects.length / itemsPerPage,
     );
-    // setProjectsOnPage(inView);
-    return inView;
-  }, [page, filteredProjects, maxPageCount]);
+  }, [filteredProjects, itemsPerPage]);
+  const projectsOnPage: ProjectWithSkills[] =
+    useMemo(() => {
+      console.log(`projectsOnPage updating...`);
+      console.log(`current page: ${page}`);
+
+      const inView = filteredProjects.slice(
+        (page - 1) * itemsPerPage,
+        itemsPerPage * page < filteredProjects.length
+          ? itemsPerPage * page
+          : filteredProjects.length,
+      );
+      // setProjectsOnPage(inView);
+      return inView;
+    }, [page, filteredProjects, maxPageCount]);
 
   const theme = useTheme();
 
-  const onPageChange = (_event: React.ChangeEvent<unknown>, value: number) => {
+  const onPageChange = (
+    _event: React.ChangeEvent<unknown>,
+    value: number,
+  ) => {
     setPage(value);
   };
   const onViewModeChange =
-    (mode: (typeof viewModes)[number]) => (_event: React.MouseEvent<any>) => {
+    (mode: (typeof viewModes)[number]) =>
+    (_event: React.MouseEvent<any>) => {
       setViewMode(mode);
     };
   const onFilterChange = (filters: SkillWithCategory[]) => {
@@ -191,7 +206,10 @@ export const ProjectsPage: React.FC = () => {
             direction={{ xs: 'column', xl: 'row' }}
             // justifyContent={'center'}
             sx={{
-              alignItems: { xs: 'center', xl: 'flex-start' },
+              alignItems: {
+                xs: 'center',
+                xl: 'flex-start',
+              },
               gap: 1,
             }}
           >
