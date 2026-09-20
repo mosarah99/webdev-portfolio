@@ -20,8 +20,8 @@ import Page from '../Page.component';
 import PrimarySection from '../../components/Section/PrimarySection/PrimarySection.component';
 import SecondarySection from '../../components/Section/SecondarySection/SecondarySection.component';
 import HeroSection from '../../templates/HeroSection/HeroSection.component';
-import SingleStackSkillCard from '../../templates/SingleStackSkillCard/SingleStackSkillCard.component';
-import SkillCategoryCard from '../../templates/SkillCategoryCard/SkillCategoryCard.component';
+import SingleStackSkillCard from './SingleStackSkillCard/SingleStackSkillCard.component';
+import SkillCategoryCard from './SkillCategoryCard/SkillCategoryCard.component';
 import { useQueryState } from 'nuqs';
 
 const Skills: React.FC = () => {
