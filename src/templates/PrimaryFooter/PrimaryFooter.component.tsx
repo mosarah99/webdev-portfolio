@@ -26,10 +26,14 @@ const PrimaryFooter = () => {
       <Container
         maxWidth={'xl'}
         sx={{
-          paddingX: 10,
           transform: 'translateY(-50%)',
         }}
       >
+        <Stack
+          sx={{
+            alignItems: 'center',
+          }}
+        >
         <Divider
           variant='fullWidth'
           orientation='horizontal'
@@ -38,8 +42,11 @@ const PrimaryFooter = () => {
             borderColor: theme.palette.getContrastText(
               theme.palette.background.default,
             ),
+              maxWidth: '65vw',
+              width: '100%',
           })}
         />
+        </Stack>
       </Container>
       <Container
         maxWidth={'xl'}
