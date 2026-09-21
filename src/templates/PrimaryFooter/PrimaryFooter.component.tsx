@@ -17,28 +17,7 @@ import {
   GitHub,
   LinkedIn,
 } from '@mui/icons-material';
-
-type SiteLink = {
-  title: string;
-  href: string;
-  subLinks?: SiteLink[];
-  icon?: HTMLElement;
-};
-
-const siteLinks: SiteLink[] = [
-  {
-    title: 'Home',
-    href: '/',
-  },
-  {
-    title: 'Projects',
-    href: '/?p=projects',
-  },
-  {
-    title: 'Skills',
-    href: '/?p=skills',
-  },
-];
+import footerLinks from '../../assets/footer-site-links';
 
 const PrimaryFooter = () => {
   return (
@@ -109,13 +88,14 @@ const PrimaryFooter = () => {
                 Site Links
               </Typography>
               <List dense>
-                {siteLinks.map((site, index) => (
+                {footerLinks.map((link, index) => (
                   <ListItem
+                    key={`${index}-${link}`}
                     disableGutters
                     dense
                   >
-                    <ListItemButton href={site.href}>
-                      {site.title}
+                    <ListItemButton href={link.href}>
+                      {link.title}
                     </ListItemButton>
                   </ListItem>
                 ))}
