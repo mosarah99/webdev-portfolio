@@ -27,6 +27,7 @@ import {
 } from '@mui/icons-material';
 import NavButton from '../../components/NavButton/NavButton.component';
 import Navbar from '../Navbar/Navbar.component';
+import Mosarah99Logo from '../Logo/Mosarah99.component';
 
 export const PrimaryHeader = () => {
   const { mode, setMode } = useColorScheme();
@@ -111,21 +112,8 @@ export const PrimaryHeader = () => {
               },
             }}
           >
-            <NavButton
-              link='/'
-              sx={{
-                textTransform: 'none',
-
-                fontFamily: [
-                  `'Plaster'`,
-                  `'Eagle Lake'`,
-                  `'Roboto'`,
-                  `'sans-serif'`,
-                  `'ui-sans-serif'`,
-                ].join(', '),
-              }}
-            >
-              mosarah99
+            <NavButton link='/'>
+              <Mosarah99Logo />
             </NavButton>
           </Paper>
           <Box
