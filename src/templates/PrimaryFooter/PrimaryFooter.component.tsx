@@ -1,24 +1,13 @@
 import {
   Box,
-  Card,
-  CardMedia,
   Container,
   Divider,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemIcon,
   Stack,
-  Typography,
 } from '@mui/material';
-import Mosarah99Logo from '../Logo/Mosarah99.component';
-import {
-  EmailRounded,
-  GitHub,
-  LinkedIn,
-} from '@mui/icons-material';
 import footerLinks from '../../assets/footer-site-links';
-import FooterHeader from './FooterHeader/FooterHeader.component';
+import FooterSiteLinksWidget from './FooterSiteLinksWidget/FooterSiteLinksWidget.component';
+import FooterSiteIdentityWidget from './FooterSiteIdentityWidget/FooterSiteIdentityWidget.component';
+import FooterContactLinksWidget from './FooterContactLinksWidget/FooterContactLinksWidget.component';
 
 const PrimaryFooter = () => {
   return (
@@ -78,91 +67,18 @@ const PrimaryFooter = () => {
             />
           }
         >
+          <FooterSiteIdentityWidget
+            imageURL={
+              new URL(
+                'https://avatars.githubusercontent.com/u/48929049',
+              )
+            }
+          />
+          <FooterSiteLinksWidget
+            footerLinks={footerLinks}
+          />
           <Box>
-            <Stack spacing={4}>
-              <Card>
-                <CardMedia
-                  component={'img'}
-                  image='https://avatars.githubusercontent.com/u/48929049'
-                  alt='Site Logo Avatar'
-                  width={'100%'}
-                />
-              </Card>
-              <Box>
-                <Mosarah99Logo variant='h4' />
-                <Typography>
-                  Personal Portfolio of Sadat R.
-                </Typography>
-              </Box>
-            </Stack>
-          </Box>
-          <Box>
-            <Stack>
-              <FooterHeader>Site Links</FooterHeader>
-
-              <List dense>
-                {footerLinks.map((link, index) => (
-                  <ListItem
-                    key={`${index}-${link}`}
-                    disableGutters
-                    dense
-                  >
-                    <ListItemButton href={link.href}>
-                      {link.title}
-                    </ListItemButton>
-                  </ListItem>
-                ))}
-              </List>
-            </Stack>
-          </Box>
-          <Box>
-            <Stack spacing={2}>
-              <Box>
-                <FooterHeader>Send an email</FooterHeader>
-
-                <Typography>
-                  <ListItem
-                    component={'div'}
-                    dense
-                    disableGutters
-                  >
-                    <ListItemButton href='mailto:sadatrahman001@gmail.com'>
-                      <ListItemIcon>
-                        <EmailRounded />
-                      </ListItemIcon>
-                      sadatrahman001@gmail.com
-                    </ListItemButton>
-                  </ListItem>
-                </Typography>
-              </Box>
-              <Box>
-                <FooterHeader>Socials</FooterHeader>
-                <List dense>
-                  <ListItem
-                    disableGutters
-                    dense
-                  >
-                    <ListItemButton href='https://www.linkedin.com/sadatrahman001'>
-                      <ListItemIcon>
-                        <LinkedIn />
-                      </ListItemIcon>
-                      https://www.linkedin.com/sadatrahman001
-                    </ListItemButton>
-                  </ListItem>
-                  <ListItem
-                    disableGutters
-                    dense
-                  >
-                    <ListItemButton href='https://github.com/mosarah99'>
-                      <ListItemIcon>
-                        <GitHub />
-                      </ListItemIcon>
-                      https://github.com/mosarah99
-                    </ListItemButton>
-                  </ListItem>
-                </List>
-              </Box>
-            </Stack>
+            <FooterContactLinksWidget />
           </Box>
         </Stack>
       </Container>
