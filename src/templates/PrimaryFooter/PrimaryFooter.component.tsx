@@ -34,18 +34,18 @@ const PrimaryFooter = () => {
             alignItems: 'center',
           }}
         >
-        <Divider
-          variant='fullWidth'
-          orientation='horizontal'
-          sx={(theme) => ({
-            borderWidth: 5,
-            borderColor: theme.palette.getContrastText(
-              theme.palette.background.default,
-            ),
+          <Divider
+            variant='fullWidth'
+            orientation='horizontal'
+            sx={(theme) => ({
+              borderWidth: 5,
+              borderColor: theme.palette.getContrastText(
+                theme.palette.background.default,
+              ),
               maxWidth: '65vw',
               width: '100%',
-          })}
-        />
+            })}
+          />
         </Stack>
       </Container>
       <Container
@@ -66,6 +66,17 @@ const PrimaryFooter = () => {
           sx={{
             justifyContent: 'space-around',
           }}
+          divider={
+            <Divider
+              variant='middle'
+              sx={{
+                display: {
+                  xs: 'block',
+                  md: 'none',
+                },
+              }}
+            />
+          }
         >
           <Box>
             <Stack spacing={4}>
