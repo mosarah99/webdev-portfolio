@@ -18,6 +18,7 @@ import {
   LinkedIn,
 } from '@mui/icons-material';
 import footerLinks from '../../assets/footer-site-links';
+import FooterHeader from './FooterHeader/FooterHeader.component';
 
 const PrimaryFooter = () => {
   return (
@@ -79,14 +80,8 @@ const PrimaryFooter = () => {
           </Box>
           <Box>
             <Stack>
-              <Typography
-                variant='h4'
-                sx={{
-                  fontWeight: 'bold',
-                }}
-              >
-                Site Links
-              </Typography>
+              <FooterHeader>Site Links</FooterHeader>
+
               <List dense>
                 {footerLinks.map((link, index) => (
                   <ListItem
@@ -105,14 +100,8 @@ const PrimaryFooter = () => {
           <Box>
             <Stack spacing={2}>
               <Box>
-                <Typography
-                  variant='h4'
-                  sx={{
-                    fontWeight: 'bold',
-                  }}
-                >
-                  Send an email
-                </Typography>
+                <FooterHeader>Send an email</FooterHeader>
+
                 <Typography>
                   <ListItem
                     component={'div'}
@@ -129,14 +118,7 @@ const PrimaryFooter = () => {
                 </Typography>
               </Box>
               <Box>
-                <Typography
-                  variant='h4'
-                  sx={{
-                    fontWeight: 'bold',
-                  }}
-                >
-                  Socials
-                </Typography>
+                <FooterHeader>Socials</FooterHeader>
                 <List dense>
                   <ListItem
                     disableGutters
