@@ -59,7 +59,7 @@ export const SkillCategoryCard = (
       >
         <Stack
           direction={'row'}
-          sx={(theme) => ({
+          sx={(_theme) => ({
             ' .skill-header-icon': {
               opacity: {
                 xs: 1,

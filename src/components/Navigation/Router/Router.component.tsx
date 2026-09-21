@@ -9,6 +9,10 @@ export interface Page {
   errorPage?: boolean;
 }
 
+/* 
+    TODO: rename title to something else
+        "title" triggers browser tooltip
+*/
 interface RouterProps extends React.ComponentPropsWithoutRef<'div'> {
   title: string;
   pages: Page[];

@@ -1,5 +1,9 @@
 import { Box, Typography } from '@mui/material';
 
+/**
+ * TODO: rename title to something else
+ *      "title" triggers browser tooltip
+ */
 export interface SectionHeaderProps {
   pretitle?: string;
   title: string;
