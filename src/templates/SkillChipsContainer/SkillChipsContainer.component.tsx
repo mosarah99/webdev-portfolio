@@ -1,23 +1,38 @@
-import { Avatar, Chip, Stack } from '@mui/material';
+import {
+  Avatar,
+  Box,
+  Chip,
+  type BoxProps,
+} from '@mui/material';
 import type {
   SkillBasic,
   SkillWithCategory,
 } from '../../assets/skills';
 
-export interface SkillChipsContainerProps {
+export interface SkillChipsContainerProps extends Omit<
+  BoxProps,
+  'children'
+> {
   skills?: SkillBasic[] | SkillWithCategory[] | null;
 }
 
-export const SkillChipsContainer = (
-  props: SkillChipsContainerProps,
-) => {
+export const SkillChipsContainer = ({
+  sx,
+  ...props
+}: SkillChipsContainerProps) => {
   return (
-    <Stack
-      direction={'row'}
-      spacing={1}
-      sx={{
-        flexWrap: 'wrap',
-      }}
+    <Box
+      sx={[
+        {
+          display: 'flex',
+          flexWrap: 'wrap',
+          gap: 1,
+          rowGap: 1,
+          columnGap: 1,
+        },
+        ...(Array.isArray(sx) ? sx : [sx]),
+      ]}
+      {...props}
     >
       {props.skills?.map((skill) => (
         <Chip
@@ -36,7 +51,7 @@ export const SkillChipsContainer = (
           }
         />
       ))}
-    </Stack>
+    </Box>
   );
 };
 
