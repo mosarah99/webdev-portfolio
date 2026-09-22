@@ -19,6 +19,7 @@ import * as uuid from 'uuid';
 import type { ReactNode } from 'react';
 import GradeIcon from '@mui/icons-material/Grade';
 import { usePageNavigation } from '../../../hooks/Navigation/usePageNavigation';
+import MarkdownFancy from '../../MarkdownFancy/MarkdownFancy.component';
 
 export const ProjectListCard: React.FC<{
   project: ProjectWithSkills;
@@ -27,9 +28,13 @@ export const ProjectListCard: React.FC<{
 }> = ({ project, projectDetailsPageURL, showSkills }) => {
   const navigate = usePageNavigation();
 
-  const handleViewDetailsClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleViewDetailsClick = (
+    e: React.MouseEvent<HTMLButtonElement>,
+  ) => {
     e.preventDefault();
-    navigate(projectDetailsPageURL || `/projects/${project.id}`);
+    navigate(
+      projectDetailsPageURL || `/projects/${project.id}`,
+    );
   };
 
   const getProjectTitle = (): ReactNode => {
@@ -41,12 +46,6 @@ export const ProjectListCard: React.FC<{
           color='info'
           label={'Featured'}
           icon={<GradeIcon />}
-          sx={{
-            // display: project.featured ? 'flex' : 'none',
-            // position: 'absolute',
-            // top: '.25rem',
-            // right: '.5rem',
-          }}
         />
       </Box>
     ) : (
@@ -66,8 +65,10 @@ export const ProjectListCard: React.FC<{
       }
     >
       <Stack
-        flexDirection={'row'}
-        alignItems={'center'}
+        direction={'row'}
+        sx={{
+          alignItems: 'center',
+        }}
       >
         <CardMedia
           image={project.image}
@@ -83,14 +84,20 @@ export const ProjectListCard: React.FC<{
         />
         <Box sx={{ flex: 1, margin: 1, marginLeft: 2 }}>
           <Stack
-            flexDirection={'row'}
-            alignItems={'flex-start'}
-            justifyContent={'space-between'}
+            direction={'row'}
+            sx={{
+              alignItems: 'flex-start',
+              justifyContent: 'space-between',
+            }}
           >
             <Box>
               <CardHeader
                 title={getProjectTitle()}
-                subheader={project.description}
+                subheader={
+                  <MarkdownFancy>
+                    {project.description}
+                  </MarkdownFancy>
+                }
               />
               <Box
                 sx={{
@@ -102,14 +109,18 @@ export const ProjectListCard: React.FC<{
               >
                 {showSkills && (
                   <CardContent
-                    sx={{ paddingY: 0, marginY: 0, marginBottom: 0 }}
+                    sx={{
+                      paddingY: 0,
+                      marginY: 0,
+                      marginBottom: 0,
+                    }}
                   >
                     <Stack
                       direction={'row'}
                       spacing={1}
-                      rowGap={1}
-                      columnGap={1}
-                      flexWrap={'wrap'}
+                      sx={{
+                        flexWrap: 'wrap',
+                      }}
                     >
                       {project.skills?.map((skill) => (
                         <Chip
