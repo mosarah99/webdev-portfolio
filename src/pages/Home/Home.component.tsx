@@ -3,6 +3,7 @@ import {
   ButtonGroup,
   Container,
   Grid,
+  Stack,
   Typography,
   useTheme,
 } from '@mui/material';
@@ -143,6 +144,7 @@ export const Homepage: React.FC = () => {
           >
             {featuredProjects.map((project) => (
               <Grid
+                component={Stack}
                 size={{ xs: 12, sm: 6, md: 4 }}
                 key={uuid.v7()}
               >

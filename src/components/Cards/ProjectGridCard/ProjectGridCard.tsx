@@ -24,9 +24,13 @@ export const ProjectGridCard: React.FC<{
 }> = ({ project, projectDetailsPageURL, showSkills }) => {
   const navigate = usePageNavigation();
 
-  const handleViewDetailsClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleViewDetailsClick = (
+    e: React.MouseEvent<HTMLButtonElement>,
+  ) => {
     e.preventDefault();
-    navigate(projectDetailsPageURL || `/projects/${project.id}`);
+    navigate(
+      projectDetailsPageURL || `/projects/${project.id}`,
+    );
   };
 
   return (
@@ -118,7 +122,10 @@ export const ProjectGridCard: React.FC<{
           >
             <Button
               variant='outlined'
-              href={projectDetailsPageURL || `/projects/${project.id}`}
+              href={
+                projectDetailsPageURL ||
+                `/projects/${project.id}`
+              }
               onClick={handleViewDetailsClick}
             >
               View details
