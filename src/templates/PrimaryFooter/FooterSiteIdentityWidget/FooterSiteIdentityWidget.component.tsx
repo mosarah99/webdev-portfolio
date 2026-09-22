@@ -15,17 +15,23 @@ export const FooterSiteIdentityWidget = (
 ) => {
   return (
     <Stack spacing={4}>
-      <Card>
-        <CardMedia
-          component={'img'}
-          image={
-            props.imageURL?.toString() ||
-            'https://avatars.githubusercontent.com/u/48929049'
-          }
-          alt='Site Logo Avatar'
-          width={'100%'}
-        />
-      </Card>
+      <Box
+        sx={{
+          maxWidth: '15rem',
+        }}
+      >
+        <Card>
+          <CardMedia
+            component={'img'}
+            image={
+              props.imageURL?.toString() ||
+              'https://avatars.githubusercontent.com/u/48929049'
+            }
+            alt='Site Logo Avatar'
+            width={'100%'}
+          />
+        </Card>
+      </Box>
       <Box>
         <Mosarah99Logo variant='h4' />
         <Typography>

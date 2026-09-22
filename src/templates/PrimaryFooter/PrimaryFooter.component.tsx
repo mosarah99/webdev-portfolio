@@ -53,7 +53,7 @@ const PrimaryFooter = () => {
           }}
           spacing={2}
           sx={{
-            justifyContent: 'space-around',
+            justifyContent: 'space-evenly',
           }}
           divider={
             <Divider
@@ -77,9 +77,7 @@ const PrimaryFooter = () => {
           <FooterSiteLinksWidget
             footerLinks={footerLinks}
           />
-          <Box>
-            <FooterContactLinksWidget />
-          </Box>
+          <FooterContactLinksWidget />
         </Stack>
       </Container>
     </Box>
