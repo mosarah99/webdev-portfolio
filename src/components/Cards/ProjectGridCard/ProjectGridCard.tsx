@@ -17,6 +17,7 @@ import GradeIcon from '@mui/icons-material/Grade';
 import * as uuid from 'uuid';
 import { usePageNavigation } from '../../../hooks/Navigation/usePageNavigation';
 import MarkdownFancy from '../../MarkdownFancy/MarkdownFancy.component';
+import SkillChipsContainer from '../../../templates/SkillChipsContainer/SkillChipsContainer.component';
 
 export const ProjectGridCard: React.FC<{
   project: ProjectWithSkills;
@@ -92,31 +93,11 @@ export const ProjectGridCard: React.FC<{
         >
           {showSkills && (
             <CardContent>
-              <Stack
-                direction={'row'}
-                spacing={1}
-                sx={{
-                  flexWrap: 'wrap',
-                }}
-              >
-                {project.skills?.map((skill) => (
-                  <Chip
-                    key={uuid.v7()}
-                    label={skill?.name}
-                    avatar={
-                      <Avatar
-                        src={skill?.icon}
-                        alt={`${skill?.name} icon`}
-                        slotProps={{
-                          img: {
-                            loading: 'lazy',
-                          },
-                        }}
-                      />
-                    }
-                  />
-                ))}
-              </Stack>
+              <SkillChipsContainer
+                skills={project.skills?.filter(
+                  (skill) => !!skill,
+                )}
+              />
             </CardContent>
           )}
         </Box>

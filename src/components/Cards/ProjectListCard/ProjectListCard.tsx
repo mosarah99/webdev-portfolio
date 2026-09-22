@@ -20,6 +20,7 @@ import type { ReactNode } from 'react';
 import GradeIcon from '@mui/icons-material/Grade';
 import { usePageNavigation } from '../../../hooks/Navigation/usePageNavigation';
 import MarkdownFancy from '../../MarkdownFancy/MarkdownFancy.component';
+import SkillChipsContainer from '../../../templates/SkillChipsContainer/SkillChipsContainer.component';
 
 export const ProjectListCard: React.FC<{
   project: ProjectWithSkills;
@@ -115,31 +116,11 @@ export const ProjectListCard: React.FC<{
                       marginBottom: 0,
                     }}
                   >
-                    <Stack
-                      direction={'row'}
-                      spacing={1}
-                      sx={{
-                        flexWrap: 'wrap',
-                      }}
-                    >
-                      {project.skills?.map((skill) => (
-                        <Chip
-                          key={uuid.v7()}
-                          label={skill?.name}
-                          avatar={
-                            <Avatar
-                              src={skill?.icon}
-                              alt={`${skill?.name} icon`}
-                              slotProps={{
-                                img: {
-                                  loading: 'lazy',
-                                },
-                              }}
-                            />
-                          }
-                        />
-                      ))}
-                    </Stack>
+                    <SkillChipsContainer
+                      skills={project.skills?.filter(
+                        (skill) => !!skill,
+                      )}
+                    />
                   </CardContent>
                 )}
               </Box>
