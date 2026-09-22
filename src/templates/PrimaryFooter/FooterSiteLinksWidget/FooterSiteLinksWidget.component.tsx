@@ -29,7 +29,7 @@ export const FooterSiteLinksWidget = (
             dense
           >
             <ListItemButton href={link.href}>
-              {link.title}
+              {link.label}
             </ListItemButton>
           </ListItem>
         ))}

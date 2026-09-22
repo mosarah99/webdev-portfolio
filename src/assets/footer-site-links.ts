@@ -1,5 +1,5 @@
 export type SiteLink = {
-  title: string;
+  label: string;
   href: string;
   subLinks?: SiteLink[];
   icon?: HTMLElement;
@@ -7,15 +7,15 @@ export type SiteLink = {
 
 export const siteLinks: SiteLink[] = [
   {
-    title: 'Home',
+    label: 'Home',
     href: '/',
   },
   {
-    title: 'Projects',
+    label: 'Projects',
     href: '/?p=projects',
   },
   {
-    title: 'Skills',
+    label: 'Skills',
     href: '/?p=skills',
   },
 ];
