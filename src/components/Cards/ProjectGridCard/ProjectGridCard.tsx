@@ -16,6 +16,7 @@ import { type ProjectWithSkills } from '../../../assets/projects-skills';
 import GradeIcon from '@mui/icons-material/Grade';
 import * as uuid from 'uuid';
 import { usePageNavigation } from '../../../hooks/Navigation/usePageNavigation';
+import MarkdownFancy from '../../MarkdownFancy/MarkdownFancy.component';
 
 export const ProjectGridCard: React.FC<{
   project: ProjectWithSkills;
@@ -73,7 +74,11 @@ export const ProjectGridCard: React.FC<{
       >
         <CardHeader
           title={project.title}
-          subheader={project.description}
+          subheader={
+            <MarkdownFancy>
+              {project.description}
+            </MarkdownFancy>
+          }
         />
         <Box
           sx={{
