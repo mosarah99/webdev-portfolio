@@ -36,8 +36,8 @@ export const Homepage: React.FC = () => {
     <Page>
       <HeroSection
         bgImageUrl='https://images.pexels.com/photos/8168567/pexels-photo-8168567.png'
-        title='Sadat Rahman'
-        subtitle='Web Dev | Full-Stack | Wizard'
+        header='Sadat Rahman'
+        subheader='Web Dev | Full-Stack | Wizard'
         sx={{
           minHeight: '100vh',
         }}
@@ -47,8 +47,8 @@ export const Homepage: React.FC = () => {
         id='about'
       >
         <SectionHeader
-          pretitle='A little more'
-          title='About Me'
+          preheader='A little more'
+          header='About Me'
         />
 
         <Container maxWidth='lg'>
@@ -134,8 +134,8 @@ export const Homepage: React.FC = () => {
         id='about'
       >
         <SectionHeader
-          pretitle='Sneak peek into my'
-          title='Projects'
+          preheader='Sneak peek into my'
+          header='Projects'
         />
         <Container maxWidth='lg'>
           <Grid
@@ -180,8 +180,8 @@ export const Homepage: React.FC = () => {
       </SecondarySection>
       <ContrastSection id='about'>
         <SectionHeader
-          pretitle={'Interested?'}
-          title={"Let's Connect"}
+          preheader={'Interested?'}
+          header={"Let's Connect"}
         />
         <Container maxWidth='md'>
           <ContactCard />

@@ -14,7 +14,7 @@ const App = () => {
       <FloatingBottomHeader />
       <PageRouter
         pages={pages}
-        title='Sadat R. Portfolio'
+        header='Sadat R. Portfolio'
       />
       <PrimaryFooter />
     </Box>

@@ -74,8 +74,8 @@ export const ProjectDetailsModal = (
               <CardContent>
                 <Stack spacing={5}>
                   <SectionHeader
-                    title={props.project.title}
-                    subtitle={props.project.description}
+                    header={props.project.title}
+                    subheader={props.project.description}
                   />
                   {/* {props.project.detail_description
                     .split('\n')

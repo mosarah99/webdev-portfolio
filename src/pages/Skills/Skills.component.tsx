@@ -36,8 +36,8 @@ const Skills: React.FC = () => {
     <Page>
       <HeroSection
         bgImageUrl='https://images.pexels.com/photos/4863008/pexels-photo-4863008.jpeg'
-        title='Skills & Expertise'
-        subtitle='Granular breakdown of my technical proficiencies'
+        header='Skills & Expertise'
+        subheader='Granular breakdown of my technical proficiencies'
         sx={{
           backgroundPositionY: 'bottom',
         }}
@@ -47,8 +47,8 @@ const Skills: React.FC = () => {
             TODO: Dilute into 2 sections 
         */}
         <SectionHeader
-          title='Tech Stack'
-          subtitle='I find myself coming back to'
+          header='Tech Stack'
+          subheader='I find myself coming back to'
         />
         <Container maxWidth='lg'>
           <Grid
@@ -89,8 +89,8 @@ const Skills: React.FC = () => {
       </PrimarySection>
       <SecondarySection className='skillspage__skills-list-section'>
         <SectionHeader
-          title='All Skills'
-          subtitle='A comprehensive overview of my technical capabilities'
+          header='All Skills'
+          subheader='A comprehensive overview of my technical capabilities'
         />
         <Container maxWidth='xl'>
           <Stack

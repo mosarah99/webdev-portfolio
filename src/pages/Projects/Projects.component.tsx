@@ -123,8 +123,8 @@ export const ProjectsPage: React.FC = () => {
     <Page>
       <HeroSection
         bgImageUrl='https://images.pexels.com/photos/8168570/pexels-photo-8168570.png'
-        title='The Showcase'
-        subtitle='A selection of my most impactful projects'
+        header='The Showcase'
+        subheader='A selection of my most impactful projects'
       />
       <ContrastSection className='projectspage__featured-section'>
         <Container
@@ -198,8 +198,8 @@ export const ProjectsPage: React.FC = () => {
       </ContrastSection>
       <SecondarySection className='projectspage__projects-list-section'>
         <SectionHeader
-          pretitle='A bit more detailed'
-          title='Projects List'
+          preheader='A bit more detailed'
+          header='Projects List'
         />
         <Container maxWidth={'xl'}>
           <Stack

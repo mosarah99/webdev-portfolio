@@ -44,7 +44,7 @@ export const ContactsPage = () => {
       <HeroSection
         // bgImageUrl='https://images.pexels.com/photos/36028393/pexels-photo-36028393.jpeg'
         bgImageUrl='https://images.pexels.com/photos/6587323/pexels-photo-6587323.jpeg'
-        title='Connection is just a few clicks away'
+        header='Connection is just a few clicks away'
         sx={{
           backgroundPositionY: 'bottom 25%',
         }}
@@ -57,8 +57,8 @@ export const ContactsPage = () => {
       <SecondarySection>
         <Container maxWidth='lg'>
           <SectionHeader
-            pretitle='Professional presence on'
-            title='LinkedIn'
+            preheader='Professional presence on'
+            header='LinkedIn'
           />
           <Box
             component='iframe'
@@ -75,8 +75,8 @@ export const ContactsPage = () => {
       <PrimarySection>
         <Container maxWidth='lg'>
           <SectionHeader
-            pretitle='Having fun on'
-            title='GitHub'
+            preheader='Having fun on'
+            header='GitHub'
           />
           <Card
             // variant='outlined'
@@ -110,8 +110,8 @@ export const ContactsPage = () => {
       <SecondarySection>
         <Container maxWidth='lg'>
           <SectionHeader
-            pretitle='Locate me on'
-            title='Google Maps'
+            preheader='Locate me on'
+            header='Google Maps'
           />
           <Card
             sx={{
