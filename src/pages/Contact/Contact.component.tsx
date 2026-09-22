@@ -13,6 +13,7 @@ import Page from '../Page.component';
 import PrimarySection from '../../components/Section/PrimarySection/PrimarySection.component';
 import SecondarySection from '../../components/Section/SecondarySection/SecondarySection.component';
 import HeroSection from '../../templates/HeroSection/HeroSection.component';
+import MarkdownFancy from '../../components/MarkdownFancy/MarkdownFancy.component';
 
 export const ContactsPage = () => {
   const [ghReadme, setGhReadme] = useState<string>(
@@ -99,9 +100,7 @@ export const ContactsPage = () => {
                   },
                 }}
               >
-                <Markdown rehypePlugins={[rehypeRaw]}>
-                  {ghReadme}
-                </Markdown>
+                <MarkdownFancy>{ghReadme}</MarkdownFancy>
               </Box>
             </CardContent>
           </Card>
