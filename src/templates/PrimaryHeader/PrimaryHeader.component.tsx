@@ -112,8 +112,24 @@ export const PrimaryHeader = () => {
               },
             }}
           >
-            <NavButton link='/'>
+            <NavButton
+              link='/'
+              sx={{
+                flexGrow: 1,
+                display: 'flex',
+              }}
+            >
               <Mosarah99Logo />
+              <Box
+                component={'span'}
+                sx={{
+                  display: {
+                    xs: 'block',
+                    sm: 'none',
+                  },
+                  flexGrow: 1,
+                }}
+              ></Box>
             </NavButton>
           </Paper>
           <Box
