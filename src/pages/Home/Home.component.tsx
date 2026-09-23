@@ -5,6 +5,7 @@ import {
   Grid,
   Stack,
   Typography,
+  useMediaQuery,
   useTheme,
 } from '@mui/material';
 import * as uuid from 'uuid';
@@ -23,8 +24,29 @@ import ContrastSection from '../../components/Section/ContrastSection/ContrastSe
 import HeroSection from '../../templates/HeroSection/HeroSection.component';
 import MarkdownFancy from '../../components/MarkdownFancy/MarkdownFancy.component';
 
+interface SectionActionsProps {
+  buttons?: React.ReactNode[];
+}
+const SectionActions = (props: SectionActionsProps) => {
+  return (
+    <Container maxWidth='md'>
+      <ButtonGroup
+        fullWidth
+        sx={{
+          marginTop: {
+            xs: 5,
+            sm: 7,
+            md: 10,
+          },
+          textAlign: 'center',
+        }}
+      >
+        {props.buttons}
+      </ButtonGroup>
+    </Container>
+  );
+};
 export const Homepage: React.FC = () => {
-  const theme = useTheme();
   const navigate = usePageNavigation();
   const onButtonClickNavigate =
     (destination: string) =>
@@ -33,6 +55,10 @@ export const Homepage: React.FC = () => {
       navigate(destination);
     };
 
+//   const theme = useTheme();
+//   const isMobileView = useMediaQuery(
+//     theme.breakpoints.down('sm'),
+//   );
   return (
     <Page>
       <HeroSection
@@ -64,27 +90,24 @@ Ultimately, I see software development as both a science and an art—a craft th
 `}
           </MarkdownFancy>
         </Container>
-        <Container maxWidth='lg'>
-          <ButtonGroup
-            fullWidth
-            sx={{ marginY: 5 }}
-          >
+        <SectionActions
+          buttons={[
             <Button
               variant='outlined'
               onClick={onButtonClickNavigate('/skills')}
               href='/skills'
             >
               View all skills
-            </Button>
+            </Button>,
             <Button
               variant='contained'
               onClick={onButtonClickNavigate('/contact')}
               href='/contact'
             >
               Contact Me
-            </Button>
-          </ButtonGroup>
-        </Container>
+            </Button>,
+          ]}
+        />
       </PrimarySection>
       <SecondarySection
         className='homepage__projects-section'
@@ -113,34 +136,31 @@ Ultimately, I see software development as both a science and an art—a craft th
             ))}
           </Grid>
         </Container>
-        <Container maxWidth='md'>
-          <ButtonGroup
-            fullWidth
-            sx={{ marginY: 5 }}
-          >
+        <SectionActions
+          buttons={[
             <Button
               variant='outlined'
               onClick={onButtonClickNavigate('/skills')}
               href='/skills'
             >
               Check out my skills
-            </Button>
+            </Button>,
             <Button
               variant='contained'
               onClick={onButtonClickNavigate('/projects')}
               href='/projects'
             >
               See all projects
-            </Button>
-          </ButtonGroup>
-        </Container>
+            </Button>,
+          ]}
+        />
       </SecondarySection>
       <ContrastSection id='about'>
         <SectionHeader
           preheader={'Interested?'}
           header={"Let's Connect"}
         />
-        <Container maxWidth='md'>
+        <Container maxWidth="lg">
           <ContactCard />
         </Container>
       </ContrastSection>
