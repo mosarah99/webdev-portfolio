@@ -6,14 +6,8 @@ import {
   CardMedia,
   Divider,
   IconButton,
-  ListItem,
-  ListItemIcon,
-  ListItemSecondaryAction,
-  ListItemText,
   Stack,
-  Typography,
 } from '@mui/material';
-import type { ReactNode } from 'react';
 import LocationPinIcon from '@mui/icons-material/LocationPin';
 import MarkunreadIcon from '@mui/icons-material/Markunread';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
@@ -21,28 +15,8 @@ import GitHubIcon from '@mui/icons-material/GitHub';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import LaunchIcon from '@mui/icons-material/Launch';
 import useCopyToClipboard from '../../../hooks/Utilities/useCopyToClipboard';
+import ContactInfoItem from './ContactInfoItem/ContactInfoItem.component';
 
-export interface ContactInfoItemProps {
-  actionButton?: ReactNode;
-  icon: ReactNode;
-  text: string;
-}
-export const ContactInfoItem = (
-  props: ContactInfoItemProps,
-) => {
-  return (
-    <ListItem
-      component={'div'}
-      disableGutters
-    >
-      <ListItemIcon>{props.icon}</ListItemIcon>
-      <ListItemText>{props.text}</ListItemText>
-      <ListItemSecondaryAction>
-        {props.actionButton}
-      </ListItemSecondaryAction>
-    </ListItem>
-  );
-};
 export const ContactCard = () => {
   const copyToClipboard = useCopyToClipboard();
 
