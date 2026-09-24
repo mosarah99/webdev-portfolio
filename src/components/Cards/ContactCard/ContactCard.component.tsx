@@ -31,11 +31,12 @@ export const ContactInfoItem = (
   props: ContactInfoItemProps,
 ) => {
   return (
-    <ListItem component={'div'}>
+    <ListItem
+      component={'div'}
+      disableGutters
+    >
       <ListItemIcon>{props.icon}</ListItemIcon>
-      <ListItemText disableTypography>
-        <Typography noWrap>{props.text}</Typography>
-      </ListItemText>
+      <ListItemText>{props.text}</ListItemText>
       <ListItemSecondaryAction>
         {props.actionButton}
       </ListItemSecondaryAction>
