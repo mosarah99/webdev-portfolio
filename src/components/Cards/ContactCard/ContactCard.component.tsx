@@ -17,26 +17,29 @@ import LaunchIcon from '@mui/icons-material/Launch';
 import useCopyToClipboard from '../../../hooks/Utilities/useCopyToClipboard';
 import ContactInfoItem from './ContactInfoItem/ContactInfoItem.component';
 
-export const ContactCard = () => {
+export interface ContactCardProps {
+  imageLink?: URL;
+  location?: string;
+  email: string;
+  linkedInUsername?: string;
+  githubUsername?: string;
+}
+export const ContactCard = (props: ContactCardProps) => {
   const copyToClipboard = useCopyToClipboard();
 
   return (
     <Card
-      variant='elevation'
-      sx={{
-        maxWidth: '100%',
-        //   maxHeight: '300px',
-        marginY: '3rem',
-      }}
+      variant='outlined'
+      elevation={0}
     >
-      <Stack direction={'row'}>
-        <Stack
-          direction={'column'}
+      <Stack
+        direction={'row'}
+        sx={{
+          alignItems: 'center',
+        }}
+      >
+        <Box
           sx={{
-            justifyContent: 'center',
-            alignItems: 'flex-start',
-            marginRight: '3',
-            minWidth: '50%',
             flexGrow: 1,
           }}
         >
@@ -52,7 +55,7 @@ export const ContactCard = () => {
             <Divider variant='fullWidth'>Location</Divider>
             <ContactInfoItem
               icon={<LocationPinIcon />}
-              text='Alberta, Canada'
+              text={props.location || 'Alberta, Canada'}
             />
           </CardContent>
           <CardContent
@@ -63,12 +66,15 @@ export const ContactCard = () => {
             <Divider variant='fullWidth'>Links</Divider>
             <ContactInfoItem
               icon={<MarkunreadIcon />}
-              text='sadatrahman001@gmail.com'
+              text={
+                props.email || 'sadatrahman001@gmail.com'
+              }
               actionButton={
                 <IconButton
                   onClick={() =>
                     copyToClipboard(
-                      'sadatrahman001@gmail.com',
+                      props.email ||
+                        'sadatrahman001@gmail.com',
                     )
                   }
                 >
@@ -78,10 +84,15 @@ export const ContactCard = () => {
             />
             <ContactInfoItem
               icon={<LinkedInIcon />}
-              text='sadatrahman001'
+              text={
+                props.linkedInUsername || 'sadatrahman001'
+              }
               actionButton={
                 <IconButton
-                  href='https://www.linkedin.com/in/sadatrahman001/'
+                  href={`https://www.linkedin.com/in/${
+                    props.linkedInUsername ||
+                    'sadatrahman001'
+                  }/`}
                   target='_blank'
                 >
                   <LaunchIcon />
@@ -90,10 +101,12 @@ export const ContactCard = () => {
             />
             <ContactInfoItem
               icon={<GitHubIcon />}
-              text='mosarah99'
+              text={props.githubUsername || 'mosarah99'}
               actionButton={
                 <IconButton
-                  href='https://github.com/mosarah99'
+                  href={`https://github.com/${
+                    props.githubUsername || 'mosarah99'
+                  }`}
                   target='_blank'
                 >
                   <LaunchIcon />
@@ -101,21 +114,17 @@ export const ContactCard = () => {
               }
             />
           </CardContent>
-        </Stack>
-        <Box
-          sx={{
-            aspectRatio: 1,
-            objectFit: 'cover',
-            display: { xs: 'none', md: 'block' },
-          }}
-        >
-          <CardMedia
-            sx={{ objectFit: 'cover', aspectRatio: 1 }}
-            //TODO: replace url (https://avatars.githubusercontent.com/u/48929049)
-            image='https://images.unsplash.com/photo-1467232004584-a241de8bcf5d'
-            component={'img'}
-          />
         </Box>
+        {props.imageLink && (
+          <CardMedia
+            sx={{
+              objectFit: 'cover',
+              alignSelf: 'stretch',
+              width: '50%',
+            }}
+            image={props.imageLink?.toString()}
+          />
+        )}
       </Stack>
     </Card>
   );
