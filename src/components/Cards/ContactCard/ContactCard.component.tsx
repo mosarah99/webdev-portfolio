@@ -6,6 +6,10 @@ import {
   CardMedia,
   Divider,
   IconButton,
+  ListItem,
+  ListItemIcon,
+  ListItemSecondaryAction,
+  ListItemText,
   Stack,
   Typography,
 } from '@mui/material';
@@ -26,29 +30,16 @@ export interface ContactInfoItemProps {
 export const ContactInfoItem = (
   props: ContactInfoItemProps,
 ) => {
-  const spacing = 2;
-
   return (
-    <Stack
-      direction={'row'}
-      spacing={spacing}
-      sx={{
-        alignItems: 'center',
-      }}
-    >
-      <Stack
-        direction={'row'}
-        spacing={spacing}
-        sx={{
-          alignItems: 'flex-end',
-          flexGrow: '1',
-        }}
-      >
-        {props.icon}
-        <Typography>{props.text}</Typography>
-      </Stack>
-      {props.actionButton && props.actionButton}
-    </Stack>
+    <ListItem component={'div'}>
+      <ListItemIcon>{props.icon}</ListItemIcon>
+      <ListItemText disableTypography>
+        <Typography noWrap>{props.text}</Typography>
+      </ListItemText>
+      <ListItemSecondaryAction>
+        {props.actionButton}
+      </ListItemSecondaryAction>
+    </ListItem>
   );
 };
 export const ContactCard = () => {
