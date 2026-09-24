@@ -4,7 +4,6 @@ import {
   Container,
   Grid,
   Stack,
-  Typography,
   useMediaQuery,
   useTheme,
 } from '@mui/material';
@@ -55,10 +54,10 @@ export const Homepage: React.FC = () => {
       navigate(destination);
     };
 
-//   const theme = useTheme();
-//   const isMobileView = useMediaQuery(
-//     theme.breakpoints.down('sm'),
-//   );
+  const theme = useTheme();
+  const isMobileView = useMediaQuery(
+    theme.breakpoints.down('sm'),
+  );
   return (
     <Page>
       <HeroSection
@@ -160,8 +159,14 @@ Ultimately, I see software development as both a science and an art—a craft th
           preheader={'Interested?'}
           header={"Let's Connect"}
         />
-        <Container maxWidth="lg">
-          <ContactCard />
+        <Container maxWidth='md'>
+          <ContactCard
+            {...(!isMobileView && {
+              imageLink: new URL(
+                'https://avatars.githubusercontent.com/u/48929049',
+              ),
+            })}
+          />
         </Container>
       </ContrastSection>
     </Page>
