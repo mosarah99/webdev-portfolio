@@ -20,7 +20,7 @@ import ContactInfoItem from './ContactInfoItem/ContactInfoItem.component';
 export interface ContactCardProps {
   imageLink?: URL;
   location?: string;
-  email: string;
+  email?: string;
   linkedInUsername?: string;
   githubUsername?: string;
 }
