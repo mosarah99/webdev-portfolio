@@ -21,19 +21,25 @@ interface ProjectFilterContainerProps {
 
   allPossibleViewModes: ViewMode[];
   currentViewMode: ViewMode;
-  onViewModeChange(view: ViewMode): (event: React.MouseEvent) => void;
+  onViewModeChange(
+    view: ViewMode,
+  ): (event: React.MouseEvent) => void;
 }
 
-const ProjectFilterContainer = (props: ProjectFilterContainerProps) => {
+const ProjectFilterContainer = (
+  props: ProjectFilterContainerProps,
+) => {
   const onAppendFilter =
-    (skill: SkillWithCategory) => (_e: React.MouseEvent<any>) => {
+    (skill: SkillWithCategory) =>
+    (_e: React.MouseEvent<any>) => {
       const skillSet = new Set(props.filters);
       skillSet.add(skill);
 
       props.onFilterChange([...skillSet]);
     };
   const onDeleteFilter =
-    (skill: SkillWithCategory) => (_e: React.MouseEvent<any>) => {
+    (skill: SkillWithCategory) =>
+    (_e: React.MouseEvent<any>) => {
       const filterSet = props.filters.filter(
         (existingSkill) => skill.id !== existingSkill.id,
       );
@@ -50,7 +56,9 @@ const ProjectFilterContainer = (props: ProjectFilterContainerProps) => {
         maxWidth: theme.breakpoints.values.lg,
         width: {
           xs: '100%',
-          xl: theme.breakpoints.values.xl - theme.breakpoints.values.lg,
+          xl:
+            theme.breakpoints.values.xl -
+            theme.breakpoints.values.lg,
         },
       })}
     >
@@ -62,13 +70,17 @@ const ProjectFilterContainer = (props: ProjectFilterContainerProps) => {
          */}
         <CardContent>
           {props.filters.length === 0 ? (
-            <Typography variant='body1'>No filters set</Typography>
+            <Typography variant='body1'>
+              No filters set
+            </Typography>
           ) : (
             <Box>
               <Stack
                 direction={'row'}
-                alignItems={'flex-start'}
-                justifyContent={'space-between'}
+                sx={{
+                  alignItems: 'flex-start',
+                  justifyContent: 'space-between',
+                }}
               >
                 <Typography>Active Filters:</Typography>
                 <Chip
@@ -125,7 +137,9 @@ const ProjectFilterContainer = (props: ProjectFilterContainerProps) => {
           })}
         >
           {props.allPossibleFilters
-            .sort((a, b) => a.shortname.localeCompare(b.shortname))
+            .sort((a, b) =>
+              a.shortname.localeCompare(b.shortname),
+            )
             .map((skill) => (
               <Chip
                 key={uuid.v7()}
@@ -166,10 +180,21 @@ const ProjectFilterContainer = (props: ProjectFilterContainerProps) => {
             {props.allPossibleViewModes.map((mode) => (
               <Chip
                 key={uuid.v7()}
-                variant={mode === props.currentViewMode ? 'filled' : 'outlined'}
-                label={mode.charAt(0).toUpperCase() + mode.slice(1)}
+                variant={
+                  mode === props.currentViewMode
+                    ? 'filled'
+                    : 'outlined'
+                }
+                label={
+                  mode.charAt(0).toUpperCase() +
+                  mode.slice(1)
+                }
                 onClick={props.onViewModeChange(mode)}
-                color={mode === props.currentViewMode ? 'primary' : 'default'}
+                color={
+                  mode === props.currentViewMode
+                    ? 'primary'
+                    : 'default'
+                }
                 sx={{ margin: 0.25 }}
               />
             ))}
