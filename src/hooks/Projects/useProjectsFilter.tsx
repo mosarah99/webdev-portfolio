@@ -9,8 +9,8 @@ export type UseProjectsFilterOptions = {
   useQueryParameters?: boolean;
 };
 export interface UseProjectsFilterProps {
-  skills: SkillWithCategory[];
-  projects: ProjectWithSkills[];
+  skills: SkillBasic[] | SkillWithCategory[];
+  projects: ProjectWithSkills[] ;
   options?: UseProjectsFilterOptions;
 }
 export const useProjectsFilter = (

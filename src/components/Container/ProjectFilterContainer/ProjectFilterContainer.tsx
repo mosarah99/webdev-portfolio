@@ -9,15 +9,20 @@ import {
   Typography,
 } from '@mui/material';
 import React from 'react';
-import type { SkillWithCategory } from '../../../assets/skills';
+import type {
+  SkillBasic,
+  SkillWithCategory,
+} from '../../../assets/skills';
 import * as uuid from 'uuid';
 
 type ViewMode = 'grid' | 'list';
 
 interface ProjectFilterContainerProps {
   allPossibleFilters: SkillWithCategory[];
-  filters: SkillWithCategory[];
-  onFilterChange(filters: SkillWithCategory[]): void;
+  filters: SkillWithCategory[] | SkillBasic[];
+  onFilterChange(
+    filters: SkillWithCategory[] | SkillBasic[],
+  ): void;
 
   allPossibleViewModes: ViewMode[];
   currentViewMode: ViewMode;
@@ -38,7 +43,7 @@ const ProjectFilterContainer = (
       props.onFilterChange([...skillSet]);
     };
   const onDeleteFilter =
-    (skill: SkillWithCategory) =>
+    (skill: SkillWithCategory | SkillBasic) =>
     (_e: React.MouseEvent<any>) => {
       const filterSet = props.filters.filter(
         (existingSkill) => skill.id !== existingSkill.id,
