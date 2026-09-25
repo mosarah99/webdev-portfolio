@@ -47,6 +47,7 @@ import 'swiper/css/pagination';
 import 'swiper/css/a11y';
 import 'swiper/css/effect-coverflow';
 import HeroSection from '../../templates/HeroSection/HeroSection.component';
+import useProjectsFilter from '../../hooks/Projects/useProjectsFilter';
 
 export const ProjectsPage: React.FC = () => {
   // View Modes
@@ -55,28 +56,14 @@ export const ProjectsPage: React.FC = () => {
     useState<(typeof viewModes)[number]>('grid');
 
   // Filtering Projects
-  const [filter, setFilter] = useState<SkillWithCategory[]>(
-    [],
-  );
-  const filteredProjects = useMemo(() => {
-    console.log(`updating filteredProjects...`);
-
-    const skillSet =
-      filter.length === 0 ? skillsWithCategory : filter;
-    const targetSkillIds = new Set(
-      skillSet.map((skill) => skill.id),
-    );
-    const filteredProjects = projectsWithSkills.filter(
-      (project) => {
-        // Check if any ID in the project's skillId array exists in our target set
-        return project.skillId.some((id) => {
-          return targetSkillIds.has(id);
-        });
-      },
-    );
-    // setFilteredProjects(filteredProjects);
-    return filteredProjects;
-  }, [filter, setFilter]);
+  const {
+    filteredProjects,
+    skillFilters: filter,
+    setSkillFilters: setFilter,
+  } = useProjectsFilter({
+    projects: projectsWithSkills,
+    skills: skillsWithCategory,
+  });
 
   // Pagination
   const [itemsPerPage, _] = useState<number>(6);
