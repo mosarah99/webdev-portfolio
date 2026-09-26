@@ -26,17 +26,17 @@ export const useProjectsFilter = (
       | typeof props.skills,
   ) => {
     skills = Array.isArray(skills) ? skills : [skills];
-    const filters = skillFilters;
+    const newFilters = skillFilters;
     skills.forEach((skill) => {
-      if (!filters.has(skill.id))
-        filters.set(skill.id, skill);
+      if (!newFilters.has(skill.id))
+        newFilters.set(skill.id, skill);
       else if (
         (skill as SkillWithCategory) &&
-        (filters.get(skill.id) as SkillBasic)
+        (newFilters.get(skill.id) as SkillBasic)
       )
-        filters.set(skill.id, skill);
+        newFilters.set(skill.id, skill);
     });
-    setSkillFilters(filters);
+    setSkillFilters(new Map(newFilters));
   };
   const removeSkillFilters = (
     skills:
@@ -44,11 +44,11 @@ export const useProjectsFilter = (
       | typeof props.skills,
   ) => {
     skills = Array.isArray(skills) ? skills : [skills];
-    const filters = skillFilters;
+    const newFilters = skillFilters;
     skills.forEach((skill) => {
-      filters.delete(skill.id);
+      newFilters.delete(skill.id);
     });
-    setSkillFilters(filters);
+    setSkillFilters(new Map(newFilters));
   };
   const clearSkillFilters = () => {
     setSkillFilters(new Map());
@@ -91,7 +91,7 @@ export const useProjectsFilter = (
         : undefined;
 
     // set filters
-    setFilters(newFilters);
+    setFilters({ ...newFilters });
   }, [skillFilters]);
   return {
     filters,
