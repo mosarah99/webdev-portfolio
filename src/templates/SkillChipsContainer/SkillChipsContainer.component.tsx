@@ -8,6 +8,7 @@ import type {
   SkillBasic,
   SkillWithCategory,
 } from '../../assets/skills';
+import * as uuid from 'uuid';
 
 export interface SkillChipsContainerProps extends Omit<
   BoxProps,
@@ -36,7 +37,7 @@ export const SkillChipsContainer = ({
     >
       {props.skills?.map((skill) => (
         <Chip
-          key={`${skill}`}
+          key={`skill-chip-container-${uuid.v1()}-${JSON.stringify(skill)}`}
           label={skill?.name}
           avatar={
             <Avatar
