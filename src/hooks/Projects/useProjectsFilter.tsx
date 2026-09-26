@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import type {
   SkillBasic,
   SkillWithCategory,
@@ -10,39 +10,102 @@ export type UseProjectsFilterOptions = {
 };
 export interface UseProjectsFilterProps {
   skills: SkillBasic[] | SkillWithCategory[];
-  projects: ProjectWithSkills[] ;
+  projects: ProjectWithSkills[];
   options?: UseProjectsFilterOptions;
 }
 export const useProjectsFilter = (
   props: UseProjectsFilterProps,
 ) => {
-  // Filtering Projects
-  const [filter, setFilter] = useState<typeof props.skills>(
-    [],
-  );
+  // Skill Filters
+  const [skillFilters, setSkillFilters] = useState<
+    Map<SkillBasic['id'], (typeof props.skills)[number]>
+  >(new Map());
+  const appendSkillFilters = (
+    skills:
+      | (typeof props.skills)[number]
+      | typeof props.skills,
+  ) => {
+    skills = Array.isArray(skills) ? skills : [skills];
+    const filters = skillFilters;
+    skills.forEach((skill) => {
+      if (!filters.has(skill.id))
+        filters.set(skill.id, skill);
+      else if (
+        (skill as SkillWithCategory) &&
+        (filters.get(skill.id) as SkillBasic)
+      )
+        filters.set(skill.id, skill);
+    });
+    setSkillFilters(filters);
+  };
+  const removeSkillFilters = (
+    skills:
+      | (typeof props.skills)[number]
+      | typeof props.skills,
+  ) => {
+    skills = Array.isArray(skills) ? skills : [skills];
+    const filters = skillFilters;
+    skills.forEach((skill) => {
+      filters.delete(skill.id);
+    });
+    setSkillFilters(filters);
+  };
+  const clearSkillFilters = () => {
+    setSkillFilters(new Map());
+  };
+  const skillFilterOperations = {
+    append: appendSkillFilters,
+    remove: removeSkillFilters,
+    clear: clearSkillFilters,
+  };
+
   const filteredProjects = useMemo(() => {
-    console.log(`updating filteredProjects...`);
-
-    const skillSet =
-      filter.length === 0 ? props.skills : filter;
-    const targetSkillIds = new Set(
-      skillSet.map((skill) => skill.id),
+    // get the skill id set of the keys for filtering
+    const skillFilterIds = new Set(
+      // when filter is empty, get all the skills
+      skillFilters.size < 1
+        ? props.skills.map((skill) => skill.id)
+        : skillFilters.keys(),
     );
-    const filteredProjects = props.projects.filter(
-      (project) => {
-        // Check if any ID in the project's skillId array exists in our target set
-        return project.skillId.some((id) => {
-          return targetSkillIds.has(id);
-        });
-      },
-    );
-    // setFilteredProjects(filteredProjects);
-    return filteredProjects;
-  }, [filter, setFilter]);
+    // filter projects
+    const projects = props.projects.filter((project) => {
+      return project.skillId.some((id) => {
+        return skillFilterIds.has(id);
+      });
+    });
 
+    return projects;
+  }, [skillFilters]);
+
+  type Filter = {
+    skills?: typeof props.skills;
+  };
+  const [filters, setFilters] = useState<Filter>({});
+  useEffect(() => {
+    let newFilters = filters;
+
+    // update skills
+    newFilters.skills =
+      skillFilters.size > 0
+        ? Array.from(skillFilters.values())
+        : undefined;
+
+    // set filters
+    setFilters(newFilters);
+  }, [skillFilters]);
   return {
-    skillFilters: filter,
-    setSkillFilters: setFilter,
+    filters,
+    filterOperations: {
+      skills: skillFilterOperations,
+    },
+    /**
+     * @deprecated
+     */
+    skillFilters: filters.skills || [],
+    /**
+     * @deprecated
+     */
+    setSkillFilters: skillFilterOperations.append,
     filteredProjects,
   };
 };
