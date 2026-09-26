@@ -1,32 +1,23 @@
-import { Container, Fade, Grid } from '@mui/material';
+import { Box, Fade, Grid, Stack } from '@mui/material';
 import { ProjectGridCard } from '../../Cards/ProjectGridCard/ProjectGridCard';
 import ProjectListCard from '../../Cards/ProjectListCard/ProjectListCard';
-import * as uuid from 'uuid';
 import type { ProjectWithSkills } from '../../../assets/projects-skills';
 
 interface ProjectDisplayContainerProps {
   projects: ProjectWithSkills[];
   viewMode?: 'grid' | 'list';
   animationTimeout?: number;
+  disableTransition?: boolean;
 }
 
 export const ProjectDisplayContainer = ({
   projects,
   viewMode = 'grid',
   animationTimeout = 1000,
+  ...props
 }: ProjectDisplayContainerProps) => {
   return (
-    <Container
-      maxWidth='lg'
-      style={{
-        padding: 0,
-      }}
-      sx={() => ({
-        padding: 0,
-        margin: 0,
-        display: 'block',
-      })}
-    >
+    <Box>
       <Fade
         key={projects.toString()}
         in={true}
@@ -34,45 +25,47 @@ export const ProjectDisplayContainer = ({
         timeout={animationTimeout}
       >
         <Grid
-          container
           spacing={2}
+          container
         >
-          {projects.map((_project, _index) => {
-            if (viewMode === 'grid')
-              return (
-                <Grid
-                  size={{ xs: 12, sm: 6, md: 4 }}
-                  sx={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    flexGrow: 1,
-                  }}
-                  key={uuid.v7()}
-                >
-                  <ProjectGridCard
-                    project={_project}
-                    projectDetailsPageURL={`/projects/${_project.id}`}
-                    showSkills
-                  />
-                </Grid>
-              );
-            else
-              return (
-                <Grid
-                  size={{ xs: 12 }}
-                  key={uuid.v7()}
-                >
-                  <ProjectListCard
-                    project={_project}
-                    projectDetailsPageURL={`/projects/${_project.id}`}
-                    showSkills
-                  />
-                </Grid>
-              );
-          })}
+          {projects.map((project) => (
+            <Grid
+              key={`project-display-grid-item-${JSON.stringify(project)}`}
+              component={Stack}
+              size={
+                viewMode === 'grid'
+                  ? {
+                      xs: 12,
+                      sm: 4,
+                      md: 6,
+                      lg: 4,
+                    }
+                  : 12
+              }
+              sx={[
+                props.disableTransition
+                  ? {
+                      transition: 'none',
+                    }
+                  : {},
+              ]}
+            >
+              {viewMode === 'grid' ? (
+                <ProjectGridCard
+                  project={project}
+                  showSkills
+                />
+              ) : (
+                <ProjectListCard
+                  project={project}
+                  showSkills
+                />
+              )}
+            </Grid>
+          ))}
         </Grid>
       </Fade>
-    </Container>
+    </Box>
   );
 };
 

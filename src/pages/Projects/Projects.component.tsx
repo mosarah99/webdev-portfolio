@@ -1,21 +1,29 @@
 import {
-  autocompleteClasses,
   Avatar,
   Box,
+  Button,
+  ButtonGroup,
   Card,
   CardContent,
-  CardHeader,
-  CardMedia,
-  Chip,
   Container,
+  Divider,
+  FormControl,
+  FormControlLabel,
+  FormGroup,
+  IconButton,
+  List,
+  ListItem,
+  ListItemAvatar,
+  ListItemIcon,
+  ListItemText,
   Pagination,
   Stack,
+  Typography,
   useTheme,
 } from '@mui/material';
 import type React from 'react';
 import SectionHeader from '../../templates/SectionHeader/SectionHeader.component';
 import FeaturedProject from '../../components/FeaturedProject/FeaturedProject.component';
-import * as uuid from 'uuid';
 
 import './Projects.style.css';
 
@@ -24,13 +32,13 @@ import {
   projectsWithSkills,
   type ProjectWithSkills,
 } from '../../assets/projects-skills';
-import { skillsWithCategory } from '../../assets/skills';
+import {
+  skillsWithCategory,
+  type SkillBasic,
+  type SkillWithCategory,
+} from '../../assets/skills';
 import { useMemo, useState } from 'react';
-import type { SkillWithCategory } from '../../assets/skills';
-import ProjectDisplayContainer from '../../components/Container/ProjectDisplayContainer/ProjectDisplayContainer';
-import ProjectFilterContainer from '../../components/Container/ProjectFilterContainer/ProjectFilterContainer';
 import Page from '../Page.component';
-import PrimarySection from '../../components/Section/PrimarySection/PrimarySection.component';
 import SecondarySection from '../../components/Section/SecondarySection/SecondarySection.component';
 import ContrastSection from '../../components/Section/ContrastSection/ContrastSection.component';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -48,6 +56,73 @@ import 'swiper/css/a11y';
 import 'swiper/css/effect-coverflow';
 import HeroSection from '../../templates/HeroSection/HeroSection.component';
 import useProjectsFilter from '../../hooks/Projects/useProjectsFilter';
+import {
+  AddRounded,
+  DeleteRounded,
+} from '@mui/icons-material';
+import ProjectDisplayContainer from '../../components/Container/ProjectDisplayContainer/ProjectDisplayContainer';
+
+interface SkillsListProps {
+  listSubHeader?: React.ReactNode;
+  skills: SkillBasic[] | SkillWithCategory[];
+  actionButtonIcon?: React.ReactNode;
+  onActionButtonClick?: (
+    skill: SkillBasic | SkillWithCategory,
+  ) => any;
+  showSkillShortName?: boolean;
+}
+const SkillsList = (props: SkillsListProps) => {
+  const handleButtonClick =
+    (skill: SkillBasic | SkillWithCategory) =>
+    (_event: React.MouseEvent) => {
+      if (props.onActionButtonClick)
+        props.onActionButtonClick(skill);
+    };
+
+  return (
+    <List subheader={props.listSubHeader}>
+      {props.skills.map((skill) => (
+        <ListItem
+          key={`${JSON.stringify(props.listSubHeader?.toString())}-${JSON.stringify(skill)}`}
+          disableGutters
+          secondaryAction={
+            <ListItemIcon>
+              <IconButton
+                onClick={handleButtonClick(skill)}
+              >
+                {props.actionButtonIcon}
+              </IconButton>
+            </ListItemIcon>
+          }
+        >
+          <ListItemAvatar>
+            <Avatar
+              src={skill?.icon}
+              alt={`${skill?.name} icon`}
+              slotProps={{
+                img: {
+                  loading: 'lazy',
+                },
+              }}
+            />
+          </ListItemAvatar>
+          <ListItemText
+            primary={skill.name}
+            secondary={
+              props.showSkillShortName
+                ? skill.shortname
+                : null
+            }
+            slotProps={{
+              primary: { noWrap: true },
+              secondary: { noWrap: true },
+            }}
+          />
+        </ListItem>
+      ))}
+    </List>
+  );
+};
 
 export const ProjectsPage: React.FC = () => {
   // View Modes
@@ -56,14 +131,11 @@ export const ProjectsPage: React.FC = () => {
     useState<(typeof viewModes)[number]>('grid');
 
   // Filtering Projects
-  const {
-    filteredProjects,
-    skillFilters: filter,
-    setSkillFilters: setFilter,
-  } = useProjectsFilter({
-    projects: projectsWithSkills,
-    skills: skillsWithCategory,
-  });
+  const { filteredProjects, filters, filterOperations } =
+    useProjectsFilter({
+      projects: projectsWithSkills,
+      skills: skillsWithCategory,
+    });
 
   // Pagination
   const [itemsPerPage, _] = useState<number>(6);
@@ -101,9 +173,37 @@ export const ProjectsPage: React.FC = () => {
     (_event: React.MouseEvent<any>) => {
       setViewMode(mode);
     };
-  const onFilterChange = (filters: SkillWithCategory[]) => {
-    setFilter(filters);
-    setPage(1);
+  //   const onFilterChange = (filters: SkillWithCategory[]) => {
+  //     setFilter(filters);
+  //     setPage(1);
+  //   };
+
+  const ViewMenuButtonGroup = () => {
+    return (
+      <ButtonGroup
+        sx={{
+          marginX: 1,
+        }}
+      >
+        {viewModes.map((mode) => (
+          <Button
+            key={mode}
+            variant={
+              mode === viewMode ? 'contained' : 'outlined'
+            }
+            onClick={onViewModeChange(mode)}
+            sx={{
+              textTransform: {
+                '': 'lowercase',
+                ':firstLetter': 'uppercase',
+              },
+            }}
+          >
+            {mode}
+          </Button>
+        ))}
+      </ButtonGroup>
+    );
   };
 
   return (
@@ -190,28 +290,118 @@ export const ProjectsPage: React.FC = () => {
         />
         <Container maxWidth={'xl'}>
           <Stack
-            direction={{ xs: 'column', xl: 'row' }}
-            // justifyContent={'center'}
-            sx={{
-              alignItems: {
-                xs: 'center',
-                xl: 'flex-start',
-              },
-              gap: 1,
-            }}
+            direction={{ xs: 'column', md: 'row' }}
+            spacing={2}
           >
-            <ProjectFilterContainer
-              allPossibleFilters={skillsWithCategory}
-              filters={filter}
-              onFilterChange={onFilterChange}
-              allPossibleViewModes={viewModes.map((_) => _)}
-              currentViewMode={viewMode}
-              onViewModeChange={onViewModeChange}
-            />
-            <ProjectDisplayContainer
-              projects={projectsOnPage}
-              viewMode={viewMode}
-            />
+            <Box
+              component={Stack}
+              sx={{
+                alignSelf: 'stretch',
+                minWidth: 'fit-content',
+              }}
+            >
+              <CardContent>
+                <SkillsList
+                  listSubHeader={
+                    <Typography
+                      variant='h6'
+                      component={'h3'}
+                      noWrap
+                    >
+                      {(filters.skills ?? []).length < 1
+                        ? 'No '
+                        : null}
+                      Active Filters
+                    </Typography>
+                  }
+                  skills={filters.skills ?? []}
+                  actionButtonIcon={<DeleteRounded />}
+                  onActionButtonClick={(skill) =>
+                    filterOperations.skills.remove(skill)
+                  }
+                  showSkillShortName
+                />
+              </CardContent>
+              <CardContent>
+                <Divider variant='fullWidth' />
+              </CardContent>
+              <CardContent>
+                <SkillsList
+                  skills={skillsWithCategory}
+                  listSubHeader={
+                    <Typography
+                      variant='h6'
+                      component={'h3'}
+                      noWrap
+                    >
+                      Skill Filters
+                    </Typography>
+                  }
+                  actionButtonIcon={<AddRounded />}
+                  onActionButtonClick={(skill) =>
+                    filterOperations.skills.append(skill)
+                  }
+                />
+              </CardContent>
+            </Box>
+
+            <Stack
+              spacing={2}
+              sx={{
+                flexGrow: 1,
+              }}
+            >
+              <Card
+                sx={(theme) => ({
+                  padding: 2,
+                  position: 'sticky',
+                  top: '60px',
+                  zIndex: theme.zIndex.mobileStepper,
+                })}
+              >
+                <Stack
+                  direction={'row'}
+                  spacing={2}
+                  sx={{
+                    justifySelf: 'stretch',
+                    alignItems: 'center',
+                  }}
+                >
+                  <Button
+                    variant={
+                      (filters.skills ?? []).length < 1
+                        ? 'outlined'
+                        : 'contained'
+                    }
+                    sx={{
+                      display: {
+                        xs: 'inline-block',
+                        md: 'none',
+                      },
+                    }}
+                  >
+                    Filters
+                  </Button>
+                  <Box
+                    component={'span'}
+                    sx={{ flexGrow: 1 }}
+                  ></Box>
+                  <FormControl component={'form'}>
+                    <FormGroup>
+                      <FormControlLabel
+                        control={<ViewMenuButtonGroup />}
+                        label='View'
+                        labelPlacement='start'
+                      />
+                    </FormGroup>
+                  </FormControl>
+                </Stack>
+              </Card>
+              <ProjectDisplayContainer
+                projects={projectsOnPage}
+                viewMode={viewMode}
+              />
+            </Stack>
           </Stack>
         </Container>
         <Stack
