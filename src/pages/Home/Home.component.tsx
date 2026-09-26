@@ -110,7 +110,6 @@ Ultimately, I see software development as both a science and an art—a craft th
       </PrimarySection>
       <SecondarySection
         className='homepage__projects-section'
-        id='about'
       >
         <SectionHeader
           preheader='Sneak peek into my'
@@ -154,7 +153,7 @@ Ultimately, I see software development as both a science and an art—a craft th
           ]}
         />
       </SecondarySection>
-      <ContrastSection id='about'>
+      <ContrastSection >
         <SectionHeader
           preheader={'Interested?'}
           header={"Let's Connect"}
