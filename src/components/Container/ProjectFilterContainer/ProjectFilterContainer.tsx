@@ -1,54 +1,34 @@
 import {
-  Avatar,
   Box,
-  Card,
   CardContent,
-  Chip,
   Divider,
   Stack,
   Typography,
 } from '@mui/material';
-import React from 'react';
 import type {
   SkillBasic,
   SkillWithCategory,
 } from '../../../assets/skills';
-import * as uuid from 'uuid';
-
-type ViewMode = 'grid' | 'list';
+import SkillsList from '../../../templates/ProjectsSkillsList/SkillsList.component';
+import {
+  AddRounded,
+  DeleteRounded,
+} from '@mui/icons-material';
 
 interface ProjectFilterContainerProps {
-  allPossibleFilters: SkillWithCategory[];
-  filters: SkillWithCategory[] | SkillBasic[];
-  onFilterChange(
-    filters: SkillWithCategory[] | SkillBasic[],
-  ): void;
+  allSkills: SkillBasic[] | SkillWithCategory[];
+  activeSkillFilters: SkillBasic[] | SkillWithCategory[];
+  onFilterAdd?: (
+    skill: SkillBasic | SkillWithCategory,
+  ) => any;
+  onFilterRemove?: (
+    skill: SkillBasic | SkillWithCategory,
+  ) => any;
 }
 
 const ProjectFilterContainer = (
   props: ProjectFilterContainerProps,
 ) => {
-  const onAppendFilter =
-    (skill: SkillWithCategory) =>
-    (_e: React.MouseEvent<any>) => {
-      const skillSet = new Set(props.filters);
-      skillSet.add(skill);
-
-      props.onFilterChange([...skillSet]);
-    };
-  const onDeleteFilter =
-    (skill: SkillWithCategory | SkillBasic) =>
-    (_e: React.MouseEvent<any>) => {
-      const filterSet = props.filters.filter(
-        (existingSkill) => skill.id !== existingSkill.id,
-      );
-
-      props.onFilterChange(filterSet);
-    };
-  const resetFilter = () => {
-    props.onFilterChange([]);
-  };
-
   return (
     <Box
       component={Stack}
@@ -65,17 +45,15 @@ const ProjectFilterContainer = (
               component={'h3'}
               noWrap
             >
-              {(filters.skills ?? []).length < 1
+              {props.activeSkillFilters.length < 1
                 ? 'No '
                 : null}
               Active Filters
             </Typography>
           }
-          skills={filters.skills ?? []}
+          skills={props.activeSkillFilters}
           actionButtonIcon={<DeleteRounded />}
-          onActionButtonClick={(skill) =>
-            filterOperations.skills.remove(skill)
-          }
+          onActionButtonClick={props.onFilterRemove}
           showSkillShortName
         />
       </CardContent>
@@ -84,7 +62,6 @@ const ProjectFilterContainer = (
       </CardContent>
       <CardContent>
         <SkillsList
-          skills={skillsWithCategory}
           listSubHeader={
             <Typography
               variant='h6'
@@ -94,10 +71,9 @@ const ProjectFilterContainer = (
               Skill Filters
             </Typography>
           }
+          skills={props.allSkills}
           actionButtonIcon={<AddRounded />}
-          onActionButtonClick={(skill) =>
-            filterOperations.skills.append(skill)
-          }
+          onActionButtonClick={props.onFilterAdd}
         />
       </CardContent>
     </Box>

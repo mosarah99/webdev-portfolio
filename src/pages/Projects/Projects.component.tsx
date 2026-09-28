@@ -61,68 +61,8 @@ import {
   DeleteRounded,
 } from '@mui/icons-material';
 import ProjectDisplayContainer from '../../components/Container/ProjectDisplayContainer/ProjectDisplayContainer';
-
-interface SkillsListProps {
-  listSubHeader?: React.ReactNode;
-  skills: SkillBasic[] | SkillWithCategory[];
-  actionButtonIcon?: React.ReactNode;
-  onActionButtonClick?: (
-    skill: SkillBasic | SkillWithCategory,
-  ) => any;
-  showSkillShortName?: boolean;
-}
-const SkillsList = (props: SkillsListProps) => {
-  const handleButtonClick =
-    (skill: SkillBasic | SkillWithCategory) =>
-    (_event: React.MouseEvent) => {
-      if (props.onActionButtonClick)
-        props.onActionButtonClick(skill);
-    };
-
-  return (
-    <List subheader={props.listSubHeader}>
-      {props.skills.map((skill) => (
-        <ListItem
-          key={`${JSON.stringify(props.listSubHeader?.toString())}-${JSON.stringify(skill)}`}
-          disableGutters
-          secondaryAction={
-            <ListItemIcon>
-              <IconButton
-                onClick={handleButtonClick(skill)}
-              >
-                {props.actionButtonIcon}
-              </IconButton>
-            </ListItemIcon>
-          }
-        >
-          <ListItemAvatar>
-            <Avatar
-              src={skill?.icon}
-              alt={`${skill?.name} icon`}
-              slotProps={{
-                img: {
-                  loading: 'lazy',
-                },
-              }}
-            />
-          </ListItemAvatar>
-          <ListItemText
-            primary={skill.name}
-            secondary={
-              props.showSkillShortName
-                ? skill.shortname
-                : null
-            }
-            slotProps={{
-              primary: { noWrap: true },
-              secondary: { noWrap: true },
-            }}
-          />
-        </ListItem>
-      ))}
-    </List>
-  );
-};
+import SkillsList from '../../templates/ProjectsSkillsList/SkillsList.component';
+import ProjectFilterContainer from '../../components/Container/ProjectFilterContainer/ProjectFilterContainer';
 
 export const ProjectsPage: React.FC = () => {
   // View Modes
@@ -293,57 +233,14 @@ export const ProjectsPage: React.FC = () => {
             direction={{ xs: 'column', md: 'row' }}
             spacing={2}
           >
-            <Box
-              component={Stack}
-              sx={{
-                alignSelf: 'stretch',
-                minWidth: 'fit-content',
-              }}
-            >
-              <CardContent>
-                <SkillsList
-                  listSubHeader={
-                    <Typography
-                      variant='h6'
-                      component={'h3'}
-                      noWrap
-                    >
-                      {(filters.skills ?? []).length < 1
-                        ? 'No '
-                        : null}
-                      Active Filters
-                    </Typography>
-                  }
-                  skills={filters.skills ?? []}
-                  actionButtonIcon={<DeleteRounded />}
-                  onActionButtonClick={(skill) =>
-                    filterOperations.skills.remove(skill)
-                  }
-                  showSkillShortName
-                />
-              </CardContent>
-              <CardContent>
-                <Divider variant='fullWidth' />
-              </CardContent>
-              <CardContent>
-                <SkillsList
-                  skills={skillsWithCategory}
-                  listSubHeader={
-                    <Typography
-                      variant='h6'
-                      component={'h3'}
-                      noWrap
-                    >
-                      Skill Filters
-                    </Typography>
-                  }
-                  actionButtonIcon={<AddRounded />}
-                  onActionButtonClick={(skill) =>
-                    filterOperations.skills.append(skill)
-                  }
-                />
-              </CardContent>
-            </Box>
+            <ProjectFilterContainer
+              allSkills={skillsWithCategory}
+              activeSkillFilters={filters.skills ?? []}
+              onFilterAdd={filterOperations.skills.append}
+              onFilterRemove={
+                filterOperations.skills.remove
+              }
+            />
 
             <Stack
               spacing={2}
