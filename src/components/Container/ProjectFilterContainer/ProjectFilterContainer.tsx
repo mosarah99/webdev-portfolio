@@ -33,7 +33,6 @@ const ProjectFilterContainer = (
     <Box
       component={Stack}
       sx={{
-        alignSelf: 'stretch',
         minWidth: 'fit-content',
       }}
     >

@@ -1,46 +1,32 @@
 import {
-  Avatar,
   Box,
   Button,
   ButtonGroup,
   Card,
-  CardContent,
   Container,
-  Divider,
+  Dialog,
+  DialogContent,
+  DialogTitle,
   FormControl,
   FormControlLabel,
   FormGroup,
-  IconButton,
-  List,
-  ListItem,
-  ListItemAvatar,
-  ListItemIcon,
-  ListItemText,
   Pagination,
   Stack,
-  Typography,
+  useMediaQuery,
   useTheme,
 } from '@mui/material';
 import type React from 'react';
-import SectionHeader from '../../templates/SectionHeader/SectionHeader.component';
-import FeaturedProject from '../../components/FeaturedProject/FeaturedProject.component';
-
-import './Projects.style.css';
-
 import {
-  featuredProjects,
-  projectsWithSkills,
-  type ProjectWithSkills,
-} from '../../assets/projects-skills';
-import {
-  skillsWithCategory,
-  type SkillBasic,
-  type SkillWithCategory,
-} from '../../assets/skills';
-import { useMemo, useState } from 'react';
-import Page from '../Page.component';
-import SecondarySection from '../../components/Section/SecondarySection/SecondarySection.component';
-import ContrastSection from '../../components/Section/ContrastSection/ContrastSection.component';
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  type ReactElement,
+} from 'react';
+
+/**
+ * SWIPER
+ */
 import { Swiper, SwiperSlide } from 'swiper/react';
 import {
   Pagination as SwiperPagination,
@@ -48,22 +34,83 @@ import {
   A11y as SwiperA11y,
   EffectCoverflow as SwiperEffectCoverflow,
 } from 'swiper/modules';
-
 // swiper css
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/a11y';
 import 'swiper/css/effect-coverflow';
+
+/**
+ * PROJECT ASSETS, COMPONENTS, TEMPLATES
+ */
+import {
+  featuredProjects,
+  projectsWithSkills,
+  type ProjectWithSkills,
+} from '../../assets/projects-skills';
+import { skillsWithCategory } from '../../assets/skills';
+import SectionHeader from '../../templates/SectionHeader/SectionHeader.component';
+import FeaturedProject from '../../components/FeaturedProject/FeaturedProject.component';
+import Page from '../Page.component';
+import SecondarySection from '../../components/Section/SecondarySection/SecondarySection.component';
+import ContrastSection from '../../components/Section/ContrastSection/ContrastSection.component';
 import HeroSection from '../../templates/HeroSection/HeroSection.component';
 import useProjectsFilter from '../../hooks/Projects/useProjectsFilter';
-import {
-  AddRounded,
-  DeleteRounded,
-} from '@mui/icons-material';
 import ProjectDisplayContainer from '../../components/Container/ProjectDisplayContainer/ProjectDisplayContainer';
-import SkillsList from '../../templates/ProjectsSkillsList/SkillsList.component';
 import ProjectFilterContainer from '../../components/Container/ProjectFilterContainer/ProjectFilterContainer';
 
+import './Projects.style.css';
+import { CloseRounded } from '@mui/icons-material';
+
+const FilterModal = (props: {
+  open: boolean;
+  onModalClose: () => any;
+  filerComponent: ReactElement;
+}) => {
+  const contentRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    if (props.open) contentRef.current?.focus();
+  }, [props]);
+
+  const theme = useTheme();
+  const isMobileView = useMediaQuery(
+    theme.breakpoints.down('sm'),
+  );
+
+  return (
+    <Dialog
+      open={props.open}
+      onClose={props.onModalClose}
+      scroll='paper'
+      fullScreen={isMobileView}
+      fullWidth
+    >
+      <DialogTitle
+        component={Stack}
+        direction={'row'}
+        sx={(theme) => ({
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          borderBottom: '1px solid',
+          boxShadow: theme.shadows[15],
+        })}
+      >
+        <Box component={'span'}>Filters</Box>
+        <Button
+          variant='outlined'
+          onClick={props.onModalClose}
+          endIcon={<CloseRounded />}
+        >
+          Close
+        </Button>
+      </DialogTitle>
+      <DialogContent ref={contentRef}>
+        {props.filerComponent}
+      </DialogContent>
+    </Dialog>
+  );
+};
 export const ProjectsPage: React.FC = () => {
   // View Modes
   const viewModes = ['grid', 'list'] as const;
@@ -117,6 +164,9 @@ export const ProjectsPage: React.FC = () => {
   //     setFilter(filters);
   //     setPage(1);
   //   };
+
+  const [filterModalOpen, setFilterModalOpen] =
+    useState(false);
 
   const ViewMenuButtonGroup = () => {
     return (
@@ -228,19 +278,51 @@ export const ProjectsPage: React.FC = () => {
           preheader='A bit more detailed'
           header='Projects List'
         />
-        <Container maxWidth={'xl'}>
+        <Container
+          maxWidth={'xl'}
+          disableGutters
+        >
           <Stack
-            direction={{ xs: 'column', md: 'row' }}
+            direction={'row'}
             spacing={2}
           >
-            <ProjectFilterContainer
-              allSkills={skillsWithCategory}
-              activeSkillFilters={filters.skills ?? []}
-              onFilterAdd={filterOperations.skills.append}
-              onFilterRemove={
-                filterOperations.skills.remove
-              }
-            />
+            <Box
+              sx={{
+                display: {
+                  xs: 'none',
+                  md: 'block',
+                },
+              }}
+            >
+              <FilterModal
+                open={filterModalOpen}
+                onModalClose={() =>
+                  setFilterModalOpen(false)
+                }
+                filerComponent={
+                  <ProjectFilterContainer
+                    allSkills={skillsWithCategory}
+                    activeSkillFilters={
+                      filters.skills ?? []
+                    }
+                    onFilterAdd={
+                      filterOperations.skills.append
+                    }
+                    onFilterRemove={
+                      filterOperations.skills.remove
+                    }
+                  />
+                }
+              />
+              <ProjectFilterContainer
+                allSkills={skillsWithCategory}
+                activeSkillFilters={filters.skills ?? []}
+                onFilterAdd={filterOperations.skills.append}
+                onFilterRemove={
+                  filterOperations.skills.remove
+                }
+              />
+            </Box>
 
             <Stack
               spacing={2}
@@ -262,27 +344,29 @@ export const ProjectsPage: React.FC = () => {
                   sx={{
                     justifySelf: 'stretch',
                     alignItems: 'center',
+                    justifyContent: 'space-between',
                   }}
                 >
-                  <Button
-                    variant={
-                      (filters.skills ?? []).length < 1
-                        ? 'outlined'
-                        : 'contained'
-                    }
-                    sx={{
-                      display: {
-                        xs: 'inline-block',
-                        md: 'none',
-                      },
-                    }}
-                  >
-                    Filters
-                  </Button>
-                  <Box
-                    component={'span'}
-                    sx={{ flexGrow: 1 }}
-                  ></Box>
+                  <Box>
+                    <Button
+                      variant={
+                        (filters.skills ?? []).length < 1
+                          ? 'outlined'
+                          : 'contained'
+                      }
+                      sx={{
+                        display: {
+                          xs: 'inline-block',
+                          md: 'none',
+                        },
+                      }}
+                      onClick={() =>
+                        setFilterModalOpen(true)
+                      }
+                    >
+                      Filters
+                    </Button>
+                  </Box>
                   <FormControl component={'form'}>
                     <FormGroup>
                       <FormControlLabel
