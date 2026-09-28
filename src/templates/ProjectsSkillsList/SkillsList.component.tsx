@@ -6,6 +6,7 @@ import {
   ListItemAvatar,
   ListItemIcon,
   ListItemText,
+  Paper,
 } from '@mui/material';
 import type {
   SkillBasic,
@@ -47,6 +48,7 @@ export const SkillsList = (props: SkillsListProps) => {
         >
           <ListItemAvatar>
             <Avatar
+              component={Paper}
               src={skill?.icon}
               alt={`${skill?.name} icon`}
               slotProps={{
