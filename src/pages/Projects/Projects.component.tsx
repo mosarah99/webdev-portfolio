@@ -12,6 +12,7 @@ import {
   FormGroup,
   Pagination,
   Stack,
+  Toolbar,
   useMediaQuery,
   useTheme,
 } from '@mui/material';
@@ -284,7 +285,11 @@ export const ProjectsPage: React.FC = () => {
         >
           <Stack
             direction={'row'}
-            spacing={2}
+            spacing={
+              useMediaQuery(theme.breakpoints.down('md'))
+                ? 0
+                : 2
+            }
           >
             <Box
               sx={{
@@ -331,52 +336,46 @@ export const ProjectsPage: React.FC = () => {
               }}
             >
               <Card
+                component={Toolbar}
                 sx={(theme) => ({
+                  justifySelf: 'stretch',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  flexWrap: 'wrap',
+
                   padding: 2,
                   position: 'sticky',
                   top: '60px',
                   zIndex: theme.zIndex.mobileStepper,
                 })}
               >
-                <Stack
-                  direction={'row'}
-                  spacing={2}
-                  sx={{
-                    justifySelf: 'stretch',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                  }}
-                >
-                  <Box>
-                    <Button
-                      variant={
-                        (filters.skills ?? []).length < 1
-                          ? 'outlined'
-                          : 'contained'
-                      }
-                      sx={{
-                        display: {
-                          xs: 'inline-block',
-                          md: 'none',
-                        },
-                      }}
-                      onClick={() =>
-                        setFilterModalOpen(true)
-                      }
-                    >
-                      Filters
-                    </Button>
-                  </Box>
-                  <FormControl component={'form'}>
-                    <FormGroup>
-                      <FormControlLabel
-                        control={<ViewMenuButtonGroup />}
-                        label='View'
-                        labelPlacement='start'
-                      />
-                    </FormGroup>
-                  </FormControl>
-                </Stack>
+                <Box>
+                  <Button
+                    variant={
+                      (filters.skills ?? []).length < 1
+                        ? 'outlined'
+                        : 'contained'
+                    }
+                    sx={{
+                      display: {
+                        xs: 'inline-block',
+                        md: 'none',
+                      },
+                    }}
+                    onClick={() => setFilterModalOpen(true)}
+                  >
+                    Filters
+                  </Button>
+                </Box>
+                <FormControl component={'form'}>
+                  <FormGroup>
+                    <FormControlLabel
+                      control={<ViewMenuButtonGroup />}
+                      label='View'
+                      labelPlacement='start'
+                    />
+                  </FormGroup>
+                </FormControl>
               </Card>
               <ProjectDisplayContainer
                 projects={projectsOnPage}
