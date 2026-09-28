@@ -1,4 +1,11 @@
-import { Box, Fade, Grid, Stack } from '@mui/material';
+import {
+  Box,
+  Fade,
+  Grid,
+  Stack,
+  useMediaQuery,
+  useTheme,
+} from '@mui/material';
 import { ProjectGridCard } from '../../Cards/ProjectGridCard/ProjectGridCard';
 import ProjectListCard from '../../Cards/ProjectListCard/ProjectListCard';
 import type { ProjectWithSkills } from '../../../assets/projects-skills';
@@ -55,10 +62,7 @@ export const ProjectDisplayContainer = ({
                   showSkills
                 />
               ) : (
-                <ProjectListCard
-                  project={project}
-                  showSkills
-                />
+                <ProjectListCard project={project} />
               )}
             </Grid>
           ))}
