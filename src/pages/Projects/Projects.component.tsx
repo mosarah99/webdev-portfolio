@@ -62,6 +62,7 @@ import ProjectFilterContainer from '../../components/Container/ProjectFilterCont
 
 import './Projects.style.css';
 import ProjectFilterModal from '../../templates/ProjectFilterModal/ProjectFilterModal.component';
+import useProjectsPagination from '../../hooks/Projects/useProjectsPagination';
 
 export const ProjectsPage: React.FC = () => {
   // View Modes
@@ -76,46 +77,31 @@ export const ProjectsPage: React.FC = () => {
       skills: skillsWithCategory,
     });
 
-  // Pagination
-  const [itemsPerPage, _] = useState<number>(6);
-  const [page, setPage] = useState(1);
-  const maxPageCount = useMemo(() => {
-    return Math.ceil(
-      filteredProjects.length / itemsPerPage,
-    );
-  }, [filteredProjects, itemsPerPage]);
-  const projectsOnPage: ProjectWithSkills[] =
-    useMemo(() => {
-      console.log(`projectsOnPage updating...`);
-      console.log(`current page: ${page}`);
-
-      const inView = filteredProjects.slice(
-        (page - 1) * itemsPerPage,
-        itemsPerPage * page < filteredProjects.length
-          ? itemsPerPage * page
-          : filteredProjects.length,
-      );
-      // setProjectsOnPage(inView);
-      return inView;
-    }, [page, filteredProjects, maxPageCount]);
+  const {
+    currentPage,
+    pageCount,
+    viewableProjects,
+    jumpPage,
+  } = useProjectsPagination({
+    projects: filteredProjects,
+    pageSize: 6,
+  });
 
   const theme = useTheme();
 
   const onPageChange = (
-    _event: React.ChangeEvent<unknown>,
+    event: React.ChangeEvent<unknown>,
     value: number,
   ) => {
-    setPage(value);
+    // setPage(value);
+    event.preventDefault();
+    jumpPage(value);
   };
   const onViewModeChange =
     (mode: (typeof viewModes)[number]) =>
     (_event: React.MouseEvent<any>) => {
       setViewMode(mode);
     };
-  //   const onFilterChange = (filters: SkillWithCategory[]) => {
-  //     setFilter(filters);
-  //     setPage(1);
-  //   };
 
   const [filterModalOpen, setFilterModalOpen] =
     useState(false);
@@ -329,7 +315,7 @@ export const ProjectsPage: React.FC = () => {
                 </FormControl>
               </Card>
               <ProjectDisplayContainer
-                projects={projectsOnPage}
+                projects={viewableProjects}
                 viewMode={viewMode}
               />
             </Stack>
@@ -343,9 +329,9 @@ export const ProjectsPage: React.FC = () => {
           }}
         >
           <Pagination
-            page={page}
+            page={currentPage}
             size='large'
-            count={maxPageCount}
+            count={pageCount}
             onChange={onPageChange}
             color='primary'
           />
