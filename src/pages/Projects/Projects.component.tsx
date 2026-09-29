@@ -61,57 +61,8 @@ import ProjectDisplayContainer from '../../components/Container/ProjectDisplayCo
 import ProjectFilterContainer from '../../components/Container/ProjectFilterContainer/ProjectFilterContainer';
 
 import './Projects.style.css';
-import { CloseRounded } from '@mui/icons-material';
+import ProjectFilterModal from '../../templates/ProjectFilterModal/ProjectFilterModal.component';
 
-const FilterModal = (props: {
-  open: boolean;
-  onModalClose: () => any;
-  filerComponent: ReactElement;
-}) => {
-  const contentRef = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    if (props.open) contentRef.current?.focus();
-  }, [props]);
-
-  const theme = useTheme();
-  const isMobileView = useMediaQuery(
-    theme.breakpoints.down('sm'),
-  );
-
-  return (
-    <Dialog
-      open={props.open}
-      onClose={props.onModalClose}
-      scroll='paper'
-      fullScreen={isMobileView}
-      fullWidth
-    >
-      <DialogTitle
-        component={Stack}
-        direction={'row'}
-        sx={(theme) => ({
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          borderBottom: '1px solid',
-          boxShadow: theme.shadows[15],
-        })}
-      >
-        <Box component={'span'}>Filters</Box>
-        <Button
-          variant='outlined'
-          onClick={props.onModalClose}
-          endIcon={<CloseRounded />}
-        >
-          Close
-        </Button>
-      </DialogTitle>
-      <DialogContent ref={contentRef}>
-        {props.filerComponent}
-      </DialogContent>
-    </Dialog>
-  );
-};
 export const ProjectsPage: React.FC = () => {
   // View Modes
   const viewModes = ['grid', 'list'] as const;
@@ -299,7 +250,7 @@ export const ProjectsPage: React.FC = () => {
                 },
               }}
             >
-              <FilterModal
+              <ProjectFilterModal
                 open={filterModalOpen}
                 onModalClose={() =>
                   setFilterModalOpen(false)
