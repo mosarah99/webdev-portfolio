@@ -10,7 +10,9 @@ import { ProjectGridCard } from '../../Cards/ProjectGridCard/ProjectGridCard';
 import ProjectListCard from '../../Cards/ProjectListCard/ProjectListCard';
 import type { ProjectWithSkills } from '../../../assets/projects-skills';
 
-interface ProjectDisplayContainerProps {
+interface ProjectDisplayContainerProps extends React.ComponentProps<
+  typeof Box
+> {
   projects: ProjectWithSkills[];
   viewMode?: 'grid' | 'list';
   animationTimeout?: number;
@@ -24,7 +26,7 @@ export const ProjectDisplayContainer = ({
   ...props
 }: ProjectDisplayContainerProps) => {
   return (
-    <Box>
+    <Box {...props}>
       <Fade
         key={projects.toString()}
         in={true}

@@ -202,6 +202,7 @@ export const ProjectsPage: React.FC = () => {
             }
           >
             <Box
+              id='project-filters'
               sx={{
                 display: {
                   xs: 'none',
@@ -240,12 +241,14 @@ export const ProjectsPage: React.FC = () => {
             </Box>
 
             <Stack
+              id='projects-all-stack'
               spacing={2}
               sx={{
                 flexGrow: 1,
               }}
             >
               <Card
+                id='projects-appbar'
                 component={Toolbar}
                 sx={(theme) => ({
                   justifySelf: 'stretch',
@@ -294,27 +297,28 @@ export const ProjectsPage: React.FC = () => {
                 </FormControl>
               </Card>
               <ProjectDisplayContainer
+                id='projects-gallery'
                 projects={viewableProjects}
                 viewMode={viewMode as 'grid' | 'list'}
               />
+              <Stack
+                id='projects-pagination'
+                sx={{
+                  margin: 4,
+                  alignItems: 'center',
+                }}
+              >
+                <Pagination
+                  page={currentPage}
+                  size='large'
+                  count={pageCount}
+                  onChange={onPageChange}
+                  color='primary'
+                />
+              </Stack>
             </Stack>
           </Stack>
         </Container>
-        <Stack
-          direction={'row'}
-          sx={{
-            margin: 4,
-            justifyContent: 'center',
-          }}
-        >
-          <Pagination
-            page={currentPage}
-            size='large'
-            count={pageCount}
-            onChange={onPageChange}
-            color='primary'
-          />
-        </Stack>
       </SecondarySection>
     </Page>
   );
