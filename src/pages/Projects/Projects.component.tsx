@@ -13,6 +13,7 @@ import {
   Pagination,
   Stack,
   Toolbar,
+  Typography,
   useMediaQuery,
   useTheme,
 } from '@mui/material';
@@ -290,8 +291,11 @@ export const ProjectsPage: React.FC = () => {
                           onClick={onViewModeChange}
                         />
                       }
-                      label='View'
+                      label={<Typography>View</Typography>}
                       labelPlacement='start'
+                      sx={{
+                        gap: 1
+                      }}
                     />
                   </FormGroup>
                 </FormControl>
