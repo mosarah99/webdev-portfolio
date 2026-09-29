@@ -17,6 +17,7 @@ import {
   useTheme,
 } from '@mui/material';
 import type React from 'react';
+import { parseAsStringEnum, useQueryState } from 'nuqs';
 import {
   useEffect,
   useMemo,
@@ -63,12 +64,18 @@ import ProjectFilterContainer from '../../components/Container/ProjectFilterCont
 import './Projects.style.css';
 import ProjectFilterModal from '../../templates/ProjectFilterModal/ProjectFilterModal.component';
 import useProjectsPagination from '../../hooks/Projects/useProjectsPagination';
+import ViewMenuButtonGroup from './ViewMenuButtonGroup/ViewMenuButtonGroup.component';
 
 export const ProjectsPage: React.FC = () => {
   // View Modes
-  const viewModes = ['grid', 'list'] as const;
-  const [viewMode, setViewMode] =
-    useState<(typeof viewModes)[number]>('grid');
+  const viewModes = ['grid', 'list'];
+  const [viewMode, setViewMode] = useQueryState(
+    'view',
+    parseAsStringEnum(viewModes).withDefault('grid'),
+  );
+  const onViewModeChange = (
+    mode: (typeof viewModes)[number],
+  ) => setViewMode(mode);
 
   // Filtering Projects
   const { filteredProjects, filters, filterOperations } =
@@ -76,7 +83,10 @@ export const ProjectsPage: React.FC = () => {
       projects: projectsWithSkills,
       skills: skillsWithCategory,
     });
+  const [filterModalOpen, setFilterModalOpen] =
+    useState(false);
 
+  // pagination
   const {
     currentPage,
     pageCount,
@@ -86,9 +96,6 @@ export const ProjectsPage: React.FC = () => {
     projects: filteredProjects,
     pageSize: 6,
   });
-
-  const theme = useTheme();
-
   const onPageChange = (
     event: React.ChangeEvent<unknown>,
     value: number,
@@ -97,42 +104,8 @@ export const ProjectsPage: React.FC = () => {
     event.preventDefault();
     jumpPage(value);
   };
-  const onViewModeChange =
-    (mode: (typeof viewModes)[number]) =>
-    (_event: React.MouseEvent<any>) => {
-      setViewMode(mode);
-    };
 
-  const [filterModalOpen, setFilterModalOpen] =
-    useState(false);
-
-  const ViewMenuButtonGroup = () => {
-    return (
-      <ButtonGroup
-        sx={{
-          marginX: 1,
-        }}
-      >
-        {viewModes.map((mode) => (
-          <Button
-            key={mode}
-            variant={
-              mode === viewMode ? 'contained' : 'outlined'
-            }
-            onClick={onViewModeChange(mode)}
-            sx={{
-              textTransform: {
-                '': 'lowercase',
-                ':firstLetter': 'uppercase',
-              },
-            }}
-          >
-            {mode}
-          </Button>
-        ))}
-      </ButtonGroup>
-    );
-  };
+  const theme = useTheme();
 
   return (
     <Page>
@@ -307,7 +280,13 @@ export const ProjectsPage: React.FC = () => {
                 <FormControl component={'form'}>
                   <FormGroup>
                     <FormControlLabel
-                      control={<ViewMenuButtonGroup />}
+                      control={
+                        <ViewMenuButtonGroup
+                          viewModes={Array.from(viewModes)}
+                          activeViewMode={viewMode}
+                          onClick={onViewModeChange}
+                        />
+                      }
                       label='View'
                       labelPlacement='start'
                     />
@@ -316,7 +295,7 @@ export const ProjectsPage: React.FC = () => {
               </Card>
               <ProjectDisplayContainer
                 projects={viewableProjects}
-                viewMode={viewMode}
+                viewMode={viewMode as 'grid' | 'list'}
               />
             </Stack>
           </Stack>
