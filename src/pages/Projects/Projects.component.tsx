@@ -77,6 +77,12 @@ export const ProjectsPage: React.FC = () => {
   const onViewModeChange = (
     mode: (typeof viewModes)[number],
   ) => setViewMode(mode);
+  useEffect(
+    () => () => {
+      setViewMode('grid');
+    },
+    [],
+  );
 
   // Filtering Projects
   const { filteredProjects, filters, filterOperations } =
@@ -294,7 +300,7 @@ export const ProjectsPage: React.FC = () => {
                       label={<Typography>View</Typography>}
                       labelPlacement='start'
                       sx={{
-                        gap: 1
+                        gap: 1,
                       }}
                     />
                   </FormGroup>
