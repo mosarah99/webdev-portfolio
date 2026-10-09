@@ -1,25 +1,24 @@
 import { Box } from '@mui/material';
 import './App.css';
-import Navbar from './components/Navbar/Navbar.component';
-import { Route, Routes } from 'react-router';
-import * as uuid from 'uuid';
+import { PrimaryHeader } from './templates/PrimaryHeader/PrimaryHeader.component';
 
-import { pages } from './pages/pages';
+import { pages } from './pages/pagesSchema';
+import { Router as PageRouter } from './components/Navigation/Router/Router.component';
+import { FloatingBottomHeader } from './templates/FloatingBottomHeader/FloatingBottomHeader.component';
+import PrimaryFooter from './templates/PrimaryFooter/PrimaryFooter.component';
+import CopyrightFooter from './templates/CopyrightFooter/CopyrightFooter.component';
 
 const App = () => {
   return (
     <Box>
-      <Navbar />
-      <Routes>
-        {pages.map(({ label, link, index, element }) => (
-          <Route
-            index={!!index}
-            path={link}
-            element={element}
-            key={uuid.v7()}
-          />
-        ))}
-      </Routes>
+      <PrimaryHeader />
+      <FloatingBottomHeader />
+      <PageRouter
+        pages={pages}
+        header='Sadat R. Portfolio'
+      />
+      <PrimaryFooter />
+      <CopyrightFooter />
     </Box>
   );
 };

@@ -1,5 +1,4 @@
 import {
-  Avatar,
   Box,
   Button,
   ButtonGroup,
@@ -9,23 +8,28 @@ import {
   CardHeader,
   CardMedia,
   Chip,
-  Stack,
 } from '@mui/material';
-import { useNavigate } from 'react-router';
+// import { useNavigate } from 'react-router';
 import { type ProjectWithSkills } from '../../../assets/projects-skills';
 import GradeIcon from '@mui/icons-material/Grade';
-import * as uuid from 'uuid';
+import { usePageNavigation } from '../../../hooks/Navigation/usePageNavigation';
+import MarkdownFancy from '../../MarkdownFancy/MarkdownFancy.component';
+import SkillChipsContainer from '../../../templates/SkillChipsContainer/SkillChipsContainer.component';
 
 export const ProjectGridCard: React.FC<{
   project: ProjectWithSkills;
   projectDetailsPageURL?: string;
   showSkills?: boolean;
 }> = ({ project, projectDetailsPageURL, showSkills }) => {
-  const navigate = useNavigate();
+  const navigate = usePageNavigation();
 
-  const handleViewDetailsClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleViewDetailsClick = (
+    e: React.MouseEvent<HTMLButtonElement>,
+  ) => {
     e.preventDefault();
-    navigate(projectDetailsPageURL || `/projects/${project.id}`);
+    navigate(
+      projectDetailsPageURL || `/projects/${project.id}`,
+    );
   };
 
   return (
@@ -68,41 +72,29 @@ export const ProjectGridCard: React.FC<{
       >
         <CardHeader
           title={project.title}
-          subheader={project.description}
+          subheader={
+            <MarkdownFancy>
+              {project.description}
+            </MarkdownFancy>
+          }
         />
         <Box
           sx={{
             flexGrow: 1,
           }}
         ></Box>
-        <Box sx={{
-          display: 'block'
-        }}>
+        <Box
+          sx={{
+            display: 'block',
+          }}
+        >
           {showSkills && (
             <CardContent>
-              <Stack
-                direction={'row'}
-                spacing={1}
-                flexWrap={'wrap'}
-              >
-                {project.skills?.map((skill) => (
-                  <Chip
-                    key={uuid.v7()}
-                    label={skill?.name}
-                    avatar={
-                      <Avatar
-                        src={skill?.icon}
-                        alt={`${skill?.name} icon`}
-                        slotProps={{
-                          img: {
-                            loading: 'lazy',
-                          },
-                        }}
-                      />
-                    }
-                  />
-                ))}
-              </Stack>
+              <SkillChipsContainer
+                skills={project.skills?.filter(
+                  (skill) => !!skill,
+                )}
+              />
             </CardContent>
           )}
         </Box>
@@ -113,7 +105,10 @@ export const ProjectGridCard: React.FC<{
           >
             <Button
               variant='outlined'
-              href={projectDetailsPageURL || `/projects/${project.id}`}
+              href={
+                projectDetailsPageURL ||
+                `/projects/${project.id}`
+              }
               onClick={handleViewDetailsClick}
             >
               View details

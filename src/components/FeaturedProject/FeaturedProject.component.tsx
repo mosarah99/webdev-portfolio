@@ -1,129 +1,82 @@
 import {
-  Box,
-  Button,
-  ButtonGroup,
-  Container,
-  Typography,
-  type SxProps,
+  Card,
+  CardContent,
+  CardHeader,
+  CardMedia,
+  Grid,
+  Stack,
 } from '@mui/material';
-import { useNavigate } from 'react-router';
-import type { Project } from '../../assets/projectsList';
+import type { ProjectWithSkills } from '../../assets/projects-skills';
+import SkillChipsContainer from '../../templates/SkillChipsContainer/SkillChipsContainer.component';
+import type { SkillWithCategory } from '../../assets/skills';
 
 interface FeaturedProjectProps {
-  className?: string;
-  project: Project;
-  style?: React.CSSProperties;
-  sx?: SxProps;
+  project: ProjectWithSkills;
 }
 
-export const FeaturedProject: React.FC<FeaturedProjectProps> = ({
-  project,
-  style,
-  className,
-  sx,
-}) => {
-  const navigate = useNavigate();
+export const FeaturedProject: React.FC<
+  FeaturedProjectProps
+> = ({ project }) => {
   return (
-    <Container
-      className={` ${className || ''}`}
-      maxWidth='xl'
+    <Card
+      component={Grid}
+      container
+      spacing={2}
       sx={{
-        backgroundImage: `url(${project.image})`,
-        backgroundRepeat: 'no-repeat',
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        height: '30vh',
-        minHeight: '300px',
-        maxHeight: '1000px',
-
-        ...sx,
-      }}
-      style={{
-        ...style,
+        width: '100%',
+        height: '100%',
       }}
     >
-      <Box
+      <Stack
+        component={Grid}
+        size={{ xs: 12, sm: 6 }}
         sx={{
-          // flexGrow: 1,
-          // height: '100%',
-          'minWidth': '300px',
-          'width': '20%',
-          'backgroundColor': 'rgba(255, 255, 255, 0.8)',
-
-          'padding': '5rem',
-
-          'borderRadius': '1rem',
-
-          'textAlign': 'left',
-
-          // marginTop: 'auto',
-          // marginBottom: 'auto',
-
-          // display: 'flex',
-          // direction: 'column',
-          // justifyContent: 'center',
-          // alignItems: 'center',
-
-          'transition': 'all 200ms ease-in-out',
-
-          '&:hover': {
-            // textAlign: 'center',
-
-            backgroundColor: 'rgba(255, 255, 255, 0.9)',
-
-            borderRadius: '.1rem',
-
-            transform: 'translateX(1rem)',
-
-            // transition: 'all 500ms ease-in-out',
-          },
+          justifyContent: 'space-between',
+          overflow: 'auto',
         }}
       >
-        <Box>
-          <Typography variant='h3'>{project.title}</Typography>
-          <Typography variant='body1'>{project.description}</Typography>
-        </Box>
-        <Box sx={{ height: '1rem' }}></Box>
-        <Box>
-          <ButtonGroup
-            variant='contained'
-            fullWidth
-          >
-            <Button onClick={() => navigate(`/projects/${project.id}`)}>
-              View details
-            </Button>
-            {project.githubLink && (
-              <Button
-                variant='outlined'
-                href={project.githubLink}
-                target={'_blank'}
-                referrerPolicy='no-referrer'
-              >
-                GitHub
-              </Button>
-            )}
-          </ButtonGroup>
-        </Box>
-      </Box>
-      <Box
+        <CardHeader
+          title={project.title}
+          subheader={project.description}
+          slotProps={{
+            title: {
+              gutterBottom: true,
+            },
+            subheader: {
+              sx: {
+                overflow: 'clip',
+                textOverflow: 'ellipsis',
+              },
+            },
+          }}
+        />
+        <CardContent>
+          <SkillChipsContainer
+            skills={
+              project.skills.slice(
+                0,
+                4,
+              ) as SkillWithCategory[]
+            }
+          />
+        </CardContent>
+      </Stack>
+      <CardMedia
+        component={Grid}
+        size={{ xs: 12, sm: 6 }}
+        image={project.image}
         sx={{
-          minWidth: '5px',
-          width: '1rem',
-        }}
-      ></Box>
+          position: 'center',
+          backgroundRepeat: 'no-repeat',
 
-      {/* <Box
-        component={'img'}
-        src={project.image}
-        alt={`${project.title} image`}
-        sx={{
+          minHeight: {
+            xs: '250px',
+            sm: '300px',
+          },
           objectFit: 'cover',
-          height: '100%',
-          aspectRatio: 20 / 9,
-          boxShadow: '5px 5px 5px #ccc',
         }}
-      /> */}
-    </Container>
+      />
+    </Card>
   );
 };
 

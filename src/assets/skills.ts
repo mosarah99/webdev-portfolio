@@ -539,34 +539,42 @@ export const skillCategories = [
   {
     id: `20d63d11-2892-4198-958e-fc30393dc4d1`,
     name: 'Programming Languages',
+    slug: 'languages',
   },
   {
     id: `8a4a3235-38c9-4957-8151-043bf120c125`,
     name: 'Libraries and Frameworks',
+    slug: 'libraries-frameworks',
   },
   {
     id: `2b2e4c0b-8ee6-41ee-90bb-266011dff9f1`,
     name: 'Databases',
+    slug: 'databases',
   },
   {
     id: `10197d72-aaf4-4c8e-8eb6-3d0c4a9598d9`,
     name: 'Dev Tools and Runtime Environments',
+    slug: 'tools-runtimes',
   },
   {
     id: `e8642f32-a0e6-47f7-bc40-29f3ca7afb37`,
     name: 'Cloud and DevOps',
+    slug: 'cloud-devops',
   },
   {
     id: `abfd9fd3-ac62-44cd-989e-1414c1b91072`,
     name: 'Testing and QA Tools',
+    slug: 'testing-qa',
   },
   {
     id: `ecdf9050-340e-475a-8cc6-e2a430a0980c`,
     name: 'Development Platforms',
+    slug: 'platforms',
   },
 ];
 
-export type SkillCategory = (typeof skillCategories)[number];
+export type SkillCategory =
+  (typeof skillCategories)[number];
 
 export const skillsWithCategory = skills.map((skill) => ({
   ...skill,
@@ -575,13 +583,19 @@ export const skillsWithCategory = skills.map((skill) => ({
   ),
 }));
 
-export type SkillWithCategory = (typeof skillsWithCategory)[number];
+export type SkillWithCategory =
+  (typeof skillsWithCategory)[number];
 
-const skillsByCategory = new Map<SkillCategory, SkillWithCategory[]>();
+const skillsByCategory = new Map<
+  SkillCategory,
+  SkillWithCategory[]
+>();
 skillCategories.forEach((category) => {
   skillsByCategory.set(
     category,
-    skillsWithCategory.filter((skill) => skill.categoryId === category.id),
+    skillsWithCategory.filter(
+      (skill) => skill.categoryId === category.id,
+    ),
   );
 });
 export { skillsByCategory };
@@ -590,24 +604,32 @@ export const favoriteStacks = [
   {
     name: 'MERN Stack',
     description: 'MongoDB, Express.js, React, Node.js',
-    icon: import('@mui/icons-material/Layers').then((mod) => mod.default),
+    icon: import('@mui/icons-material/Layers').then(
+      (mod) => mod.default,
+    ),
     skills: [
       `19c6bbe1-0bab-4c59-8e74-99ea589bb70e`,
       `bfa83932-06d7-4b0f-a877-324bc7e3cd43`,
       `1573aa58-5360-424b-9528-29cfc81a070d`,
       `83f0e84e-6a9f-4c99-ad0d-cd5aaf675b89`,
-    ].map((id) => skillsWithCategory.find((skill) => skill.id === id)),
+    ].map((id) =>
+      skillsWithCategory.find((skill) => skill.id === id),
+    ),
   },
   {
     name: 'AN-MS Stack',
     description: 'Angular, Node.js, MySQL, Strapi',
-    icon: import('@mui/icons-material/Layers').then((mod) => mod.default),
+    icon: import('@mui/icons-material/Layers').then(
+      (mod) => mod.default,
+    ),
     skills: [
       `e359cb47-affe-4e50-a27a-cdcc75742adf`,
       `83f0e84e-6a9f-4c99-ad0d-cd5aaf675b89`,
       `b7293742-6ae7-415a-b0a2-8f1d0fbf7641`,
       `f84e338e-f3c6-43ae-b39f-78da33d5d8cb`,
-    ].map((id) => skillsWithCategory.find((skill) => skill.id === id)),
+    ].map((id) =>
+      skillsWithCategory.find((skill) => skill.id === id),
+    ),
   },
 ];
 export type FavoriteStack = (typeof favoriteStacks)[number];
