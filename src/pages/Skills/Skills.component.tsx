@@ -1,114 +1,62 @@
 import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
-  Avatar,
-  Box,
   Card,
   CardContent,
   CardHeader,
-  CardMedia,
   Container,
   Divider,
   Grid,
   Stack,
-  Typography,
 } from '@mui/material';
-import SectionHeader from '../../components/SectionHeader/SectionHeader.component';
-import skills, { skillsByCategory, favoriteStacks } from '../../assets/skills';
+import SectionHeader from '../../templates/SectionHeader/SectionHeader.component';
+import {
+  skillsByCategory,
+  favoriteStacks,
+} from '../../assets/skills';
 import * as uuid from 'uuid';
 
 import './Skills.style.css';
-import React from 'react';
-const SingleSkillCard = ({
-  skill,
-  ...props
-}: {
-  skill: (typeof skills)[number];
-}) => (
-  <Card variant='outlined'>
-    <Stack
-      direction={'row'}
-      alignItems={'center'}
-    >
-      <CardMedia
-        sx={{
-          aspectRatio: 1,
-          height: '5rem',
-        }}
-        image={skill.icon}
-        title={`${skill.name ?? skill.shortname} icon`}
-      />
-      <Box sx={{ flexGrow: 1, marginLeft: 2 }}>
-        <Typography
-          variant='h6'
-          // textAlign={'center'}
-          // marginBottom={1}
-        >
-          {skill.name}
-        </Typography>
-        {/* <Divider variant='fullWidth' />
-                            <Typography
-                              variant='body2'
-                              textAlign={'center'}
-                            >
-                              {skill.category?.name}
-                            </Typography> */}
-      </Box>
-    </Stack>
-  </Card>
-);
-const SingleStackSkillCard = ({
-  skill,
-  ...props
-}: {
-  skill: (typeof skills)[number];
-}) => (
-  <Stack direction={'row'}>
-    <Avatar
-      src={skill?.icon}
-      alt={`${skill?.name ?? skill?.shortname} icon`}
-      variant='square'
-    />
-    <Typography
-      variant='h6'
-      marginLeft={2}
-    >
-      {skill?.name}
-    </Typography>
-  </Stack>
-);
+import React, { useEffect } from 'react';
+import Page from '../Page.component';
+import PrimarySection from '../../components/Section/PrimarySection/PrimarySection.component';
+import SecondarySection from '../../components/Section/SecondarySection/SecondarySection.component';
+import HeroSection from '../../templates/HeroSection/HeroSection.component';
+import SingleStackSkillCard from './SingleStackSkillCard/SingleStackSkillCard.component';
+import SkillCategoryCard from './SkillCategoryCard/SkillCategoryCard.component';
+import { useQueryState } from 'nuqs';
+
 const Skills: React.FC = () => {
+  const [_, setCategory] = useQueryState('category');
+  useEffect(() => {
+    return () => {
+      setCategory(null);
+    };
+  }, []);
+
   return (
-    <Box>
-      <section className='skillspage__hero-section'>
+    <Page>
+      <HeroSection
+        bgImageUrl='https://images.pexels.com/photos/4863008/pexels-photo-4863008.jpeg'
+        header='Skills & Expertise'
+        subheader='Granular breakdown of my technical proficiencies'
+        sx={{
+          backgroundPositionY: 'bottom',
+        }}
+      />
+      <PrimarySection className='skillspage__top-stacks-section'>
+        {/* 
+            TODO: Dilute into 2 sections 
+        */}
         <SectionHeader
-          title='Skills & Expertise'
-          subtitle='Granular breakdown of my technical proficiencies'
-          titleProps={{
-            variant: 'h2',
-            color: 'primary',
-            textTransform: 'uppercase',
-            fontWeight: 'bolder',
-          }}
-          subtitleProps={{
-            variant: 'h4',
-            color: 'textSecondary',
-            textTransform: 'uppercase',
-            fontWeight: 'bold',
-          }}
-        />
-      </section>
-      <section className='skillspage__top-stacks-section'>
-        <SectionHeader
-          title='Tech Stack'
-          subtitle='I find myself coming back to'
+          header='Tech Stack'
+          subheader='I find myself coming back to'
         />
         <Container maxWidth='lg'>
           <Grid
-            justifyContent={'center'}
             container
             spacing={4}
+            sx={{
+              justifyContent: 'center',
+            }}
           >
             {favoriteStacks.map((stack) => (
               <Grid
@@ -138,51 +86,31 @@ const Skills: React.FC = () => {
             ))}
           </Grid>
         </Container>
-      </section>
-      <section className='skillspage__skills-list-section'>
+      </PrimarySection>
+      <SecondarySection className='skillspage__skills-list-section'>
         <SectionHeader
-          title='All Skills'
-          subtitle='A comprehensive overview of my technical capabilities'
+          header='All Skills'
+          subheader='A comprehensive overview of my technical capabilities'
         />
         <Container maxWidth='xl'>
-          {Array.from(skillsByCategory.entries()).map(([category, skills]) => (
-            <Card
-              key={uuid.v7()}
-              elevation={5}
-              sx={{ marginBottom: 4 }}
-            >
-              <CardHeader
-                title={category.name}
-                slotProps={{
-                  title: {
-                    component: 'h6',
-                    textAlign: 'center',
-                  },
-                }}
-              />
-
-              <Divider variant='fullWidth' />
-              <CardContent>
-                <Grid
-                  justifyContent={'center'}
-                  container
-                  spacing={1}
-                >
-                  {skills.map((skill) => (
-                    <Grid
-                      key={uuid.v7()}
-                      size={{ xs: 6, md: 3, lg: 2 }}
-                    >
-                      <SingleSkillCard skill={skill} />
-                    </Grid>
-                  ))}
-                </Grid>
-              </CardContent>
-            </Card>
-          ))}
+          <Stack
+            sx={(theme) => ({
+              gap: theme.spacing(10),
+            })}
+          >
+            {Array.from(skillsByCategory.entries()).map(
+              ([category, skills]) => (
+                <SkillCategoryCard
+                  key={`${category.id}-${JSON.stringify(category)}`}
+                  skillCategory={category}
+                  skills={skills}
+                />
+              ),
+            )}
+          </Stack>
         </Container>
-      </section>
-    </Box>
+      </SecondarySection>
+    </Page>
   );
 };
 

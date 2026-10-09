@@ -12,11 +12,12 @@ import {
   Stack,
   Typography,
 } from '@mui/material';
-import SectionHeader from '../../SectionHeader/SectionHeader.component';
+import SectionHeader from '../../../templates/SectionHeader/SectionHeader.component';
 import { type ProjectWithSkills } from '../../../assets/projects-skills';
 import * as uuid from 'uuid';
 import Markdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
+import MarkdownFancy from '../../MarkdownFancy/MarkdownFancy.component';
 
 interface ProjectDetailsModalProps {
   open: boolean;
@@ -24,7 +25,9 @@ interface ProjectDetailsModalProps {
   onClose: () => void;
 }
 
-export const ProjectDetailsModal = (props: ProjectDetailsModalProps) => {
+export const ProjectDetailsModal = (
+  props: ProjectDetailsModalProps,
+) => {
   return (
     <Modal
       open={props.open}
@@ -72,8 +75,8 @@ export const ProjectDetailsModal = (props: ProjectDetailsModalProps) => {
               <CardContent>
                 <Stack spacing={5}>
                   <SectionHeader
-                    title={props.project.title}
-                    subtitle={props.project.description}
+                    header={props.project.title}
+                    subheader={props.project.description}
                   />
                   {/* {props.project.detail_description
                     .split('\n')
@@ -88,9 +91,9 @@ export const ProjectDetailsModal = (props: ProjectDetailsModalProps) => {
                     ))} */}
                   <Divider variant='fullWidth' />
                   <CardContent>
-                    <Markdown rehypePlugins={[rehypeRaw]}>
+                    <MarkdownFancy>
                       {props.project.detail_description}
-                    </Markdown>
+                    </MarkdownFancy>
                   </CardContent>
                 </Stack>
               </CardContent>
@@ -103,28 +106,34 @@ export const ProjectDetailsModal = (props: ProjectDetailsModalProps) => {
                 <Stack
                   direction={'row'}
                   spacing={2}
-                  flexWrap={'wrap'}
+                  sx={{
+                    flexWrap: 'wrap',
+                  }}
                 >
-                  {props.project.skills.map((skill: any) => (
-                    <Chip
-                      variant='filled'
-                      key={uuid.v7()}
-                      avatar={
-                        <Avatar
-                          src={skill.icon}
-                          alt={`${skill.name} icon`}
-                          slotProps={{
-                            img: {
-                              loading: 'lazy',
-                            },
-                          }}
-                        />
-                      }
-                      label={
-                        <Typography variant='caption'>{skill.name}</Typography>
-                      }
-                    />
-                  ))}
+                  {props.project.skills.map(
+                    (skill: any) => (
+                      <Chip
+                        variant='filled'
+                        key={uuid.v7()}
+                        avatar={
+                          <Avatar
+                            src={skill.icon}
+                            alt={`${skill.name} icon`}
+                            slotProps={{
+                              img: {
+                                loading: 'lazy',
+                              },
+                            }}
+                          />
+                        }
+                        label={
+                          <Typography variant='caption'>
+                            {skill.name}
+                          </Typography>
+                        }
+                      />
+                    ),
+                  )}
                 </Stack>
               </CardContent>
 
