@@ -3,6 +3,8 @@ import {
   Card,
   CardContent,
   Container,
+  useMediaQuery,
+  useTheme,
 } from '@mui/material';
 import ContactCard from '../../components/Cards/ContactCard/ContactCard.component';
 import SectionHeader from '../../templates/SectionHeader/SectionHeader.component';
@@ -40,6 +42,11 @@ export const ContactsPage = () => {
     fetchGhReadme();
   }, []);
 
+  const theme = useTheme();
+  const isMobileView = useMediaQuery(
+    theme.breakpoints.down('sm'),
+  );
+
   return (
     <Page>
       <HeroSection
@@ -52,7 +59,13 @@ export const ContactsPage = () => {
       />
       <PrimarySection>
         <Container maxWidth='lg'>
-          <ContactCard />
+          <ContactCard
+            {...(!isMobileView && {
+              imageLink: new URL(
+                'https://avatars.githubusercontent.com/u/48929049',
+              ),
+            })}
+          />
         </Container>
       </PrimarySection>
       <SecondarySection>
