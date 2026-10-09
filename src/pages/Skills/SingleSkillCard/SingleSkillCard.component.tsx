@@ -76,16 +76,22 @@ export const SingleSkillCard = ({
                 // width: '100%'
                 backgroundColor:
                   theme.palette.background.default,
+                '&>*': {
+                  display: 'inline-block',
+                },
               })}
             >
-              <Typography variant='h4'>
+              <Typography
+                variant='h6'
+                component={'h4'}
+                sx={{
+                  fontWeight: 'bold',
+                }}
+              >
                 {skill.shortname}
-              </Typography>
+              </Typography>{' '}
               <Typography variant='body1'>
-                {skill.name}
-              </Typography>
-              <Typography variant='caption'>
-                {skill.category?.name}
+                ({skill.name})
               </Typography>
             </Box>
           </Collapse>

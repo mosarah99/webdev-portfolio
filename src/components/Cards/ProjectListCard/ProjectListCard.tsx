@@ -12,6 +12,8 @@ import {
   Chip,
   IconButton,
   Stack,
+  useMediaQuery,
+  useTheme,
 } from '@mui/material';
 import LaunchIcon from '@mui/icons-material/Launch';
 import GitHubIcon from '@mui/icons-material/GitHub';
@@ -19,6 +21,8 @@ import * as uuid from 'uuid';
 import type { ReactNode } from 'react';
 import GradeIcon from '@mui/icons-material/Grade';
 import { usePageNavigation } from '../../../hooks/Navigation/usePageNavigation';
+import MarkdownFancy from '../../MarkdownFancy/MarkdownFancy.component';
+import SkillChipsContainer from '../../../templates/SkillChipsContainer/SkillChipsContainer.component';
 
 export const ProjectListCard: React.FC<{
   project: ProjectWithSkills;
@@ -27,146 +31,119 @@ export const ProjectListCard: React.FC<{
 }> = ({ project, projectDetailsPageURL, showSkills }) => {
   const navigate = usePageNavigation();
 
-  const handleViewDetailsClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleViewDetailsClick = (
+    e: React.MouseEvent<HTMLButtonElement>,
+  ) => {
     e.preventDefault();
-    navigate(projectDetailsPageURL || `/projects/${project.id}`);
-  };
-
-  const getProjectTitle = (): ReactNode => {
-    return project.featured ? (
-      <Box sx={{ flexDirection: 'row' }}>
-        <span>{project.title}</span>{' '}
-        <Chip
-          variant='filled'
-          color='info'
-          label={'Featured'}
-          icon={<GradeIcon />}
-          sx={{
-            // display: project.featured ? 'flex' : 'none',
-            // position: 'absolute',
-            // top: '.25rem',
-            // right: '.5rem',
-          }}
-        />
-      </Box>
-    ) : (
-      <span>{project.title}</span>
+    navigate(
+      projectDetailsPageURL || `/projects/${project.id}`,
     );
   };
 
+  const theme = useTheme();
+  const isMobileView = useMediaQuery(
+    theme.breakpoints.down('sm'),
+  );
+
   return (
     <Card
-      sx={
-        {
-          // display: 'flex',
-          // flexDirection: 'row',
-          // alignItems: 'center',
-          // minHeight: '200px',
-        }
-      }
+      component={Stack}
+      direction={'row'}
+      spacing={2}
     >
-      <Stack
-        flexDirection={'row'}
-        alignItems={'center'}
+      <CardMedia
+        image={project.image}
+        sx={{
+          objectFit: 'cover',
+          alignSelf: 'stretch',
+          minWidth: 25,
+          width: '25%',
+          flexShrink: 0,
+        }}
+      />
+      <Box
+        component={Stack}
+        direction={'row'}
+        spacing={2}
+        sx={{
+          flexGrow: 1,
+          minWidth: 0,
+
+          overflow: 'hidden',
+        }}
       >
-        <CardMedia
-          image={project.image}
-          component={'img'}
-          alt={`${project.title} image`}
+        <Stack
+          spacing={2}
           sx={{
-            // objectFit: 'cover',
-            // aspectRatio: 1 / 1,
-            height: '10rem',
-            width: '10rem',
-            // maxHeight: '60px',
+            flexGrow: 1,
           }}
-        />
-        <Box sx={{ flex: 1, margin: 1, marginLeft: 2 }}>
-          <Stack
-            flexDirection={'row'}
-            alignItems={'flex-start'}
-            justifyContent={'space-between'}
-          >
-            <Box>
-              <CardHeader
-                title={getProjectTitle()}
-                subheader={project.description}
-              />
+        >
+          <CardHeader
+            title={
+              <Box
+                component={'span'}
+                sx={{
+                  marginRight: 2,
+                }}
+              >
+                {project.title} {/* </Box> */}
+                <Chip
+                  variant='filled'
+                  color='info'
+                  label={'Featured'}
+                  icon={<GradeIcon />}
+                  sx={{
+                    display: !!project.featured
+                      ? 'inline-flex'
+                      : 'none',
+                  }}
+                />
+              </Box>
+            }
+            subheader={
               <Box
                 sx={{
-                  display: {
-                    xs: 'none',
-                    md: 'block',
-                  },
+                  display: isMobileView ? 'none' : 'block',
                 }}
               >
-                {showSkills && (
-                  <CardContent
-                    sx={{ paddingY: 0, marginY: 0, marginBottom: 0 }}
-                  >
-                    <Stack
-                      direction={'row'}
-                      spacing={1}
-                      rowGap={1}
-                      columnGap={1}
-                      flexWrap={'wrap'}
-                    >
-                      {project.skills?.map((skill) => (
-                        <Chip
-                          key={uuid.v7()}
-                          label={skill?.name}
-                          avatar={
-                            <Avatar
-                              src={skill?.icon}
-                              alt={`${skill?.name} icon`}
-                              slotProps={{
-                                img: {
-                                  loading: 'lazy',
-                                },
-                              }}
-                            />
-                          }
-                        />
-                      ))}
-                    </Stack>
-                  </CardContent>
-                )}
+                <MarkdownFancy>
+                  {project.description}
+                </MarkdownFancy>
               </Box>
-            </Box>
-            <CardActions>
-              <ButtonGroup
-                sx={{
-                  display: 'flex',
-                  flexDirection: {
-                    xs: 'column',
-                    md: 'row',
-                  },
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}
-              >
-                <IconButton
-                  // variant='outlined'
-                  // href={projectDetailsPageURL || `/projects/${project.id}`}
-                  onClick={handleViewDetailsClick}
-                >
-                  <LaunchIcon />
-                </IconButton>
-                {!!project.githubLink && (
-                  <IconButton
-                    // variant='contained'
-                    href={project.githubLink}
-                    target='_blank'
-                    referrerPolicy='no-referrer'
-                  >
-                    <GitHubIcon />
-                  </IconButton>
-                )}
-              </ButtonGroup>
-            </CardActions>
-          </Stack>
-        </Box>
-      </Stack>
+            }
+          />
+          {showSkills && (
+            <SkillChipsContainer
+              component={CardContent}
+              skills={project.skills?.filter(
+                (skill) => !!skill,
+              )}
+            />
+          )}
+        </Stack>
+        <Stack
+          component={CardActions}
+          sx={{
+            alignItems: 'flex-start',
+            alignSelf: 'stretch',
+            flexShrink: 0,
+          }}
+        >
+          <IconButton onClick={handleViewDetailsClick}>
+            <LaunchIcon />
+          </IconButton>
+          {!!project.githubLink && (
+            <IconButton
+              // variant='contained'
+              href={project.githubLink}
+              target='_blank'
+              referrerPolicy='no-referrer'
+            >
+              <GitHubIcon />
+            </IconButton>
+          )}
+        </Stack>
+      </Box>
     </Card>
   );
 };

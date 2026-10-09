@@ -1,16 +1,24 @@
-import React, { useEffect, useMemo } from 'react';
+import React, {
+  useEffect,
+  useMemo,
+  type ReactNode,
+} from 'react';
 import { useQueryState } from 'nuqs';
 
 export interface Page {
-  title?: string;
+  title?: string & ReactNode;
   slug: string;
   component: React.ReactElement;
   defaultPage?: boolean;
   errorPage?: boolean;
 }
 
+/* 
+    TODO: rename title to something else
+        "title" triggers browser tooltip
+*/
 interface RouterProps extends React.ComponentPropsWithoutRef<'div'> {
-  title: string;
+  header: string;
   pages: Page[];
 }
 
@@ -55,12 +63,13 @@ export const Router = ({
     }
   }, [page, defaultPage.slug, setPage]);
 
+  // change site title reactively
   useEffect(() => {
     let pageTitle = pageMap.get(page ?? '')?.title ?? '';
-    console.log(`title: ${JSON.stringify(pageTitle)}`);
+
     let docTitle =
       (pageTitle ? `${pageTitle} | ` : '') +
-      `${props.title}`;
+      `${props.header}`;
     document.title = docTitle;
   }, [page]);
 

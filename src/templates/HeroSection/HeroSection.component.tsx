@@ -9,9 +9,9 @@ interface HeroSectionProps extends Omit<
   SecondarySectionProps,
   'children'
 > {
-  preTitle?: string;
-  title?: string;
-  subtitle?: string;
+  preheader?: string;
+  header?: string;
+  subheader?: string;
   bgImageUrl: string;
   backgroundImage?: string;
 }
@@ -55,19 +55,19 @@ const HeroSection = ({
       {...props}
     >
       <SectionHeader
-        pretitle={props.preTitle}
-        title={props.title ?? ''}
-        subtitle={props.subtitle}
-        titleProps={{
+        preheader={props.preheader}
+        header={props.header ?? ''}
+        subheader={props.subheader}
+        headerProps={{
           variant: 'h1',
           sx: {
             textTransform: 'uppercase',
           },
         }}
-        pretitleProps={{
+        preheaderProps={{
           variant: 'h6',
         }}
-        subtitleProps={{
+        subheaderProps={{
           variant: 'h6',
         }}
       />

@@ -17,6 +17,7 @@ import { type ProjectWithSkills } from '../../../assets/projects-skills';
 import * as uuid from 'uuid';
 import Markdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
+import MarkdownFancy from '../../MarkdownFancy/MarkdownFancy.component';
 
 interface ProjectDetailsModalProps {
   open: boolean;
@@ -74,8 +75,8 @@ export const ProjectDetailsModal = (
               <CardContent>
                 <Stack spacing={5}>
                   <SectionHeader
-                    title={props.project.title}
-                    subtitle={props.project.description}
+                    header={props.project.title}
+                    subheader={props.project.description}
                   />
                   {/* {props.project.detail_description
                     .split('\n')
@@ -90,9 +91,9 @@ export const ProjectDetailsModal = (
                     ))} */}
                   <Divider variant='fullWidth' />
                   <CardContent>
-                    <Markdown rehypePlugins={[rehypeRaw]}>
+                    <MarkdownFancy>
                       {props.project.detail_description}
-                    </Markdown>
+                    </MarkdownFancy>
                   </CardContent>
                 </Stack>
               </CardContent>

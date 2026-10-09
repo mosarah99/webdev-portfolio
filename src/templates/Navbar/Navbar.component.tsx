@@ -10,7 +10,7 @@ import {
 
 const navLinks = [
   {
-    label: 'About',
+    label: 'Home',
     link: '/home',
     icon: <HomeRounded />,
   },
@@ -39,10 +39,7 @@ export interface NavbarProps {
   variant?: 'icon' | 'text' | 'both';
 }
 
-const Navbar = ({
-  variant = 'text',
-  ...props
-}: NavbarProps) => {
+const Navbar = ({ variant = 'text' }: NavbarProps) => {
   return (
     <ButtonGroup
       variant='text'

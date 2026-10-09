@@ -59,7 +59,7 @@ export const SkillCategoryCard = (
       >
         <Stack
           direction={'row'}
-          sx={(theme) => ({
+          sx={(_theme) => ({
             ' .skill-header-icon': {
               opacity: {
                 xs: 1,
@@ -121,7 +121,13 @@ export const SkillCategoryCard = (
             {skills.map((skill) => (
               <Grid
                 key={`${skill.id}-${skill}`}
-                size={{ xs: 6, md: 3, lg: 2 }}
+                size={{
+                  xs: 6,
+                  sm: 4,
+                  md: 3,
+                  lg: 2,
+                  xl: 1,
+                }}
               >
                 <SingleSkillCard skill={skill} />
               </Grid>

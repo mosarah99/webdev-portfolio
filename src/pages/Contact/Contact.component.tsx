@@ -3,6 +3,8 @@ import {
   Card,
   CardContent,
   Container,
+  useMediaQuery,
+  useTheme,
 } from '@mui/material';
 import ContactCard from '../../components/Cards/ContactCard/ContactCard.component';
 import SectionHeader from '../../templates/SectionHeader/SectionHeader.component';
@@ -13,6 +15,7 @@ import Page from '../Page.component';
 import PrimarySection from '../../components/Section/PrimarySection/PrimarySection.component';
 import SecondarySection from '../../components/Section/SecondarySection/SecondarySection.component';
 import HeroSection from '../../templates/HeroSection/HeroSection.component';
+import MarkdownFancy from '../../components/MarkdownFancy/MarkdownFancy.component';
 
 export const ContactsPage = () => {
   const [ghReadme, setGhReadme] = useState<string>(
@@ -39,26 +42,37 @@ export const ContactsPage = () => {
     fetchGhReadme();
   }, []);
 
+  const theme = useTheme();
+  const isMobileView = useMediaQuery(
+    theme.breakpoints.down('sm'),
+  );
+
   return (
     <Page>
       <HeroSection
         // bgImageUrl='https://images.pexels.com/photos/36028393/pexels-photo-36028393.jpeg'
         bgImageUrl='https://images.pexels.com/photos/6587323/pexels-photo-6587323.jpeg'
-        title='Connection is just a few clicks away'
+        header='Connection is just a few clicks away'
         sx={{
           backgroundPositionY: 'bottom 25%',
         }}
       />
       <PrimarySection>
         <Container maxWidth='lg'>
-          <ContactCard />
+          <ContactCard
+            {...(!isMobileView && {
+              imageLink: new URL(
+                'https://avatars.githubusercontent.com/u/48929049',
+              ),
+            })}
+          />
         </Container>
       </PrimarySection>
       <SecondarySection>
         <Container maxWidth='lg'>
           <SectionHeader
-            pretitle='Professional presence on'
-            title='LinkedIn'
+            preheader='Professional presence on'
+            header='LinkedIn'
           />
           <Box
             component='iframe'
@@ -75,8 +89,8 @@ export const ContactsPage = () => {
       <PrimarySection>
         <Container maxWidth='lg'>
           <SectionHeader
-            pretitle='Having fun on'
-            title='GitHub'
+            preheader='Having fun on'
+            header='GitHub'
           />
           <Card
             // variant='outlined'
@@ -99,9 +113,7 @@ export const ContactsPage = () => {
                   },
                 }}
               >
-                <Markdown rehypePlugins={[rehypeRaw]}>
-                  {ghReadme}
-                </Markdown>
+                <MarkdownFancy>{ghReadme}</MarkdownFancy>
               </Box>
             </CardContent>
           </Card>
@@ -110,8 +122,8 @@ export const ContactsPage = () => {
       <SecondarySection>
         <Container maxWidth='lg'>
           <SectionHeader
-            pretitle='Locate me on'
-            title='Google Maps'
+            preheader='Locate me on'
+            header='Google Maps'
           />
           <Card
             sx={{
