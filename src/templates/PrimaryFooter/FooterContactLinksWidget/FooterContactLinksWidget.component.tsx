@@ -4,7 +4,7 @@ import FooterSocialsWidget from '../FooterSocialsWidget/FooterSocialsWidget.comp
 
 export interface FooterContactLinksWidgetProps {}
 export const FooterContactLinksWidget = (
-  props: FooterContactLinksWidgetProps,
+  _props: FooterContactLinksWidgetProps,
 ) => {
   return (
     <Stack spacing={2}>

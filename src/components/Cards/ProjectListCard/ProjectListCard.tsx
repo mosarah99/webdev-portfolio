@@ -1,9 +1,7 @@
 // import { useNavigate } from 'react-router';
 import type { ProjectWithSkills } from '../../../assets/projects-skills';
 import {
-  Avatar,
   Box,
-  ButtonGroup,
   Card,
   CardActions,
   CardContent,
@@ -17,8 +15,6 @@ import {
 } from '@mui/material';
 import LaunchIcon from '@mui/icons-material/Launch';
 import GitHubIcon from '@mui/icons-material/GitHub';
-import * as uuid from 'uuid';
-import type { ReactNode } from 'react';
 import GradeIcon from '@mui/icons-material/Grade';
 import { usePageNavigation } from '../../../hooks/Navigation/usePageNavigation';
 import MarkdownFancy from '../../MarkdownFancy/MarkdownFancy.component';

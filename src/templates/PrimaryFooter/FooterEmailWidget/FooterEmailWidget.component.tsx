@@ -6,7 +6,6 @@ import {
   ListItemIcon,
   ListItemText,
 } from '@mui/material';
-import React from 'react';
 import FooterHeader from '../FooterHeader/FooterHeader.component';
 import EmailRounded from '@mui/icons-material/EmailRounded';
 

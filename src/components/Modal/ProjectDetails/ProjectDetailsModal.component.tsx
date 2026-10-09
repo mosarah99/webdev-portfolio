@@ -15,8 +15,6 @@ import {
 import SectionHeader from '../../../templates/SectionHeader/SectionHeader.component';
 import { type ProjectWithSkills } from '../../../assets/projects-skills';
 import * as uuid from 'uuid';
-import Markdown from 'react-markdown';
-import rehypeRaw from 'rehype-raw';
 import MarkdownFancy from '../../MarkdownFancy/MarkdownFancy.component';
 
 interface ProjectDetailsModalProps {
