@@ -1,12 +1,8 @@
 import {
   Box,
   Button,
-  ButtonGroup,
   Card,
   Container,
-  Dialog,
-  DialogContent,
-  DialogTitle,
   FormControl,
   FormControlLabel,
   FormGroup,
@@ -24,10 +20,7 @@ import {
 } from 'nuqs';
 import {
   useEffect,
-  useMemo,
-  useRef,
   useState,
-  type ReactElement,
 } from 'react';
 
 /**
@@ -52,7 +45,6 @@ import 'swiper/css/effect-coverflow';
 import {
   featuredProjects,
   projectsWithSkills,
-  type ProjectWithSkills,
 } from '../../assets/projects-skills';
 import { skillsWithCategory } from '../../assets/skills';
 import SectionHeader from '../../templates/SectionHeader/SectionHeader.component';

@@ -9,8 +9,6 @@ import {
 import ContactCard from '../../components/Cards/ContactCard/ContactCard.component';
 import SectionHeader from '../../templates/SectionHeader/SectionHeader.component';
 import { useEffect, useState } from 'react';
-import Markdown from 'react-markdown';
-import rehypeRaw from 'rehype-raw';
 import Page from '../Page.component';
 import PrimarySection from '../../components/Section/PrimarySection/PrimarySection.component';
 import SecondarySection from '../../components/Section/SecondarySection/SecondarySection.component';

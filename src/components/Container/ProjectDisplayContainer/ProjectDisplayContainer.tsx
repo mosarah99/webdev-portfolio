@@ -3,8 +3,6 @@ import {
   Fade,
   Grid,
   Stack,
-  useMediaQuery,
-  useTheme,
 } from '@mui/material';
 import { ProjectGridCard } from '../../Cards/ProjectGridCard/ProjectGridCard';
 import ProjectListCard from '../../Cards/ProjectListCard/ProjectListCard';

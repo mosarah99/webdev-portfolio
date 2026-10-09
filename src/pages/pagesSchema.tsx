@@ -2,9 +2,9 @@ import { lazy } from 'react';
 import { type Page } from '../components/Navigation/Router/Router.component';
 
 const Homepage = lazy(() => import('./Home/Home.component'));
-const ProjectDetails = lazy(
-  () => import('./ProjectDetails/ProjectDetails.component'),
-);
+// const ProjectDetails = lazy(
+//   () => import('./ProjectDetails/ProjectDetails.component'),
+// );
 const ProjectsPage = lazy(() => import('./Projects/Projects.component'));
 const SkillsPage = lazy(() => import('./Skills/Skills.component'));
 const ContactPage = lazy(() => import('./Contact/Contact.component'));
