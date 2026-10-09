@@ -18,7 +18,10 @@ import {
   useTheme,
 } from '@mui/material';
 import type React from 'react';
-import { parseAsStringEnum, useQueryState } from 'nuqs';
+import {
+  parseAsStringEnum,
+  useQueryState,
+} from 'nuqs';
 import {
   useEffect,
   useMemo,
@@ -122,21 +125,8 @@ export const ProjectsPage: React.FC = () => {
         subheader='A selection of my most impactful projects'
       />
       <ContrastSection className='projectspage__featured-section'>
-        <Container
-          maxWidth='md'
-          sx={{
-            height: {
-              md: '400px',
-              sm: '300px',
-              xs: '60vh',
-            },
-          }}
-        >
+        <Container maxWidth='md'>
           <Swiper
-            style={{
-              width: '100%',
-              height: '100%',
-            }}
             modules={[
               SwiperPagination,
               SwiperAutoplay,
@@ -145,9 +135,9 @@ export const ProjectsPage: React.FC = () => {
             ]}
             effect='coverflow'
             coverflowEffect={{
-              rotate: 70,
+              rotate: 40,
               stretch: 0,
-              depth: 100,
+              depth: 0,
               modifier: 1,
               slideShadows: true,
             }}
@@ -164,8 +154,7 @@ export const ProjectsPage: React.FC = () => {
               prevSlideMessage: `Previous Featured Project`,
               nextSlideMessage: `Next Featured Project`,
             }}
-            direction='vertical'
-            loop={true}
+            // loop={true}
             mousewheel={true}
             grabCursor={true}
             spaceBetween={5}
@@ -178,11 +167,6 @@ export const ProjectsPage: React.FC = () => {
                 style={{
                   width: '100%',
                   height: '100%',
-
-                  display: 'flex',
-                  justifyContent: 'stretch',
-                  alignItems: 'stretch',
-                  gap: '1rem',
                 }}
               >
                 <FeaturedProject project={project} />
