@@ -2,21 +2,15 @@ import AppBar from '@mui/material/AppBar';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
-import type React from 'react';
 import { useMemo } from 'react';
 // import { useNavigate } from 'react-router';
-import { usePageNavigation } from '../../hooks/Navigation/usePageNavigation';
 import {
-  ButtonGroup,
   IconButton,
-  Button as MuiButton,
   Paper,
   useColorScheme,
   useScrollTrigger,
   useTheme,
-  type ButtonProps as MuiButtonProps,
 } from '@mui/material';
-import * as uuid from 'uuid';
 
 import './PrimaryHeader.style.css';
 

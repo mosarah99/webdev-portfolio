@@ -1,5 +1,3 @@
-import React from 'react';
-
 const useCopyToClipboard = () => {
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text);

@@ -3,7 +3,6 @@ import {
   Container,
   Divider,
   Stack,
-  Typography,
 } from '@mui/material';
 import type { ReactNode } from 'react';
 import React from 'react';

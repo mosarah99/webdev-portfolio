@@ -1,4 +1,4 @@
-import { AppBar, Box, Paper, Toolbar } from '@mui/material';
+import { Box, Paper, Toolbar } from '@mui/material';
 import Navbar from '../Navbar/Navbar.component';
 
 export const FloatingBottomHeader = () => {

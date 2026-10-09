@@ -1,5 +1,4 @@
 import {
-  Avatar,
   Box,
   Button,
   ButtonGroup,
@@ -9,12 +8,10 @@ import {
   CardHeader,
   CardMedia,
   Chip,
-  Stack,
 } from '@mui/material';
 // import { useNavigate } from 'react-router';
 import { type ProjectWithSkills } from '../../../assets/projects-skills';
 import GradeIcon from '@mui/icons-material/Grade';
-import * as uuid from 'uuid';
 import { usePageNavigation } from '../../../hooks/Navigation/usePageNavigation';
 import MarkdownFancy from '../../MarkdownFancy/MarkdownFancy.component';
 import SkillChipsContainer from '../../../templates/SkillChipsContainer/SkillChipsContainer.component';

@@ -1,19 +1,19 @@
-// src/theme/ThemeContext.jsx
-import React, {
-  createContext,
-  useContext,
-  useMemo,
-  useState,
-  useEffect,
-} from 'react';
-import {
-  ThemeProvider,
-  createTheme,
-  type PaletteOptions,
-  type ThemeOptions,
-} from '@mui/material/styles';
-import useMediaQuery from '@mui/material/useMediaQuery';
-import { themePalettes } from './palettes';
+// // src/theme/ThemeContext.jsx
+// import React, {
+//   createContext,
+//   useContext,
+//   useMemo,
+//   useState,
+//   useEffect,
+// } from 'react';
+// import {
+//   ThemeProvider,
+//   createTheme,
+//   type PaletteOptions,
+//   type ThemeOptions,
+// } from '@mui/material/styles';
+// import useMediaQuery from '@mui/material/useMediaQuery';
+// import { themePalettes } from './palettes';
 
 /** 
 const ColorModeContext = createContext({ toggleColorMode: () => {} });
