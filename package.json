@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "e2e": "npx cypress open",
     "testnbuild": "tsc -b && vite build",
     "build": "vite build",
     "lint": "eslint .",
