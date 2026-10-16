@@ -7,6 +7,7 @@ import {
   LightbulbRounded,
   PhoneRounded,
 } from '@mui/icons-material';
+import type { ComponentProps } from 'react';
 
 const navLinks = [
   {
@@ -35,17 +36,29 @@ const uuidSet = [...Array(navLinks.length)].map(() =>
   uuid.v7(),
 );
 
-export interface NavbarProps {
+export interface NavbarProps extends Omit<
+  ComponentProps<typeof ButtonGroup>,
+  'children' | 'variant'
+> {
   variant?: 'icon' | 'text' | 'both';
 }
 
-const Navbar = ({ variant = 'text' }: NavbarProps) => {
+const Navbar = ({
+  variant = 'text',
+  sx,
+
+  ...props
+}: NavbarProps) => {
   return (
     <ButtonGroup
       variant='text'
-      sx={{
-        border: 'none',
-      }}
+      sx={[
+        {
+          border: 'none',
+        },
+        ...(Array.isArray(sx) ? sx : [sx]),
+      ]}
+      {...props}
     >
       {navLinks.map(({ label, link, icon }, index) => (
         <NavButton

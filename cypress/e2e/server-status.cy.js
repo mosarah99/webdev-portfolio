@@ -1,4 +1,4 @@
-// const BASE_URL = new URL('/webdev-portfolio/');
+/// <reference types="cypress" />
 
 describe('Test Server Status', () => {
   it('returns HTTP 200 from the server', () => {
@@ -10,14 +10,13 @@ describe('Test Server Status', () => {
   });
 
   it('dix#root exists', () => {
-    cy.visit('').get('div#root');
+    cy.visit('').get('div#root').should('exist');
   });
 
   it('div#root has children', () => {
     cy.visit('')
       .get('div#root')
-      .then((el) => {
-        assert(el.length > 0);
-      });
+      .get('header')
+      .should('exist'); 
   });
 });

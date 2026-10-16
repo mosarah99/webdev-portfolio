@@ -35,11 +35,17 @@ export const PrimaryHeader = () => {
   const ColorSchemeIcon = useMemo(() => {
     switch (mode) {
       case 'light':
-        return <LightMode />;
+        return (
+          <LightMode data-testid='primary-header-color-scheme-icon__light' />
+        );
       case 'dark':
-        return <DarkMode />;
+        return (
+          <DarkMode data-testid='primary-header-color-scheme-icon__dark' />
+        );
       default:
-        return <Settings />;
+        return (
+          <Settings data-testid='primary-header-color-scheme-icon__system' />
+        );
     }
   }, [mode]);
 
@@ -83,6 +89,7 @@ export const PrimaryHeader = () => {
               //   position: 'sticky',
             },
       ]}
+      data-testid='primary-header'
     >
       <Container maxWidth='xl'>
         <Toolbar
@@ -112,6 +119,7 @@ export const PrimaryHeader = () => {
                 flexGrow: 1,
                 display: 'flex',
               }}
+              data-testid='primary-header__favicon'
             >
               <Mosarah99Logo />
               <Box
@@ -144,12 +152,16 @@ export const PrimaryHeader = () => {
               },
             }}
           >
-            <Navbar variant={'both'} />
+            <Navbar
+              variant={'both'}
+              data-testid='primary-header__navbar'
+            />
           </Paper>
           <Paper sx={{ borderRadius: '50%' }}>
             <IconButton
               onClick={toggleMode}
               color='inherit'
+              data-testid='primary-header__colorscheme-btn'
             >
               {ColorSchemeIcon}
             </IconButton>
