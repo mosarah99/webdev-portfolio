@@ -177,17 +177,29 @@ describe('Test Primary Header', () => {
     ) {
       cy.viewport(width, Cypress.config('viewportHeight'));
 
+      let bodyWidth = width;
+      cy.document().then(({ body }) => {
+        bodyWidth = body.clientWidth;
+      });
+
       cy.get(PRIMARY_HEADER).should(($header) => {
-        expect($header[0].clientWidth).to.be.equal(width);
+        expect($header[0].clientWidth).to.be.equal(
+          bodyWidth,
+        );
       });
     }
   });
 
   it('primary header height changes when scrolled', () => {
     cy.viewport('iphone-3')
-      .visit('')
+      .visit('', {
+        onBeforeLoad(win) {
+          cy.spy(win, 'addEventListener').as(
+            'addEventListener',
+          );
+        },
+      })
       .get(PRIMARY_HEADER)
-      .wait(100);
 
     cy.document().then((document) => {
       if (
