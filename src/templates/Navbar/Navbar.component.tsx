@@ -59,6 +59,7 @@ const Navbar = ({
         ...(Array.isArray(sx) ? sx : [sx]),
       ]}
       {...props}
+      data-testid='navbar'
     >
       {navLinks.map(({ label, link, icon }, index) => (
         <NavButton
@@ -68,6 +69,7 @@ const Navbar = ({
             paddingX: 3,
           }}
           startIcon={variant === 'both' ? icon : undefined}
+          data-testid='navbar__button'
         >
           {variant !== 'icon' ? label : icon}
         </NavButton>
