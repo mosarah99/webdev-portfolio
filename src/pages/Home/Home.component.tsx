@@ -59,7 +59,7 @@ export const Homepage: React.FC = () => {
     theme.breakpoints.down('sm'),
   );
   return (
-    <Page>
+    <Page data-testid='homepage'>
       <HeroSection
         bgImageUrl='https://images.pexels.com/photos/8168567/pexels-photo-8168567.png'
         header='Sadat Rahman'
@@ -67,17 +67,22 @@ export const Homepage: React.FC = () => {
         sx={{
           minHeight: '100vh',
         }}
+        data-testid='homepage__hero-section'
       />
       <PrimarySection
         className='homepage__about-section'
         id='about'
+        data-testid='homepage__about-section'
       >
         <SectionHeader
           preheader='A little more'
           header='About Me'
         />
 
-        <Container maxWidth='lg'>
+        <Container
+          maxWidth='lg'
+          data-testid='homepage__about-section--body'
+        >
           <MarkdownFancy>
             {`As a full-stack developer, I specialize in building robust, scalable, and intuitive digital solutions that bridge front-end elegance with back-end strength. My technical foundation spans a wide range of languages—including Java, Kotlin, Python, C++, JavaScript, and TypeScript—and is supported by extensive experience with modern frameworks such as React, Angular, Spring Boot, ASP.NET, and Node.js. Whether it's architecting APIs, managing databases (SQL or NoSQL), or deploying to AWS or Azure, I approach every project with a deep commitment to reliability, maintainability, and performance.
 
@@ -95,6 +100,7 @@ Ultimately, I see software development as both a science and an art—a craft th
               variant='outlined'
               onClick={onButtonClickNavigate('/skills')}
               href='/skills'
+              data-testid='homepage__about-section--body-skill-btn'
             >
               View all skills
             </Button>,
@@ -102,6 +108,7 @@ Ultimately, I see software development as both a science and an art—a craft th
               variant='contained'
               onClick={onButtonClickNavigate('/contact')}
               href='/contact'
+              data-testid='homepage__about-section--body-contact-btn'
             >
               Contact Me
             </Button>,
@@ -110,6 +117,7 @@ Ultimately, I see software development as both a science and an art—a craft th
       </PrimarySection>
       <SecondarySection
         className='homepage__projects-section'
+        data-testid='homepage__projects-section'
       >
         <SectionHeader
           preheader='Sneak peek into my'
@@ -125,6 +133,7 @@ Ultimately, I see software development as both a science and an art—a craft th
                 component={Stack}
                 size={{ xs: 12, sm: 6, md: 4 }}
                 key={uuid.v7()}
+                data-testid='homepage__projects-section--project'
               >
                 <ProjectGridCard
                   project={project}
@@ -140,6 +149,7 @@ Ultimately, I see software development as both a science and an art—a craft th
               variant='outlined'
               onClick={onButtonClickNavigate('/skills')}
               href='/skills'
+              data-testid='homepage__projects-section--project-skill-btn'
             >
               Check out my skills
             </Button>,
@@ -147,13 +157,14 @@ Ultimately, I see software development as both a science and an art—a craft th
               variant='contained'
               onClick={onButtonClickNavigate('/projects')}
               href='/projects'
+              data-testid='homepage__projects-section--project-project-btn'
             >
               See all projects
             </Button>,
           ]}
         />
       </SecondarySection>
-      <ContrastSection >
+      <ContrastSection data-testid='homepage__contacts-section'>
         <SectionHeader
           preheader={'Interested?'}
           header={"Let's Connect"}

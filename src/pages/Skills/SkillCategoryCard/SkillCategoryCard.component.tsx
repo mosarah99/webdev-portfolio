@@ -15,11 +15,18 @@ import {
 } from '@mui/material';
 import SingleSkillCard from '../SingleSkillCard/SingleSkillCard.component';
 import { useQueryState } from 'nuqs';
-import { useEffect, useRef } from 'react';
+import {
+  useEffect,
+  useRef,
+  type ComponentPropsWithRef,
+} from 'react';
 import { LinkRounded } from '@mui/icons-material';
 import useCopyToClipboard from '../../../hooks/Utilities/useCopyToClipboard';
 
-interface SkillCategoryCardProps {
+interface SkillCategoryCardProps extends Omit<
+  ComponentPropsWithRef<typeof Box>,
+  'children'
+> {
   skillCategory: SkillCategory;
   skills: SkillWithCategory[];
 }
@@ -49,7 +56,10 @@ export const SkillCategoryCard = (
   };
 
   return (
-    <Box ref={skillCatRef}>
+    <Box
+      ref={skillCatRef}
+      {...props}
+    >
       <Card
         sx={(theme) => ({
           position: 'sticky',
@@ -128,6 +138,7 @@ export const SkillCategoryCard = (
                   lg: 2,
                   xl: 1,
                 }}
+                data-testid='skillcategorycard__skill'
               >
                 <SingleSkillCard skill={skill} />
               </Grid>

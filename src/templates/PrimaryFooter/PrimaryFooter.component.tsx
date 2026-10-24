@@ -11,7 +11,10 @@ import FooterContactLinksWidget from './FooterContactLinksWidget/FooterContactLi
 
 const PrimaryFooter = () => {
   return (
-    <Box component={'footer'}>
+    <Box
+      component={'footer'}
+      data-testid='primary-footer'
+    >
       <Container
         maxWidth={'xl'}
         sx={{
@@ -34,6 +37,7 @@ const PrimaryFooter = () => {
               maxWidth: '65vw',
               width: '100%',
             })}
+            data-testid='primary-footer__topbar'
           />
         </Stack>
       </Container>
@@ -73,11 +77,15 @@ const PrimaryFooter = () => {
                 'https://avatars.githubusercontent.com/u/48929049',
               )
             }
+            data-testid='primary-footer__site-identity'
           />
           <FooterSiteLinksWidget
             footerLinks={footerLinks}
+            data-testid='primary-footer__site-links'
+            />
+          <FooterContactLinksWidget 
+            data-testid='primary-footer__contact'
           />
-          <FooterContactLinksWidget />
         </Stack>
       </Container>
     </Box>
