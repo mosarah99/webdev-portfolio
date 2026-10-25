@@ -14,14 +14,8 @@ import {
   useTheme,
 } from '@mui/material';
 import type React from 'react';
-import {
-  parseAsStringEnum,
-  useQueryState,
-} from 'nuqs';
-import {
-  useEffect,
-  useState,
-} from 'react';
+import { parseAsStringEnum, useQueryState } from 'nuqs';
+import { useEffect, useState } from 'react';
 
 /**
  * SWIPER
@@ -61,6 +55,7 @@ import './Projects.style.css';
 import ProjectFilterModal from '../../templates/ProjectFilterModal/ProjectFilterModal.component';
 import useProjectsPagination from '../../hooks/Projects/useProjectsPagination';
 import ViewMenuButtonGroup from './ViewMenuButtonGroup/ViewMenuButtonGroup.component';
+import type IProjectsPageContent from '../../types/content/Projectspage';
 
 export const ProjectsPage: React.FC = () => {
   // View Modes
@@ -109,12 +104,55 @@ export const ProjectsPage: React.FC = () => {
 
   const theme = useTheme();
 
+  const [content, setContent] =
+    useState<IProjectsPageContent>();
+  useEffect(() => {
+    const fetchContent = async () => {
+      try {
+        const response = await fetch(
+          './content/projectspage.json',
+        );
+        console.log(response);
+
+        if (!response.ok)
+          throw new Error(
+            'cannot fetch content from: ' + response.url,
+          );
+
+        const data: IProjectsPageContent =
+          await response.json();
+        console.log(data);
+
+        setContent(data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchContent();
+  }, []);
+
+  const getContent = (
+    sectionName: string,
+    caseSensitive: boolean = false,
+  ) =>
+    content?.contents?.find(
+      (c) =>
+        (caseSensitive ? c.name : c.name.toLowerCase()) ===
+        sectionName,
+    )?.content;
+
   return (
     <Page>
       <HeroSection
         bgImageUrl='https://images.pexels.com/photos/8168570/pexels-photo-8168570.png'
-        header='The Showcase'
-        subheader='A selection of my most impactful projects'
+        header={
+          getContent('hero')?.header || 'The Shoecase'
+        }
+        subheader={
+          getContent('hero')?.subheader ||
+          'A selection of my most impactful projects'
+        }
       />
       <ContrastSection className='projectspage__featured-section'>
         <Container maxWidth='md'>
@@ -169,8 +207,14 @@ export const ProjectsPage: React.FC = () => {
       </ContrastSection>
       <SecondarySection className='projectspage__projects-list-section'>
         <SectionHeader
-          preheader='A bit more detailed'
-          header='Projects List'
+          preheader={
+            getContent('projects')?.preheader ||
+            'LOOK AT MY COLLECTION'
+          }
+          header={
+            getContent('projects')?.header ||
+            'Projects List'
+          }
         />
         <Container
           maxWidth={'xl'}
