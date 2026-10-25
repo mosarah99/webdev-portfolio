@@ -22,6 +22,8 @@ import SecondarySection from '../../components/Section/SecondarySection/Secondar
 import ContrastSection from '../../components/Section/ContrastSection/ContrastSection.component';
 import HeroSection from '../../templates/HeroSection/HeroSection.component';
 import MarkdownFancy from '../../components/MarkdownFancy/MarkdownFancy.component';
+import { useEffect, useState } from 'react';
+import type HomepageDataType from '../../types/content/Homepage';
 
 interface SectionActionsProps {
   buttons?: React.ReactNode[];
@@ -58,12 +60,40 @@ export const Homepage: React.FC = () => {
   const isMobileView = useMediaQuery(
     theme.breakpoints.down('sm'),
   );
+
+  const [content, setContent] =
+    useState<HomepageDataType<string> | null>(null);
+  useEffect(() => {
+    const fetchContent = async () => {
+      try {
+        const response = await fetch(
+          './content/homepage.json',
+        );
+        console.log(response);
+        if (!response.ok)
+          throw new Error('data cannot be fetched');
+        const data: HomepageDataType<string> =
+          await response.json();
+        console.log(data);
+
+        setContent(data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchContent();
+  }, []);
+
   return (
     <Page>
       <HeroSection
         bgImageUrl='https://images.pexels.com/photos/8168567/pexels-photo-8168567.png'
-        header='Sadat Rahman'
-        subheader='Web Dev | Full-Stack | Wizard'
+        header={content?.hero?.title || 'Sadat R.'}
+        subheader={
+          content?.hero?.subtitle ||
+          'Web Dev | Full-Stack | Wizard'
+        }
         sx={{
           minHeight: '100vh',
         }}
@@ -73,20 +103,15 @@ export const Homepage: React.FC = () => {
         id='about'
       >
         <SectionHeader
-          preheader='A little more'
-          header='About Me'
+          preheader={
+            content?.about?.pretitle || 'A little more'
+          }
+          header={content?.about?.title || 'About Me'}
         />
 
         <Container maxWidth='lg'>
           <MarkdownFancy>
-            {`As a full-stack developer, I specialize in building robust, scalable, and intuitive digital solutions that bridge front-end elegance with back-end strength. My technical foundation spans a wide range of languages—including Java, Kotlin, Python, C++, JavaScript, and TypeScript—and is supported by extensive experience with modern frameworks such as React, Angular, Spring Boot, ASP.NET, and Node.js. Whether it's architecting APIs, managing databases (SQL or NoSQL), or deploying to AWS or Azure, I approach every project with a deep commitment to reliability, maintainability, and performance.
-
-In addition to my technical expertise, I've had the privilege of contributing to meaningful modernization projects during my time at the Canada Revenue Agency, where I developed internal tooling to streamline workflows and increase team productivity. Similarly, at J.D. Power, I played a key role in resolving technical issues, upgrading infrastructure, and helping onboard new hires—all of which sharpened my ability to troubleshoot quickly and work cross-functionally. These professional experiences have not only refined my technical approach but also instilled in me a strong sense of ownership, accountability, and attention to detail.
-
-Moreover, I believe that strong collaboration and communication are just as important as clean code. I bring a team-first mindset, adaptability across roles and environments, and a willingness to learn and teach. This mindset has helped me consistently deliver value in both solo and team-based projects, and it's part of why I was recognized on the President's Honour Roll at Fanshawe College.
-
-Ultimately, I see software development as both a science and an art—a craft that combines logic, creativity, and a bit of digital wizardry. Whether I'm developing production-ready features, automating internal tools, or designing user-focused experiences, I strive to create solutions that are not only functional but thoughtfully built and future-ready.
-`}
+            {content?.about?.body || 'Curiously wounded'}
           </MarkdownFancy>
         </Container>
         <SectionActions
@@ -108,12 +133,13 @@ Ultimately, I see software development as both a science and an art—a craft th
           ]}
         />
       </PrimarySection>
-      <SecondarySection
-        className='homepage__projects-section'
-      >
+      <SecondarySection className='homepage__projects-section'>
         <SectionHeader
-          preheader='Sneak peek into my'
-          header='Projects'
+          preheader={
+            content?.projects?.pretitle ||
+            'Sneak peek into my'
+          }
+          header={content?.projects?.title || 'Projects'}
         />
         <Container maxWidth='lg'>
           <Grid
@@ -153,10 +179,13 @@ Ultimately, I see software development as both a science and an art—a craft th
           ]}
         />
       </SecondarySection>
-      <ContrastSection >
+      <ContrastSection>
         <SectionHeader
-          preheader={'Interested?'}
-          header={"Let's Connect"}
+          preheader={
+            content?.contact?.pretitle ||
+            'Never gonna give you up'
+          }
+          header={content?.contact?.title || 'Contact Me'}
         />
         <Container maxWidth='md'>
           <ContactCard
