@@ -15,7 +15,7 @@ import {
 import * as uuid from 'uuid';
 
 import './Skills.style.css';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Page from '../Page.component';
 import PrimarySection from '../../components/Section/PrimarySection/PrimarySection.component';
 import SecondarySection from '../../components/Section/SecondarySection/SecondarySection.component';
@@ -23,6 +23,7 @@ import HeroSection from '../../templates/HeroSection/HeroSection.component';
 import SingleStackSkillCard from './SingleStackSkillCard/SingleStackSkillCard.component';
 import SkillCategoryCard from './SkillCategoryCard/SkillCategoryCard.component';
 import { useQueryState } from 'nuqs';
+import type ISkillsPageContent from '../../types/content/Skillspage';
 
 const Skills: React.FC = () => {
   const [_, setCategory] = useQueryState('category');
@@ -32,12 +33,53 @@ const Skills: React.FC = () => {
     };
   }, []);
 
+  const [content, setContent] =
+    useState<ISkillsPageContent>();
+  useEffect(() => {
+    const fetchContent = async () => {
+      try {
+        const response = await fetch(
+          './content/skillspage.json',
+        );
+        console.log(response);
+
+        if (!response.ok)
+          throw new Error(
+            'cannot fetch content from: ' + response.url,
+          );
+
+        const data: ISkillsPageContent =
+          await response.json();
+        console.log(data);
+
+        setContent(data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchContent();
+  }, []);
+
+  const getContent = (
+    sectionName: string,
+    caseSensitive: boolean = false,
+  ) =>
+    content?.contents?.find(
+      (c) =>
+        (caseSensitive ? c.name : c.name.toLowerCase()) ===
+        sectionName,
+    )?.content;
+
   return (
     <Page>
       <HeroSection
         bgImageUrl='https://images.pexels.com/photos/4863008/pexels-photo-4863008.jpeg'
-        header='Skills & Expertise'
-        subheader='Granular breakdown of my technical proficiencies'
+        header={getContent('hero')?.header || 'Skills'}
+        subheader={
+          getContent('hero')?.subheader ||
+          'Technical proficiencies'
+        }
         sx={{
           backgroundPositionY: 'bottom',
         }}
@@ -47,8 +89,12 @@ const Skills: React.FC = () => {
             TODO: Dilute into 2 sections 
         */}
         <SectionHeader
-          header='Tech Stack'
-          subheader='I find myself coming back to'
+          header={
+            getContent('stack')?.header || 'Tech Stack'
+          }
+          subheader={
+            getContent('stack')?.subheader || 'I love'
+          }
         />
         <Container maxWidth='lg'>
           <Grid
@@ -89,8 +135,10 @@ const Skills: React.FC = () => {
       </PrimarySection>
       <SecondarySection className='skillspage__skills-list-section'>
         <SectionHeader
-          header='All Skills'
-          subheader='A comprehensive overview of my technical capabilities'
+          header={getContent('skills')?.header || 'Skills'}
+          subheader={
+            getContent('skills')?.subheader || 'All of them'
+          }
         />
         <Container maxWidth='xl'>
           <Stack
