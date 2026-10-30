@@ -23,8 +23,8 @@
       "id": "skills",
       "name": "skills",
       "content": {
-        "preheader": "All Skills",
-        "header": "A comprehensive overview of my technical capabilities"
+        "header": "All Skills",
+        "subheader": "A comprehensive overview of my technical capabilities"
       }
     }
   ]
