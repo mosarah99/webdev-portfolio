@@ -68,13 +68,11 @@ export const ProjectDetailsModal = ({
       }}
       {...props}
     >
-      <DialogTitle>
-        <Typography
-          variant='h3'
-          component={'h1'}
-        >
-          {project.title}
-        </Typography>
+      <DialogTitle
+        component={'h1'}
+        variant='h4'
+      >
+        {project.title}
       </DialogTitle>
       <DialogContent>
         <Box
