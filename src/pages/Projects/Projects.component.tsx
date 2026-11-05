@@ -55,7 +55,8 @@ import './Projects.style.css';
 import ProjectFilterModal from '../../templates/ProjectFilterModal/ProjectFilterModal.component';
 import useProjectsPagination from '../../hooks/Projects/useProjectsPagination';
 import ViewMenuButtonGroup from './ViewMenuButtonGroup/ViewMenuButtonGroup.component';
-import type IPageContent from '../../types/content/PageContent';
+import useContentFetch from '../../hooks/Utilities/useContentFetch';
+import type { ISection } from '../../types/content/PageContent';
 
 export const ProjectsPage: React.FC = () => {
   // View Modes
@@ -104,51 +105,22 @@ export const ProjectsPage: React.FC = () => {
 
   const theme = useTheme();
 
-  const [content, setContent] = useState<IPageContent>();
-  useEffect(() => {
-    const fetchContent = async () => {
-      try {
-        const response = await fetch(
-          './content/projectspage.json',
-        );
-        console.log(response);
-
-        if (!response.ok)
-          throw new Error(
-            'cannot fetch content from: ' + response.url,
-          );
-
-        const data: IPageContent = await response.json();
-        console.log(data);
-
-        setContent(data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    fetchContent();
-  }, []);
-
-  const getContent = (
-    sectionName: string,
-    caseSensitive: boolean = false,
-  ) =>
-    content?.contents?.find(
-      (c) =>
-        (caseSensitive ? c.name : c.name.toLowerCase()) ===
-        sectionName,
-    )?.content;
+  const content = useContentFetch(
+    new URL(
+      './content/projectspage.json',
+      document.baseURI,
+    ),
+  );
+  const getData = (sectionName: ISection['name']) =>
+    content.getSection.byName(sectionName)?.content;
 
   return (
     <Page>
       <HeroSection
         bgImageUrl='https://images.pexels.com/photos/8168570/pexels-photo-8168570.png'
-        header={
-          getContent('hero')?.header || 'The Shoecase'
-        }
+        header={getData('hero')?.header || 'The Shoecase'}
         subheader={
-          getContent('hero')?.subheader ||
+          getData('hero')?.subheader ||
           'A selection of my most impactful projects'
         }
       />
@@ -206,12 +178,11 @@ export const ProjectsPage: React.FC = () => {
       <SecondarySection className='projectspage__projects-list-section'>
         <SectionHeader
           preheader={
-            getContent('projects')?.preheader ||
+            getData('projects')?.preheader ||
             'LOOK AT MY COLLECTION'
           }
           header={
-            getContent('projects')?.header ||
-            'Projects List'
+            getData('projects')?.header || 'Projects List'
           }
         />
         <Container

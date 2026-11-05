@@ -22,8 +22,8 @@ import SecondarySection from '../../components/Section/SecondarySection/Secondar
 import ContrastSection from '../../components/Section/ContrastSection/ContrastSection.component';
 import HeroSection from '../../templates/HeroSection/HeroSection.component';
 import MarkdownFancy from '../../components/MarkdownFancy/MarkdownFancy.component';
-import { useEffect, useState } from 'react';
-import type IPageContent from '../../types/content/PageContent';
+import useContentFetch from '../../hooks/Utilities/useContentFetch';
+import type { ISection } from '../../types/content/PageContent';
 
 interface SectionActionsProps {
   buttons?: React.ReactNode[];
@@ -61,49 +61,19 @@ export const Homepage: React.FC = () => {
     theme.breakpoints.down('sm'),
   );
 
-  const [content, setContent] = useState<IPageContent>();
-  useEffect(() => {
-    const fetchContent = async () => {
-      try {
-        const response = await fetch(
-          './content/homepage.json',
-        );
-        console.log(response);
-
-        if (!response.ok)
-          throw new Error(
-            'cannot fetch content from: ' + response.url,
-          );
-
-        const data: IPageContent = await response.json();
-        console.log(data);
-
-        setContent(data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    fetchContent();
-  }, []);
-
-  const getContent = (
-    sectionName: string,
-    caseSensitive: boolean = false,
-  ) =>
-    content?.contents?.find(
-      (c) =>
-        (caseSensitive ? c.name : c.name.toLowerCase()) ===
-        sectionName,
-    )?.content;
+  const content = useContentFetch(
+    new URL('./content/homepage.json', document.baseURI),
+  );
+  const getData = (sectionName: ISection['name']) =>
+    content.getSection.byName(sectionName)?.content;
 
   return (
     <Page>
       <HeroSection
         bgImageUrl='https://images.pexels.com/photos/8168567/pexels-photo-8168567.png'
-        header={getContent('hero')?.header || 'Sadat R.'}
+        header={getData('hero')?.header || 'Sadat R.'}
         subheader={
-          getContent('hero')?.subheader ||
+          getData('hero')?.subheader ||
           'Web Dev | Full-Stack | Wizard'
         }
         sx={{
@@ -116,16 +86,14 @@ export const Homepage: React.FC = () => {
       >
         <SectionHeader
           preheader={
-            getContent('about')?.preheader ||
-            'A little more'
+            getData('about')?.preheader || 'A little more'
           }
-          header={getContent('about')?.header || 'About Me'}
+          header={getData('about')?.header || 'About Me'}
         />
 
         <Container maxWidth='lg'>
           <MarkdownFancy>
-            {getContent('about')?.body ||
-              'Curiously wounded'}
+            {getData('about')?.body || 'Curiously wounded'}
           </MarkdownFancy>
         </Container>
         <SectionActions
@@ -150,12 +118,10 @@ export const Homepage: React.FC = () => {
       <SecondarySection className='homepage__projects-section'>
         <SectionHeader
           preheader={
-            getContent('projects')?.preheader ||
+            getData('projects')?.preheader ||
             'Sneak peek into my'
           }
-          header={
-            getContent('projects')?.header || 'Projects'
-          }
+          header={getData('projects')?.header || 'Projects'}
         />
         <Container maxWidth='lg'>
           <Grid
@@ -198,11 +164,11 @@ export const Homepage: React.FC = () => {
       <ContrastSection>
         <SectionHeader
           preheader={
-            getContent('contact')?.preheader ||
+            getData('contact')?.preheader ||
             'Never gonna give you up'
           }
           header={
-            getContent('contact')?.header ||
+            getData('contact')?.header ||
             'Never gonna let you down'
           }
         />
