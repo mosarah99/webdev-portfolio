@@ -1,20 +1,40 @@
 {
+  "id": "home",
+  "slug": "/",
   "sections": ["hero", "about", "projects", "contact"],
-  "hero": {
-    "title": "Sadat Rahman",
-    "subtitle": "Web Dev | Full-Stack | Wizard"
-  },
-  "about": {
-    "pretitle": "A little more",
-    "title": "About Me",
-    "body": "As a full-stack developer, I specialize in building robust, scalable, and intuitive digital solutions that bridge front-end elegance with back-end strength. My technical foundation spans a wide range of languages—including Java, Kotlin, Python, C++, JavaScript, and TypeScript—and is supported by extensive experience with modern frameworks such as React, Angular, Spring Boot, ASP.NET, and Node.js. Whether it's architecting APIs, managing databases (SQL or NoSQL), or deploying to AWS or Azure, I approach every project with a deep commitment to reliability, maintainability, and performance.\n\nIn addition to my technical expertise, I've had the privilege of contributing to meaningful modernization projects during my time at the Canada Revenue Agency, where I developed internal tooling to streamline workflows and increase team productivity. Similarly, at J.D. Power, I played a key role in resolving technical issues, upgrading infrastructure, and helping onboard new hires—all of which sharpened my ability to troubleshoot quickly and work cross-functionally. These professional experiences have not only refined my technical approach but also instilled in me a strong sense of ownership, accountability, and attention to detail.\n\nMoreover, I believe that strong collaboration and communication are just as important as clean code. I bring a team-first mindset, adaptability across roles and environments, and a willingness to learn and teach. This mindset has helped me consistently deliver value in both solo and team-based projects, and it's part of why I was recognized on the President's Honour Roll at Fanshawe College.\n\nUltimately, I see software development as both a science and an art—a craft that combines logic, creativity, and a bit of digital wizardry. Whether I'm developing production-ready features, automating internal tools, or designing user-focused experiences, I strive to create solutions that are not only functional but thoughtfully built and future-ready."
-  },
-  "projects": {
-    "pretitle": "Sneak peek into my",
-    "title": "Projects"
-  },
-  "contact": {
-    "pretitle": "Interested?",
-    "title": "Let's Connect"
-  }
+  "contents": [
+    {
+      "id": "hero",
+      "name": "hero",
+      "content": {
+        "header": "Sadat Rahman",
+        "subheader": "Web Dev | Full-Stack | Wizard"
+      }
+    },
+    {
+      "id": "about",
+      "name": "about",
+      "content": {
+        "preheader": "A little more",
+        "header": "About Me",
+        "body": "As a full-stack developer, I specialize in building robust, scalable, and intuitive digital solutions that bridge front-end elegance with back-end strength. My technical foundation spans a wide range of languages—including Java, Kotlin, Python, C++, JavaScript, and TypeScript—and is supported by extensive experience with modern frameworks such as React, Angular, Spring Boot, ASP.NET, and Node.js. Whether it's architecting APIs, managing databases (SQL or NoSQL), or deploying to AWS or Azure, I approach every project with a deep commitment to reliability, maintainability, and performance.\n\nIn addition to my technical expertise, I've had the privilege of contributing to meaningful modernization projects during my time at the Canada Revenue Agency, where I developed internal tooling to streamline workflows and increase team productivity. Similarly, at J.D. Power, I played a key role in resolving technical issues, upgrading infrastructure, and helping onboard new hires—all of which sharpened my ability to troubleshoot quickly and work cross-functionally. These professional experiences have not only refined my technical approach but also instilled in me a strong sense of ownership, accountability, and attention to detail.\n\nMoreover, I believe that strong collaboration and communication are just as important as clean code. I bring a team-first mindset, adaptability across roles and environments, and a willingness to learn and teach. This mindset has helped me consistently deliver value in both solo and team-based projects, and it's part of why I was recognized on the President's Honour Roll at Fanshawe College.\n\nUltimately, I see software development as both a science and an art—a craft that combines logic, creativity, and a bit of digital wizardry. Whether I'm developing production-ready features, automating internal tools, or designing user-focused experiences, I strive to create solutions that are not only functional but thoughtfully built and future-ready."
+      }
+    },
+    {
+      "id": "projects",
+      "name": "projects",
+      "content": {
+        "preheader": "Sneak peek into my",
+        "header": "Projects"
+      }
+    },
+    {
+      "id": "contact",
+      "name": "contact",
+      "content": {
+        "preheader": "Interested?",
+        "header": "Let's Connect"
+      }
+    }
+  ]
 }

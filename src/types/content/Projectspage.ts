@@ -17,4 +17,4 @@ export interface ISectionContent {
   preheader?: string;
 }
 
-export  type { IProjectsPageContent as default };
+export type { IProjectsPageContent as default };
