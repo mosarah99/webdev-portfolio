@@ -23,7 +23,7 @@ import HeroSection from '../../templates/HeroSection/HeroSection.component';
 import SingleStackSkillCard from './SingleStackSkillCard/SingleStackSkillCard.component';
 import SkillCategoryCard from './SkillCategoryCard/SkillCategoryCard.component';
 import { useQueryState } from 'nuqs';
-import type ISkillsPageContent from '../../types/content/Skillspage';
+import type IPageContent from '../../types/content/PageContent';
 
 const Skills: React.FC = () => {
   const [_, setCategory] = useQueryState('category');
@@ -33,8 +33,7 @@ const Skills: React.FC = () => {
     };
   }, []);
 
-  const [content, setContent] =
-    useState<ISkillsPageContent>();
+  const [content, setContent] = useState<IPageContent>();
   useEffect(() => {
     const fetchContent = async () => {
       try {
@@ -48,8 +47,7 @@ const Skills: React.FC = () => {
             'cannot fetch content from: ' + response.url,
           );
 
-        const data: ISkillsPageContent =
-          await response.json();
+        const data: IPageContent = await response.json();
         console.log(data);
 
         setContent(data);

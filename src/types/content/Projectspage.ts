@@ -1,3 +1,6 @@
+/**
+ * @deprecated Use IPageContent
+ */
 export interface IProjectsPageContent {
   id: string;
   slug: string;
@@ -5,12 +8,18 @@ export interface IProjectsPageContent {
   contents: ISection[];
 }
 
+/**
+ * @deprecated Use ISection
+ */
 export interface ISection {
   id: string;
   name: string;
   content?: ISectionContent;
 }
 
+/**
+ * @deprecated Use ISectionContent
+ */
 export interface ISectionContent {
   header?: string;
   subheader?: string;

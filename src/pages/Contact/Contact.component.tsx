@@ -14,7 +14,7 @@ import PrimarySection from '../../components/Section/PrimarySection/PrimarySecti
 import SecondarySection from '../../components/Section/SecondarySection/SecondarySection.component';
 import HeroSection from '../../templates/HeroSection/HeroSection.component';
 import MarkdownFancy from '../../components/MarkdownFancy/MarkdownFancy.component';
-import type IContactPageContent from '../../types/content/Contactpage';
+import type IPageContent from '../../types/content/PageContent';
 
 export const ContactsPage = () => {
   const [ghReadme, setGhReadme] = useState<string>(
@@ -47,7 +47,7 @@ export const ContactsPage = () => {
   );
 
   const [content, setContent] =
-    useState<IContactPageContent>();
+    useState<IPageContent>();
   useEffect(() => {
     const fetchContent = async () => {
       try {
@@ -61,7 +61,7 @@ export const ContactsPage = () => {
             'cannot fetch content from: ' + response.url,
           );
 
-        const data: IContactPageContent =
+        const data: IPageContent =
           await response.json();
         console.log(data);
 

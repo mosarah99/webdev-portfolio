@@ -55,7 +55,7 @@ import './Projects.style.css';
 import ProjectFilterModal from '../../templates/ProjectFilterModal/ProjectFilterModal.component';
 import useProjectsPagination from '../../hooks/Projects/useProjectsPagination';
 import ViewMenuButtonGroup from './ViewMenuButtonGroup/ViewMenuButtonGroup.component';
-import type IProjectsPageContent from '../../types/content/Projectspage';
+import type IPageContent from '../../types/content/PageContent';
 
 export const ProjectsPage: React.FC = () => {
   // View Modes
@@ -104,8 +104,7 @@ export const ProjectsPage: React.FC = () => {
 
   const theme = useTheme();
 
-  const [content, setContent] =
-    useState<IProjectsPageContent>();
+  const [content, setContent] = useState<IPageContent>();
   useEffect(() => {
     const fetchContent = async () => {
       try {
@@ -119,8 +118,7 @@ export const ProjectsPage: React.FC = () => {
             'cannot fetch content from: ' + response.url,
           );
 
-        const data: IProjectsPageContent =
-          await response.json();
+        const data: IPageContent = await response.json();
         console.log(data);
 
         setContent(data);

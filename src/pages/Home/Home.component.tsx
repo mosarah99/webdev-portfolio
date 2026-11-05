@@ -23,7 +23,7 @@ import ContrastSection from '../../components/Section/ContrastSection/ContrastSe
 import HeroSection from '../../templates/HeroSection/HeroSection.component';
 import MarkdownFancy from '../../components/MarkdownFancy/MarkdownFancy.component';
 import { useEffect, useState } from 'react';
-import type IHomePageContent from '../../types/content/Homepage';
+import type IPageContent from '../../types/content/PageContent';
 
 interface SectionActionsProps {
   buttons?: React.ReactNode[];
@@ -61,8 +61,7 @@ export const Homepage: React.FC = () => {
     theme.breakpoints.down('sm'),
   );
 
-  const [content, setContent] =
-    useState<IHomePageContent>();
+  const [content, setContent] = useState<IPageContent>();
   useEffect(() => {
     const fetchContent = async () => {
       try {
@@ -76,8 +75,7 @@ export const Homepage: React.FC = () => {
             'cannot fetch content from: ' + response.url,
           );
 
-        const data: IHomePageContent =
-          await response.json();
+        const data: IPageContent = await response.json();
         console.log(data);
 
         setContent(data);
