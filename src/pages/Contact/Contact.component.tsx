@@ -14,6 +14,7 @@ import PrimarySection from '../../components/Section/PrimarySection/PrimarySecti
 import SecondarySection from '../../components/Section/SecondarySection/SecondarySection.component';
 import HeroSection from '../../templates/HeroSection/HeroSection.component';
 import MarkdownFancy from '../../components/MarkdownFancy/MarkdownFancy.component';
+import type IContactPageContent from '../../types/content/Contactpage';
 
 export const ContactsPage = () => {
   const [ghReadme, setGhReadme] = useState<string>(
@@ -45,12 +46,54 @@ export const ContactsPage = () => {
     theme.breakpoints.down('sm'),
   );
 
+  const [content, setContent] =
+    useState<IContactPageContent>();
+  useEffect(() => {
+    const fetchContent = async () => {
+      try {
+        const response = await fetch(
+          './content/contactpage.json',
+        );
+        console.log(response);
+
+        if (!response.ok)
+          throw new Error(
+            'cannot fetch content from: ' + response.url,
+          );
+
+        const data: IContactPageContent =
+          await response.json();
+        console.log(data);
+
+        setContent(data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchContent();
+  }, []);
+
+  const getContent = (
+    sectionName: string,
+    caseSensitive: boolean = false,
+  ) =>
+    content?.contents?.find(
+      (c) =>
+        (caseSensitive ? c.name : c.name.toLowerCase()) ===
+        sectionName,
+    )?.content;
+
   return (
     <Page>
       <HeroSection
         // bgImageUrl='https://images.pexels.com/photos/36028393/pexels-photo-36028393.jpeg'
         bgImageUrl='https://images.pexels.com/photos/6587323/pexels-photo-6587323.jpeg'
-        header='Connection is just a few clicks away'
+        subheader={
+          getContent('hero')?.subheader ||
+          'Connection is just a few clicks away'
+        }
+        header={getContent('hero')?.header || 'Contact'}
         sx={{
           backgroundPositionY: 'bottom 25%',
         }}
@@ -69,8 +112,14 @@ export const ContactsPage = () => {
       <SecondarySection>
         <Container maxWidth='lg'>
           <SectionHeader
-            preheader='Professional presence on'
-            header='LinkedIn'
+            preheader={
+              getContent('linkedin')?.preheader ||
+              'Professional presence on'
+            }
+            header={
+              getContent('linkedin')?.subheader ||
+              'LinkedIn'
+            }
           />
           <Box
             component='iframe'
@@ -87,8 +136,13 @@ export const ContactsPage = () => {
       <PrimarySection>
         <Container maxWidth='lg'>
           <SectionHeader
-            preheader='Having fun on'
-            header='GitHub'
+            preheader={
+              getContent('github')?.preheader ||
+              'Having fun on'
+            }
+            header={
+              getContent('github')?.header || 'GitHub'
+            }
           />
           <Card
             // variant='outlined'
@@ -120,8 +174,12 @@ export const ContactsPage = () => {
       <SecondarySection>
         <Container maxWidth='lg'>
           <SectionHeader
-            preheader='Locate me on'
-            header='Google Maps'
+            preheader={
+              getContent('map')?.preheader || 'Locate me on'
+            }
+            header={
+              getContent('map')?.header || 'Google Maps'
+            }
           />
           <Card
             sx={{
