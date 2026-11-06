@@ -1,4 +1,5 @@
 {
+  "$schema": "./content.schema.json",
   "id": "projects",
   "slug": "/?p=projects",
   "sections": ["hero", "featured", "projects"],
