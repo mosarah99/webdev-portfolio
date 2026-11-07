@@ -41,7 +41,7 @@ const Skills: React.FC = () => {
     content.getSection.byName(sectionName)?.content;
 
   return (
-    <Page>
+    <Page data-testid='skillspage'>
       <HeroSection
         bgImageUrl='https://images.pexels.com/photos/4863008/pexels-photo-4863008.jpeg'
         header={getData('hero')?.header || 'Skills'}
@@ -52,8 +52,12 @@ const Skills: React.FC = () => {
         sx={{
           backgroundPositionY: 'bottom',
         }}
+        data-testid='skillspage__hero-section'
       />
-      <PrimarySection className='skillspage__top-stacks-section'>
+      <PrimarySection
+        className='skillspage__top-stacks-section'
+        data-testid='skillspage__stacks-section'
+      >
         {/* 
             TODO: Dilute into 2 sections 
         */}
@@ -75,6 +79,7 @@ const Skills: React.FC = () => {
               <Grid
                 key={uuid.v7()}
                 size={{ xs: 12, md: 6 }}
+                data-testid='skillspage__stacks-section--stack'
               >
                 <Card variant='outlined'>
                   <CardHeader
@@ -100,14 +105,20 @@ const Skills: React.FC = () => {
           </Grid>
         </Container>
       </PrimarySection>
-      <SecondarySection className='skillspage__skills-list-section'>
+      <SecondarySection
+        className='skillspage__skills-list-section'
+        data-testid='skillspage__skill-section'
+      >
         <SectionHeader
           header={getData('skills')?.header || 'Skills'}
           subheader={
             getData('skills')?.subheader || 'All of them'
           }
         />
-        <Container maxWidth='xl'>
+        <Container
+          maxWidth='xl'
+          data-testid='skillspage__skill-section--skills'
+        >
           <Stack
             sx={(theme) => ({
               gap: theme.spacing(10),
@@ -119,6 +130,7 @@ const Skills: React.FC = () => {
                   key={`${category.id}-${JSON.stringify(category)}`}
                   skillCategory={category}
                   skills={skills}
+                  data-testid='skillspage__skill-section--skills-category'
                 />
               ),
             )}

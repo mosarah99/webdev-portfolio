@@ -54,7 +54,7 @@ export const ContactsPage = () => {
     content.getSection.byName(sectionName)?.content;
 
   return (
-    <Page>
+    <Page data-testid='contactpage'>
       <HeroSection
         // bgImageUrl='https://images.pexels.com/photos/36028393/pexels-photo-36028393.jpeg'
         bgImageUrl='https://images.pexels.com/photos/6587323/pexels-photo-6587323.jpeg'
@@ -66,8 +66,9 @@ export const ContactsPage = () => {
         sx={{
           backgroundPositionY: 'bottom 25%',
         }}
+        data-testid='contactpage__hero-section'
       />
-      <PrimarySection>
+      <PrimarySection data-testid='contactpage__contact-section'>
         <Container maxWidth='lg'>
           <ContactCard
             {...(!isMobileView && {
@@ -78,7 +79,7 @@ export const ContactsPage = () => {
           />
         </Container>
       </PrimarySection>
-      <SecondarySection>
+      <SecondarySection data-testid='contactpage__linkedin-section'>
         <Container maxWidth='lg'>
           <SectionHeader
             preheader={
@@ -101,7 +102,7 @@ export const ContactsPage = () => {
           />
         </Container>
       </SecondarySection>
-      <PrimarySection>
+      <PrimarySection data-testid='contactpage__github-section'>
         <Container maxWidth='lg'>
           <SectionHeader
             preheader={
@@ -137,7 +138,7 @@ export const ContactsPage = () => {
           </Card>
         </Container>
       </PrimarySection>
-      <SecondarySection>
+      <SecondarySection data-testid='contactpage__gmaps-section'>
         <Container maxWidth='lg'>
           <SectionHeader
             preheader={

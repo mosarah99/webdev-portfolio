@@ -6,22 +6,23 @@ import {
 } from '@mui/material';
 import FooterHeader from '../FooterHeader/FooterHeader.component';
 import type { SiteLink } from '../../../assets/footer-site-links';
+import type { HTMLAttributes } from 'react';
 
-export interface FooterSiteLinksWidgetProps {
+export interface FooterSiteLinksWidgetProps extends HTMLAttributes<HTMLDivElement> {
   footerLinks: SiteLink[];
   heading?: string;
 }
-export const FooterSiteLinksWidget = (
-  props: FooterSiteLinksWidgetProps,
-) => {
+export const FooterSiteLinksWidget = ({
+  footerLinks,
+  heading,
+  ...props
+}: FooterSiteLinksWidgetProps) => {
   return (
-    <Stack>
-      <FooterHeader>
-        {props.heading || 'Site Links'}
-      </FooterHeader>
+    <Stack {...props}>
+      <FooterHeader>{heading || 'Site Links'}</FooterHeader>
 
       <List dense>
-        {props.footerLinks.map((link, index) => (
+        {footerLinks.map((link, index) => (
           <ListItem
             key={`${index}-${link}`}
             disableGutters

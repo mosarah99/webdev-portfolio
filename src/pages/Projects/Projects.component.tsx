@@ -115,7 +115,7 @@ export const ProjectsPage: React.FC = () => {
     content.getSection.byName(sectionName)?.content;
 
   return (
-    <Page>
+    <Page data-testid='projectspage'>
       <HeroSection
         bgImageUrl='https://images.pexels.com/photos/8168570/pexels-photo-8168570.png'
         header={getData('hero')?.header || 'The Shoecase'}
@@ -123,8 +123,12 @@ export const ProjectsPage: React.FC = () => {
           getData('hero')?.subheader ||
           'A selection of my most impactful projects'
         }
+        data-testid='projectspage__hero-section'
       />
-      <ContrastSection className='projectspage__featured-section'>
+      <ContrastSection
+        className='projectspage__featured-section'
+        data-testid='projectspage__featured-section'
+      >
         <Container maxWidth='md'>
           <Swiper
             modules={[
@@ -160,6 +164,7 @@ export const ProjectsPage: React.FC = () => {
             spaceBetween={5}
             slidesPerView={1}
             speed={300}
+            data-testid='projectspage__featured-section--swiper'
           >
             {featuredProjects.map((project) => (
               <SwiperSlide
@@ -168,6 +173,7 @@ export const ProjectsPage: React.FC = () => {
                   width: '100%',
                   height: '100%',
                 }}
+                data-testid='projectspage__featured-section--swiper-slide'
               >
                 <FeaturedProject project={project} />
               </SwiperSlide>
@@ -175,7 +181,10 @@ export const ProjectsPage: React.FC = () => {
           </Swiper>
         </Container>
       </ContrastSection>
-      <SecondarySection className='projectspage__projects-list-section'>
+      <SecondarySection
+        className='projectspage__projects-list-section'
+        data-testid='projectspage__projects-list-section'
+      >
         <SectionHeader
           preheader={
             getData('projects')?.preheader ||
@@ -205,6 +214,7 @@ export const ProjectsPage: React.FC = () => {
                   md: 'block',
                 },
               }}
+              data-testid='projectspage__projects-list--filters'
             >
               <ProjectFilterModal
                 open={filterModalOpen}
@@ -272,11 +282,15 @@ export const ProjectsPage: React.FC = () => {
                       },
                     }}
                     onClick={() => setFilterModalOpen(true)}
+                    data-testid='projectspage__projects-list--filters-btn'
                   >
                     Filters
                   </Button>
                 </Box>
-                <FormControl component={'form'}>
+                <FormControl
+                  component={'form'}
+                  data-testid='projectspage__projects-list--viewmodes-btn'
+                >
                   <FormGroup>
                     <FormControlLabel
                       control={
@@ -299,6 +313,7 @@ export const ProjectsPage: React.FC = () => {
                 id='projects-gallery'
                 projects={viewableProjects}
                 viewMode={viewMode as 'grid' | 'list'}
+                data-testid='projectspage__projects-list--projects-container'
               />
               <Stack
                 id='projects-pagination'
@@ -313,6 +328,7 @@ export const ProjectsPage: React.FC = () => {
                   count={pageCount}
                   onChange={onPageChange}
                   color='primary'
+                  data-testid='projectspage__projects-list--projects-pagination'
                 />
               </Stack>
             </Stack>
