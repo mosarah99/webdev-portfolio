@@ -14,6 +14,8 @@ import PrimarySection from '../../components/Section/PrimarySection/PrimarySecti
 import SecondarySection from '../../components/Section/SecondarySection/SecondarySection.component';
 import HeroSection from '../../templates/HeroSection/HeroSection.component';
 import MarkdownFancy from '../../components/MarkdownFancy/MarkdownFancy.component';
+import useContentFetch from '../../hooks/Utilities/useContentFetch';
+import type { ISection } from '../../types/content/PageContent';
 
 export const ContactsPage = () => {
   const [ghReadme, setGhReadme] = useState<string>(
@@ -45,17 +47,28 @@ export const ContactsPage = () => {
     theme.breakpoints.down('sm'),
   );
 
+  const content = useContentFetch(
+    new URL('./content/contactpage.json', document.baseURI),
+  );
+  const getData = (sectionName: ISection['name']) =>
+    content.getSection.byName(sectionName)?.content;
+
   return (
-    <Page>
+    <Page data-testid='contactpage'>
       <HeroSection
         // bgImageUrl='https://images.pexels.com/photos/36028393/pexels-photo-36028393.jpeg'
         bgImageUrl='https://images.pexels.com/photos/6587323/pexels-photo-6587323.jpeg'
-        header='Connection is just a few clicks away'
+        subheader={
+          getData('hero')?.subheader ||
+          'Connection is just a few clicks away'
+        }
+        header={getData('hero')?.header || 'Contact'}
         sx={{
           backgroundPositionY: 'bottom 25%',
         }}
+        data-testid='contactpage__hero-section'
       />
-      <PrimarySection>
+      <PrimarySection data-testid='contactpage__contact-section'>
         <Container maxWidth='lg'>
           <ContactCard
             {...(!isMobileView && {
@@ -66,11 +79,16 @@ export const ContactsPage = () => {
           />
         </Container>
       </PrimarySection>
-      <SecondarySection>
+      <SecondarySection data-testid='contactpage__linkedin-section'>
         <Container maxWidth='lg'>
           <SectionHeader
-            preheader='Professional presence on'
-            header='LinkedIn'
+            preheader={
+              getData('linkedin')?.preheader ||
+              'Professional presence on'
+            }
+            header={
+              getData('linkedin')?.subheader || 'LinkedIn'
+            }
           />
           <Box
             component='iframe'
@@ -84,11 +102,14 @@ export const ContactsPage = () => {
           />
         </Container>
       </SecondarySection>
-      <PrimarySection>
+      <PrimarySection data-testid='contactpage__github-section'>
         <Container maxWidth='lg'>
           <SectionHeader
-            preheader='Having fun on'
-            header='GitHub'
+            preheader={
+              getData('github')?.preheader ||
+              'Having fun on'
+            }
+            header={getData('github')?.header || 'GitHub'}
           />
           <Card
             // variant='outlined'
@@ -117,11 +138,13 @@ export const ContactsPage = () => {
           </Card>
         </Container>
       </PrimarySection>
-      <SecondarySection>
+      <SecondarySection data-testid='contactpage__gmaps-section'>
         <Container maxWidth='lg'>
           <SectionHeader
-            preheader='Locate me on'
-            header='Google Maps'
+            preheader={
+              getData('map')?.preheader || 'Locate me on'
+            }
+            header={getData('map')?.header || 'Google Maps'}
           />
           <Card
             sx={{

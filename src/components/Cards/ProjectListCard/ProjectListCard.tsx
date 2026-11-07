@@ -19,21 +19,27 @@ import GradeIcon from '@mui/icons-material/Grade';
 import { usePageNavigation } from '../../../hooks/Navigation/usePageNavigation';
 import MarkdownFancy from '../../MarkdownFancy/MarkdownFancy.component';
 import SkillChipsContainer from '../../../templates/SkillChipsContainer/SkillChipsContainer.component';
+import ProjectDetailsModal from '../../../templates/ProjectDetailsModal/ProjectDetailsModal.component';
+import { useState } from 'react';
 
 export const ProjectListCard: React.FC<{
   project: ProjectWithSkills;
   projectDetailsPageURL?: string;
   showSkills?: boolean;
 }> = ({ project, projectDetailsPageURL, showSkills }) => {
+  const [modalOpen, setModalOpen] =
+    useState<boolean>(false);
+
   const navigate = usePageNavigation();
 
   const handleViewDetailsClick = (
     e: React.MouseEvent<HTMLButtonElement>,
   ) => {
     e.preventDefault();
-    navigate(
-      projectDetailsPageURL || `/projects/${project.id}`,
-    );
+    // navigate(
+    //   projectDetailsPageURL || `/projects/${project.id}`,
+    // );
+    setModalOpen(true);
   };
 
   const theme = useTheme();
@@ -140,6 +146,11 @@ export const ProjectListCard: React.FC<{
           )}
         </Stack>
       </Box>
+      <ProjectDetailsModal
+        open={modalOpen}
+        project={project}
+        onClose={() => setModalOpen(false)}
+      />
     </Card>
   );
 };

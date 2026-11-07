@@ -23,6 +23,8 @@ import HeroSection from '../../templates/HeroSection/HeroSection.component';
 import SingleStackSkillCard from './SingleStackSkillCard/SingleStackSkillCard.component';
 import SkillCategoryCard from './SkillCategoryCard/SkillCategoryCard.component';
 import { useQueryState } from 'nuqs';
+import type { ISection } from '../../types/content/PageContent';
+import useContentFetch from '../../hooks/Utilities/useContentFetch';
 
 const Skills: React.FC = () => {
   const [_, setCategory] = useQueryState('category');
@@ -32,23 +34,38 @@ const Skills: React.FC = () => {
     };
   }, []);
 
+  const content = useContentFetch(
+    new URL('./content/skillspage.json', document.baseURI),
+  );
+  const getData = (sectionName: ISection['name']) =>
+    content.getSection.byName(sectionName)?.content;
+
   return (
-    <Page>
+    <Page data-testid='skillspage'>
       <HeroSection
         bgImageUrl='https://images.pexels.com/photos/4863008/pexels-photo-4863008.jpeg'
-        header='Skills & Expertise'
-        subheader='Granular breakdown of my technical proficiencies'
+        header={getData('hero')?.header || 'Skills'}
+        subheader={
+          getData('hero')?.subheader ||
+          'Technical proficiencies'
+        }
         sx={{
           backgroundPositionY: 'bottom',
         }}
+        data-testid='skillspage__hero-section'
       />
-      <PrimarySection className='skillspage__top-stacks-section'>
+      <PrimarySection
+        className='skillspage__top-stacks-section'
+        data-testid='skillspage__stacks-section'
+      >
         {/* 
             TODO: Dilute into 2 sections 
         */}
         <SectionHeader
-          header='Tech Stack'
-          subheader='I find myself coming back to'
+          header={getData('stack')?.header || 'Tech Stack'}
+          subheader={
+            getData('stack')?.subheader || 'I love'
+          }
         />
         <Container maxWidth='lg'>
           <Grid
@@ -62,6 +79,7 @@ const Skills: React.FC = () => {
               <Grid
                 key={uuid.v7()}
                 size={{ xs: 12, md: 6 }}
+                data-testid='skillspage__stacks-section--stack'
               >
                 <Card variant='outlined'>
                   <CardHeader
@@ -87,12 +105,20 @@ const Skills: React.FC = () => {
           </Grid>
         </Container>
       </PrimarySection>
-      <SecondarySection className='skillspage__skills-list-section'>
+      <SecondarySection
+        className='skillspage__skills-list-section'
+        data-testid='skillspage__skill-section'
+      >
         <SectionHeader
-          header='All Skills'
-          subheader='A comprehensive overview of my technical capabilities'
+          header={getData('skills')?.header || 'Skills'}
+          subheader={
+            getData('skills')?.subheader || 'All of them'
+          }
         />
-        <Container maxWidth='xl'>
+        <Container
+          maxWidth='xl'
+          data-testid='skillspage__skill-section--skills'
+        >
           <Stack
             sx={(theme) => ({
               gap: theme.spacing(10),
@@ -104,6 +130,7 @@ const Skills: React.FC = () => {
                   key={`${category.id}-${JSON.stringify(category)}`}
                   skillCategory={category}
                   skills={skills}
+                  data-testid='skillspage__skill-section--skills-category'
                 />
               ),
             )}
