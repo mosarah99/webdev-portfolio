@@ -23,6 +23,8 @@ import HeroSection from '../../templates/HeroSection/HeroSection.component';
 import SingleStackSkillCard from './SingleStackSkillCard/SingleStackSkillCard.component';
 import SkillCategoryCard from './SkillCategoryCard/SkillCategoryCard.component';
 import { useQueryState } from 'nuqs';
+import type { ISection } from '../../types/content/PageContent';
+import useContentFetch from '../../hooks/Utilities/useContentFetch';
 
 const Skills: React.FC = () => {
   const [_, setCategory] = useQueryState('category');
@@ -32,12 +34,21 @@ const Skills: React.FC = () => {
     };
   }, []);
 
+  const content = useContentFetch(
+    new URL('./content/skillspage.json', document.baseURI),
+  );
+  const getData = (sectionName: ISection['name']) =>
+    content.getSection.byName(sectionName)?.content;
+
   return (
     <Page data-testid='skillspage'>
       <HeroSection
         bgImageUrl='https://images.pexels.com/photos/4863008/pexels-photo-4863008.jpeg'
-        header='Skills & Expertise'
-        subheader='Granular breakdown of my technical proficiencies'
+        header={getData('hero')?.header || 'Skills'}
+        subheader={
+          getData('hero')?.subheader ||
+          'Technical proficiencies'
+        }
         sx={{
           backgroundPositionY: 'bottom',
         }}
@@ -51,8 +62,10 @@ const Skills: React.FC = () => {
             TODO: Dilute into 2 sections 
         */}
         <SectionHeader
-          header='Top Tech Stacks'
-          subheader='I find myself coming back to'
+          header={getData('stack')?.header || 'Tech Stack'}
+          subheader={
+            getData('stack')?.subheader || 'I love'
+          }
         />
         <Container maxWidth='lg'>
           <Grid
@@ -97,8 +110,10 @@ const Skills: React.FC = () => {
         data-testid='skillspage__skill-section'
       >
         <SectionHeader
-          header='All Skills'
-          subheader='A comprehensive overview of my technical capabilities'
+          header={getData('skills')?.header || 'Skills'}
+          subheader={
+            getData('skills')?.subheader || 'All of them'
+          }
         />
         <Container
           maxWidth='xl'

@@ -55,6 +55,8 @@ import './Projects.style.css';
 import ProjectFilterModal from '../../templates/ProjectFilterModal/ProjectFilterModal.component';
 import useProjectsPagination from '../../hooks/Projects/useProjectsPagination';
 import ViewMenuButtonGroup from './ViewMenuButtonGroup/ViewMenuButtonGroup.component';
+import useContentFetch from '../../hooks/Utilities/useContentFetch';
+import type { ISection } from '../../types/content/PageContent';
 
 export const ProjectsPage: React.FC = () => {
   // View Modes
@@ -103,12 +105,24 @@ export const ProjectsPage: React.FC = () => {
 
   const theme = useTheme();
 
+  const content = useContentFetch(
+    new URL(
+      './content/projectspage.json',
+      document.baseURI,
+    ),
+  );
+  const getData = (sectionName: ISection['name']) =>
+    content.getSection.byName(sectionName)?.content;
+
   return (
     <Page data-testid='projectspage'>
       <HeroSection
         bgImageUrl='https://images.pexels.com/photos/8168570/pexels-photo-8168570.png'
-        header='The Showcase'
-        subheader='A selection of my most impactful projects'
+        header={getData('hero')?.header || 'The Shoecase'}
+        subheader={
+          getData('hero')?.subheader ||
+          'A selection of my most impactful projects'
+        }
         data-testid='projectspage__hero-section'
       />
       <ContrastSection
@@ -172,8 +186,13 @@ export const ProjectsPage: React.FC = () => {
         data-testid='projectspage__projects-list-section'
       >
         <SectionHeader
-          preheader='A bit more detailed'
-          header='Projects List'
+          preheader={
+            getData('projects')?.preheader ||
+            'LOOK AT MY COLLECTION'
+          }
+          header={
+            getData('projects')?.header || 'Projects List'
+          }
         />
         <Container
           maxWidth={'xl'}

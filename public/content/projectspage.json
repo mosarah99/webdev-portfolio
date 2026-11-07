@@ -1,0 +1,28 @@
+{
+  "$schema": "./content.schema.json",
+  "id": "projects",
+  "slug": "/?p=projects",
+  "sections": ["hero", "featured", "projects"],
+  "contents": [
+    {
+      "id": "hero",
+      "name": "hero",
+      "content": {
+        "header": "The Showcase",
+        "subheader": "A selection of my most impactful projects"
+      }
+    },
+    {
+      "id": "featured",
+      "name": "featured"
+    },
+    {
+      "id": "projects",
+      "name": "projects",
+      "content": {
+        "preheader": "A bit more detailed",
+        "header": "Projects List"
+      }
+    }
+  ]
+}
