@@ -12,7 +12,6 @@ import {
 // import { useNavigate } from 'react-router';
 import { type ProjectWithSkills } from '../../../assets/projects-skills';
 import GradeIcon from '@mui/icons-material/Grade';
-import { usePageNavigation } from '../../../hooks/Navigation/usePageNavigation';
 import MarkdownFancy from '../../MarkdownFancy/MarkdownFancy.component';
 import SkillChipsContainer from '../../../templates/SkillChipsContainer/SkillChipsContainer.component';
 import ProjectDetailsModal from '../../../templates/ProjectDetailsModal/ProjectDetailsModal.component';
@@ -26,7 +25,6 @@ export const ProjectGridCard: React.FC<{
   const [modalOpen, setModalOpen] =
     useState<boolean>(false);
 
-  const navigate = usePageNavigation();
 
   const handleViewDetailsClick = (
     e: React.MouseEvent<HTMLButtonElement>,
