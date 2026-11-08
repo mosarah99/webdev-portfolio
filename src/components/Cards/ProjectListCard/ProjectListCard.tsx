@@ -16,7 +16,6 @@ import {
 import LaunchIcon from '@mui/icons-material/Launch';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import GradeIcon from '@mui/icons-material/Grade';
-import { usePageNavigation } from '../../../hooks/Navigation/usePageNavigation';
 import MarkdownFancy from '../../MarkdownFancy/MarkdownFancy.component';
 import SkillChipsContainer from '../../../templates/SkillChipsContainer/SkillChipsContainer.component';
 import ProjectDetailsModal from '../../../templates/ProjectDetailsModal/ProjectDetailsModal.component';
@@ -26,11 +25,10 @@ export const ProjectListCard: React.FC<{
   project: ProjectWithSkills;
   projectDetailsPageURL?: string;
   showSkills?: boolean;
-}> = ({ project, projectDetailsPageURL, showSkills }) => {
+}> = ({ project, showSkills }) => {
   const [modalOpen, setModalOpen] =
     useState<boolean>(false);
 
-  const navigate = usePageNavigation();
 
   const handleViewDetailsClick = (
     e: React.MouseEvent<HTMLButtonElement>,
