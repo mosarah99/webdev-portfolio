@@ -6,15 +6,20 @@ import {
   Typography,
 } from '@mui/material';
 import Mosarah99Logo from '../../Logo/Mosarah99.component';
+import type { HTMLAttributes } from 'react';
 
-export interface FooterSiteIdentityWidgetProps {
+export interface FooterSiteIdentityWidgetProps extends HTMLAttributes<HTMLDivElement> {
   imageURL?: URL;
 }
-export const FooterSiteIdentityWidget = (
-  props: FooterSiteIdentityWidgetProps,
-) => {
+export const FooterSiteIdentityWidget = ({
+  imageURL,
+  ...props
+}: FooterSiteIdentityWidgetProps) => {
   return (
-    <Stack spacing={4}>
+    <Stack
+      spacing={4}
+      {...props}
+    >
       <Box
         sx={{
           maxWidth: '15rem',
@@ -24,7 +29,7 @@ export const FooterSiteIdentityWidget = (
           <CardMedia
             component={'img'}
             image={
-              props.imageURL?.toString() ||
+              imageURL?.toString() ||
               'https://avatars.githubusercontent.com/u/48929049'
             }
             alt='Site Logo Avatar'

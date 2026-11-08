@@ -1,0 +1,50 @@
+{
+  "$schema": "./content.schema.json",
+  "id": "contact",
+  "slug": "/?p=contact",
+  "sections": [
+    "hero",
+    "summary",
+    "linkedin",
+    "github",
+    "map"
+  ],
+  "contents": [
+    {
+      "id": "hero",
+      "name": "hero",
+      "content": {
+        "header": "Contact Information",
+        "subheader": "Connection is just a few clicks away"
+      }
+    },
+    {
+      "id": "summary",
+      "name": "summary"
+    },
+    {
+      "id": "linkedin",
+      "name": "linkedin",
+      "content": {
+        "preheader": "Professional presence on",
+        "header": "LinkedIn"
+      }
+    },
+    {
+      "id": "github",
+      "name": "github",
+      "content": {
+        "preheader": "Having fun on",
+        "header": "GitHub"
+      }
+    },
+    {
+      "id": "maps",
+      "name": "map",
+      "content": {
+        "preheader": "Locate me on",
+        "header": "Google Maps"
+      }
+    }
+  ]
+}

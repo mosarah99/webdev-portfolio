@@ -1,0 +1,32 @@
+{
+  "$schema": "./content.schema.json",
+  "id": "skills",
+  "slug": "/?p=skills",
+  "sections": ["hero", "stack", "skills"],
+  "contents": [
+    {
+      "id": "hero",
+      "name": "hero",
+      "content": {
+        "header": "Skills & Expertise",
+        "subheader": "Granular breakdown of my technical proficiencies"
+      }
+    },
+    {
+      "id": "stack",
+      "name": "stack",
+      "content": {
+        "header": "Tech Stack",
+        "subheader": "I find myself coming back to"
+      }
+    },
+    {
+      "id": "skills",
+      "name": "skills",
+      "content": {
+        "header": "All Skills",
+        "subheader": "A comprehensive overview of my technical capabilities"
+      }
+    }
+  ]
+}
