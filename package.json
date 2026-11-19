@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "e2e": "npx cypress open --e2e",
+    "unit": "npx cypress open --component",
     "testnbuild": "tsc -b && vite build",
     "build": "vite build",
     "lint": "eslint .",
@@ -48,6 +49,6 @@
     "vite": "^8.0.1"
   },
   "allowScripts": {
-    "cypress@16.1.1": true
+    "cypress": true
   }
 }
