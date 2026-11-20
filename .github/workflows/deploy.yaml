@@ -41,7 +41,7 @@ jobs:
 
       # Step 3.5: Audit dependencies
       - name: Audit and Fix Dependencies
-        run: npm audit fix
+        run: npm audit fix --audit-level=high
 
       # Step 4: Build the Vite static site
       - name: Build Project
