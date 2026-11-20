@@ -24,5 +24,6 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   },
-  "include": ["src", "src/assets/projectsList.ts"]
+  "include": ["src", "src/assets/projectsList.ts"],
+  "exclude": ["src/**/*.cy.ts", "src/**/*.cy.tsx"]
 }
