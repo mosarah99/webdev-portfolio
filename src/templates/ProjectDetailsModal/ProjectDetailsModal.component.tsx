@@ -1,16 +1,12 @@
 import {
-  Avatar,
   Box,
   Button,
-  Container,
   Dialog,
   DialogActions,
   DialogContent,
-  DialogContentText,
   DialogTitle,
   Divider,
   Slide,
-  Typography,
   useMediaQuery,
   useTheme,
 } from '@mui/material';
