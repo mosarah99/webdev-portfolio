@@ -1,7 +1,7 @@
 {
   "name": "mosarah99.github.io",
   "private": true,
-  "version": "0.9.20261107",
+  "version": "0.10.20261122",
   "type": "module",
   "scripts": {
     "dev": "vite",
