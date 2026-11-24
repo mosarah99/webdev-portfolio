@@ -123,17 +123,15 @@ export const ContactsPage = () => {
               },
             }}
           >
-            <CardContent>
-              <Box
-                sx={{
-                  overflow: 'auto',
-                  img: {
-                    maxWidth: '100%',
-                  },
-                }}
-              >
-                <MarkdownFancy>{ghReadme}</MarkdownFancy>
-              </Box>
+            <CardContent
+              sx={{
+                overflow: 'auto',
+                img: {
+                  maxWidth: '100%',
+                },
+              }}
+            >
+              <MarkdownFancy>{ghReadme}</MarkdownFancy>
             </CardContent>
           </Card>
         </Container>
