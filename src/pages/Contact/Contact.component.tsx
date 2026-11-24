@@ -93,6 +93,10 @@ export const ContactsPage = () => {
           <Box
             component='iframe'
             src='https://widgets.sociablekit.com/linkedin-profile-posts/iframe/25693876'
+            loading='lazy'
+            role='region'
+            title={'LinkedIn Information Summary'}
+            aria-label='Embedded LinkedIn Widget provided by an external source: SociableKit'
             sx={{
               width: '100%',
               border: 0,
