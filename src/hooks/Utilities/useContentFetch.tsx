@@ -34,7 +34,7 @@ export const useContentFetch = <T extends IPageContent>(
       })
       .catch((error) => setError(error))
       .finally(() => setLoading(false));
-  }, [url]);
+  }, [url.href]);
 
   const getSectionById = (sectionId: ISection['id']) =>
     content?.contents?.find((c) => c.id === sectionId);

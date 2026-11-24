@@ -17,33 +17,72 @@ import MarkdownFancy from '../../components/MarkdownFancy/MarkdownFancy.componen
 import useContentFetch from '../../hooks/Utilities/useContentFetch';
 import type { ISection } from '../../types/content/PageContent';
 
-export const ContactsPage = () => {
-  const [ghReadme, setGhReadme] = useState<string>(
-    '# Loading REAME...',
-  );
+/**
+ * The URL of the README file for the GitHub repository.
+ */
+const GH_README_URL =
+  'https://raw.githubusercontent.com/mosarah99/mosarah99/main/README.md';
+
+/**
+ * A basic custom hook for fetching data from a provided URL and returning the data, loading state and error.
+ * @template T - The type of the JSON data. Default - `string`
+ * @param url - The URL to fetch data from.
+ * @returns The JSON data, loading state and error. 
+ */
+const useFetchBasic = <T = string,>(url: URL) => {
+  const [data, setData] = useState<T | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<Error | null>(null);
+
+  const fetchData = async (url: URL): Promise<T> => {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(
+        `[${response.status}][${response.statusText}] Failed to fetch from url: ${url.href}`,
+      );
+    }
+    const contentType =
+      response.headers.get('content-type');
+    if (
+      contentType &&
+      contentType.includes('application/json')
+    ) {
+      return response.json() as Promise<T>;
+    }
+    return response.text() as Promise<T>;
+  };
 
   useEffect(() => {
-    const fetchGhReadme = async () => {
+    const fetch = async () => {
+      setLoading(true);
       try {
-        const response = await fetch(
-          'https://raw.githubusercontent.com/mosarah99/mosarah99/main/README.md',
-        );
-        if (!response.ok) {
-          throw new Error('Failed to fetch README.md');
-        }
-        const readmeText = await response.text();
-        setGhReadme(readmeText);
-      } catch (error) {
-        console.error('Error fetching README.md:', error);
-        setGhReadme('# Failed to load README.md');
+        const result = await fetchData(url);
+        setData(result);
+        setError(null);
+      } catch (error: unknown) {
+        setData(null);
+        setError(error as Error);
+      } finally {
+        setLoading(false);
       }
     };
 
-    fetchGhReadme();
-  }, []);
+    fetch();
+  }, [url.href]);
+
+  return {
+    data,
+    loading,
+    error,
+  };
+};
+
+export const ContactsPage = () => {
+  const { data: ghReadme, loading: ghLoading } =
+    useFetchBasic(new URL(GH_README_URL));
 
   const theme = useTheme();
-  const isMobileView = useMediaQuery(
+  const isMobileView: boolean = useMediaQuery(
     theme.breakpoints.down('sm'),
   );
 
@@ -135,7 +174,12 @@ export const ContactsPage = () => {
                 },
               }}
             >
-              <MarkdownFancy>{ghReadme}</MarkdownFancy>
+              <MarkdownFancy>
+                {ghLoading
+                  ? 'Loading README...'
+                  : ghReadme ||
+                    'Sorry, cannot fetch the README at the moment...'}
+              </MarkdownFancy>
             </CardContent>
           </Card>
         </Container>
