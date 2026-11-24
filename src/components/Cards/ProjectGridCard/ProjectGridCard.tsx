@@ -25,7 +25,6 @@ export const ProjectGridCard: React.FC<{
   const [modalOpen, setModalOpen] =
     useState<boolean>(false);
 
-
   const handleViewDetailsClick = (
     e: React.MouseEvent<HTMLButtonElement>,
   ) => {
@@ -58,8 +57,8 @@ export const ProjectGridCard: React.FC<{
       />
       <CardMedia
         image={project.image}
-        component={'img'}
-        alt={`${project.title} image`}
+        // component={'img'}
+        // alt={`${project.title} image`}
         sx={{
           height: '25rem',
           maxHeight: '200px',
@@ -138,3 +137,5 @@ export const ProjectGridCard: React.FC<{
     </Card>
   );
 };
+
+export default ProjectGridCard;

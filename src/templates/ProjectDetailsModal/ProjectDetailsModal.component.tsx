@@ -1,6 +1,7 @@
 import {
   Box,
   Button,
+  CardMedia,
   Dialog,
   DialogActions,
   DialogContent,
@@ -72,10 +73,12 @@ export const ProjectDetailsModal = ({
       </DialogTitle>
       <DialogContent>
         <Box
-          component={'img'}
-          src={project.image}
+          component={CardMedia}
+          image={project.image}
           sx={{
             width: '100%',
+            minHeight: '200px',
+            height: '30rem',
           }}
         />
         <MarkdownFancy>

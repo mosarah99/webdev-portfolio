@@ -27,13 +27,15 @@ export const FooterSiteIdentityWidget = ({
       >
         <Card>
           <CardMedia
-            component={'img'}
             image={
               imageURL?.toString() ||
               'https://avatars.githubusercontent.com/u/48929049'
             }
-            alt='Site Logo Avatar'
-            width={'100%'}
+            sx={{
+              width: '100%',
+              aspectRatio: 1,
+              objectFit: 'cover',
+            }}
           />
         </Card>
       </Box>
