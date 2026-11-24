@@ -31,10 +31,11 @@ interface SkillCategoryCardProps extends Omit<
   skills: SkillWithCategory[];
 }
 
-export const SkillCategoryCard = (
-  props: SkillCategoryCardProps,
-) => {
-  const { skillCategory: category, skills } = props;
+export const SkillCategoryCard = ({
+  skillCategory: category,
+  skills,
+  ...props
+}: SkillCategoryCardProps) => {
   const skillCatRef = useRef<HTMLElement>(null);
 
   const [catNav, setCatNav] = useQueryState('category', {
