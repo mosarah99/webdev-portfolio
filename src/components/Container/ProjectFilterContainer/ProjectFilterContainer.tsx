@@ -31,12 +31,13 @@ const ProjectFilterContainer = (
 ) => {
   return (
     <Box
+      role='group'
       component={Stack}
       sx={{
         minWidth: 'fit-content',
       }}
     >
-      <CardContent>
+      <CardContent role='none'>
         <SkillsList
           listSubHeader={
             <Typography
@@ -56,10 +57,10 @@ const ProjectFilterContainer = (
           showSkillShortName
         />
       </CardContent>
-      <CardContent>
+      <CardContent role='separator'>
         <Divider variant='fullWidth' />
       </CardContent>
-      <CardContent>
+      <CardContent role='group'>
         <SkillsList
           listSubHeader={
             <Typography

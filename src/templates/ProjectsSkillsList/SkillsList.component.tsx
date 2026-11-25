@@ -40,6 +40,7 @@ export const SkillsList = (props: SkillsListProps) => {
             <ListItemIcon>
               <IconButton
                 onClick={handleButtonClick(skill)}
+                aria-label={`${props.actionButtonIcon?.toString()} action button`}
               >
                 {props.actionButtonIcon}
               </IconButton>
@@ -51,6 +52,7 @@ export const SkillsList = (props: SkillsListProps) => {
               component={Paper}
               src={skill?.icon}
               alt={`${skill?.name} icon`}
+              aria-labelledby='skill-list-item-label'
               slotProps={{
                 img: {
                   loading: 'lazy',
@@ -59,6 +61,7 @@ export const SkillsList = (props: SkillsListProps) => {
             />
           </ListItemAvatar>
           <ListItemText
+            id='skill-list-item-label'
             primary={skill.name}
             secondary={
               props.showSkillShortName
