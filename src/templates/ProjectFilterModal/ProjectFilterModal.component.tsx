@@ -9,36 +9,41 @@ import {
   useMediaQuery,
   useTheme,
 } from '@mui/material';
-import React from 'react';
+import React, {
+  useCallback,
+} from 'react';
 
 export interface ProjectFilterModalProps {
   open: boolean;
-  onModalClose: () => any;
+  onModalClose: () => void;
   filerComponent: React.ReactElement;
 }
+
 export const ProjectFilterModal = (
   props: ProjectFilterModalProps,
 ) => {
-  const contentRef = React.useRef<HTMLElement>(null);
-
-  React.useEffect(() => {
-    if (props.open) contentRef.current?.focus();
-  }, [props]);
-
   const theme = useTheme();
   const isMobileView = useMediaQuery(
     theme.breakpoints.down('sm'),
   );
 
+  // Use useCallback for stable handlers
+  const handleClose = useCallback(() => {
+    props.onModalClose();
+  }, [props.onModalClose]);
+
   return (
     <Dialog
       open={props.open}
-      onClose={props.onModalClose}
+      onClose={handleClose}
       scroll='paper'
       fullScreen={isMobileView}
       fullWidth
+      aria-label='Filters for the Projects'
+      aria-labelledby='filter-modal-title'
     >
       <DialogTitle
+        id='filter-modal-header'
         component={Stack}
         direction={'row'}
         sx={{
@@ -48,18 +53,24 @@ export const ProjectFilterModal = (
           boxShadow: theme.shadows[5],
         }}
       >
-        <Box component={'span'}>Filters</Box>
+        {/* Changed Box to a semantic heading element */}
+        <Box
+          component='h2'
+          id='filter-modal-title'
+        >
+          Filters
+        </Box>
         <Button
+          id='filter-modal-close-button'
+          aria-label='Close Modal Button'
           variant='outlined'
-          onClick={props.onModalClose}
+          onClick={handleClose}
           endIcon={<CloseRounded />}
         >
           Close
         </Button>
       </DialogTitle>
-      <DialogContent ref={contentRef}>
-        {props.filerComponent}
-      </DialogContent>
+      <DialogContent>{props.filerComponent}</DialogContent>
     </Dialog>
   );
 };
