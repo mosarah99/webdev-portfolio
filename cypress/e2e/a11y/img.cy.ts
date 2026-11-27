@@ -1,11 +1,6 @@
 /// <reference types="cypress" />
 
-const pages = [
-  '/',
-  '/?p=projects',
-  '/?p=skills',
-  '/?p=contact',
-];
+import pages from './Pages';
 
 describe('Accessibility for `img` tag', () => {
   pages.forEach((page) => {
