@@ -288,25 +288,24 @@ export const ProjectsPage: React.FC = () => {
                   </Button>
                 </Box>
                 <FormControl
-                  component={'form'}
+                  component={FormGroup}
                   data-testid='projectspage__projects-list--viewmodes-btn'
                 >
-                  <FormGroup>
-                    <FormControlLabel
-                      control={
-                        <ViewMenuButtonGroup
-                          viewModes={Array.from(viewModes)}
-                          activeViewMode={viewMode}
-                          onClick={onViewModeChange}
-                        />
-                      }
-                      label={<Typography>View</Typography>}
-                      labelPlacement='start'
-                      sx={{
-                        gap: 1,
-                      }}
-                    />
-                  </FormGroup>
+                  <FormControlLabel
+                    control={
+                      <ViewMenuButtonGroup
+                        viewModes={Array.from(viewModes)}
+                        activeViewMode={viewMode}
+                        onClick={onViewModeChange}
+                      />
+                    }
+                    label={'View'}
+                    labelPlacement='start'
+                    sx={{
+                      gap: 1,
+                      margin: 0,
+                    }}
+                  />
                 </FormControl>
               </Card>
               <ProjectDisplayContainer
